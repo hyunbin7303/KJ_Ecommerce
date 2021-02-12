@@ -31,11 +31,8 @@ namespace ECommerceService.Controllers
         //private readonly IWorkContext _workContext;
         //private readonly MediaSettings _mediaSettings;
         //private readonly VendorSettings _vendorSettings;
-
-
         public CatalogController(/*CatalogSetup, ICatalogService, IProductService productService*/)
         {
-
         }
 
 
