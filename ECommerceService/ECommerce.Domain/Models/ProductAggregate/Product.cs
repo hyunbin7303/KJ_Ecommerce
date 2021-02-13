@@ -13,6 +13,8 @@ namespace ECommerce.Domain.Models
         public string UnitsInStock { get; set; }
         public int? CategoryId { get; set; }
         public string ImageAddress { get; set; }
-        public Category Category { get; set; }
+
+        // Need to Mapping.
+        //public Category Category { get; set; }
     }
 }
