@@ -1,5 +1,6 @@
 ﻿using ECommerce.Domain.Models;
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,19 +25,20 @@ namespace ECommerceService.Controllers
         //    _productRepository = repo ?? null;
         //}
 
-        // GET api/Product/5
-        [HttpGet("{id}")]
-        public ActionResult<Product> Get(int id)
+        [HttpGet]
+        public IEnumerable<Product> Get()
         {
-            return new Product() { Id = 1, Name = "Kevin", UnitPrice = 10.10f, Category = new Category() };
+
+            using (var context = new MainEcommerceDBContext())
+            {
+                return context.Products.ToList();
+            }
         }
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
-
-
 
 
     }

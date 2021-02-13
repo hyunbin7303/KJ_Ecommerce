@@ -4,13 +4,17 @@ namespace ECommerce.Domain.Models
     public class Product
     {
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public short QuantityPerUnit { get; set; }
-        public float UnitPrice { get; set; }
-        public bool UnitsInStock { get; set; }
-    //    public EUnitOfMeasurement UnitOfMeasurement { get; set; }
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public string Customer { get; set; }
+        public string ProductFormat { get; set; }
+        public int? QuantityPerUnit { get; set; }
+        public double? UnitPrice { get; set; }
+        public string UnitsInStock { get; set; }
+        public int? CategoryId { get; set; }
+        public string ImageAddress { get; set; }
+
+        // Need to Mapping.
+        //public Category Category { get; set; }
     }
 }
