@@ -28,7 +28,7 @@ namespace ECommerceService.Controllers
         [HttpGet("{id}")]
         public ActionResult<Product> Get(int id)
         {
-            return new Product() { Id = 1, Name = "Kevin", UnitPrice = 10.10f, Category = new Category() };
+            return new Product() { Id = Guid.NewGuid().ToString(), Name = "Kevin", UnitPrice = 10.10f, Category = new Category() };
         }
         // POST api/values
         [HttpPost]
