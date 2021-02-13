@@ -1,4 +1,4 @@
-USE [MainEcommerceDB]
+use [MainEcommerceDB]
 GO
 SET ANSI_NULLS ON
 GO
@@ -7,13 +7,16 @@ GO
 CREATE TABLE [dbo].[Product](
 	[Id] [nvarchar](50) NOT NULL,
 	[Name] [nvarchar](50) NULL,
+	[Description] [nvarchar](200),
 	[Customer] [nvarchar](50) NULL,
 	[ProductFormat] [nvarchar](50) NULL,
 	[QuantityPerUnit] [int] NULL,
 	[UnitPrice] [float] NULL,
+	[Discount] [float] NULL,
 	[UnitsInStock] [nvarchar](10) NULL,
 	[CategoryId] [int] NULL,
 	[ImageAddress][nvarchar](100) NULL,
+	[Note][nvarchar](200) Null,
  CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -40,4 +43,8 @@ CREATE TABLE [dbo].[Category](
 ) ON [PRIMARY]
 GO
 
+ALTER SCHEMA NewSchema TRANSFER [OldSchema].[TableName]
+Go
+alter schema Discount TRANSFER dbo.Products
+Go
 
