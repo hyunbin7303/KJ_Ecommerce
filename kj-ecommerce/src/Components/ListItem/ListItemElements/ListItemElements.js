@@ -1,11 +1,21 @@
 import styled from "styled-components";
 
 export const ListItemContainer = styled.div`
-  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 10px;
+  padding: 20px;
+  width: 100%;
+  max-height: 400px;
+  min-width: 100px;
+  background-color: #fff;
+  z-index: 1;
 `;
 
 export const ListItemWrapper = styled.div`
-  margin: 0;
+  
 `;
 
 export const ListItemTitle = styled.h3`
@@ -13,10 +23,13 @@ export const ListItemTitle = styled.h3`
 `;
 
 export const ListItemImg = styled.img`
-  padding: 50px;
+  max-height: 200px;
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 15px;
 `;
 
-export const ListItemInfo = styled.div`
+export const ListItemInfo = styled.p`
   color: #000;
-  font-size: 25px;
+  font-size: 20px;
 `;

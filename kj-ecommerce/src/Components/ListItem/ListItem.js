@@ -1,14 +1,20 @@
 import React from "react";
-import { ListItemContainer, ListItemWrapper, ListItemTitle, ListItemImg, ListItemInfo } from "./ListItemElements/ListItemElements";
+import {
+  ListItemContainer,
+  ListItemWrapper,
+  ListItemTitle,
+  ListItemImg,
+  ListItemInfo,
+} from "./ListItemElements/ListItemElements";
 
 const ListItem = (props) => {
   return (
     <div>
       <ListItemContainer>
         <ListItemWrapper>
-          <ListItemTitle>Item Name</ListItemTitle>
-          {/* <ListItemImg>Item Image</ListItemImg> */}
-          <ListItemInfo>Description of Item</ListItemInfo>
+          <ListItemTitle>{props.ItemName}</ListItemTitle>
+          {/* <ListItemImg>{props.ItemImg}</ListItemImg> */}
+          <ListItemInfo>{props.ItemDescription}</ListItemInfo>
         </ListItemWrapper>
       </ListItemContainer>
     </div>
