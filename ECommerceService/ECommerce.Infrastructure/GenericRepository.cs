@@ -1,77 +1,73 @@
-﻿using System;
+﻿using ECommerce.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Linq.Expressions;
+
 
 namespace ECommerce.Infrastructure
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        //private EmployeeDBContext _context = null;
-        //private DbSet<T> table = null;
-        //public GenericRepository()
-        //{
-        //    this._context = new EmployeeDBContext();
-        //    table = _context.Set<T>();
-        //}
-        //public GenericRepository(EmployeeDBContext _context)
-        //{
-        //    this._context = _context;
-        //    table = _context.Set<T>();
-        //}
-        //public IEnumerable<T> GetAll()
-        //{
-        //    return table.ToList();
-        //}
-        //public T GetById(object id)
-        //{
-        //    return table.Find(id);
-        //}
-        //public void Insert(T obj)
-        //{
-        //    table.Add(obj);
-        //}
-        //public void Update(T obj)
-        //{
-        //    table.Attach(obj);
-        //    _context.Entry(obj).State = EntityState.Modified;
-        //}
-        //public void Delete(object id)
-        //{
-        //    T existing = table.Find(id);
-        //    table.Remove(existing);
-        //}
-        //public void Save()
-        //{
-        //    _context.SaveChanges();
-        //}
+        private MainEcommerceDBContext context;
+        internal DbSet<T> dbSet = null;
+        public GenericRepository(MainEcommerceDBContext context)
+        {
+            this.context = context;
+            this.dbSet = context.Set<T>();
+        }
         public void Delete(object id)
         {
-            throw new NotImplementedException();
+            T existing = dbSet.Find(id);
+            if (existing == null)
+            {
+                throw new ArgumentException(" object doesn't exist.");
+                return;
+            }
+            dbSet.Remove(existing);
         }
-
-        public IEnumerable<T> GetAll()
+        public virtual void Delete(T entity)
+        {
+            dbSet.Remove(entity);
+        }
+        public virtual IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
             throw new NotImplementedException();
         }
-
-        public T GetById(object id)
+        public virtual IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return dbSet.ToList();
         }
-
-        public void Insert(T obj)
+        public virtual T GetById(object id)
         {
-            throw new NotImplementedException();
+            return dbSet.Find(id);
         }
-
-        public void Save()
+        public virtual IEnumerable<T> GetWithSql(string query, params object[] paras)
         {
-            throw new NotImplementedException();
+            return dbSet.FromSqlRaw<T>(query, paras);
         }
-
-        public void Update(T obj)
+        public virtual void Insert(T obj)
         {
-            throw new NotImplementedException();
+            if(obj == null)
+            {
+                throw new ArgumentException("entity");
+            }
+            dbSet.Add(obj);
+            Save();
+        }
+        public virtual void Save()
+        {
+            context.SaveChanges();
+        }
+        public virtual void Update(T obj)
+        {
+            if(obj == null)
+            {
+                throw new ArgumentException("entity");
+            }
+            dbSet.Attach(obj);
+            context.Entry(obj).State = EntityState.Modified;
         }
     }
 }

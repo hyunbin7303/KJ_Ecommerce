@@ -14,30 +14,35 @@ namespace ECommerceService.Controllers
     [ApiController] 
     public class ProductController : ControllerBase
     {
-        //private readonly IProductService _productService;
         private IGenericRepository<Product> _productRepository = null;
-
-        public ProductController()
+        public ProductController(IGenericRepository<Product> repo)
         {
+            _productRepository = repo ?? null;
         }
-        //public ProductController(IGenericRepository<Product> repo)
-        //{
-        //    _productRepository = repo ?? null;
-        //}
-
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-
-            using (var context = new MainEcommerceDBContext())
-            {
-                return context.Products.ToList();
-            }
+            var allProducts = _productRepository.GetAll();
+            return allProducts;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductDetails(string productId, string updateCartItemId= null)
+        {
+            var product = _productRepository.GetById(productId);
+            if(product == null)
+            {
+                return BadRequest();
+            }
+            return Ok(product);
+        }
+
+
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
+
         }
 
 
