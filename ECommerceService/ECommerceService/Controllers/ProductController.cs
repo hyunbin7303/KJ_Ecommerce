@@ -16,19 +16,14 @@ namespace ECommerceService.Controllers
     {
         //private readonly IProductService _productService;
         private IGenericRepository<Product> _productRepository = null;
-
-        public ProductController()
+        public ProductController(IGenericRepository<Product> repo)
         {
+            _productRepository = repo ?? null;
         }
-        //public ProductController(IGenericRepository<Product> repo)
-        //{
-        //    _productRepository = repo ?? null;
-        //}
 
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-
             using (var context = new MainEcommerceDBContext())
             {
                 return context.Products.ToList();

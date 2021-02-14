@@ -13,6 +13,9 @@ namespace ECommerceService
     {
         public static void Main(string[] args)
         {
+
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
             CreateHostBuilder(args).Build().Run();
         }
 

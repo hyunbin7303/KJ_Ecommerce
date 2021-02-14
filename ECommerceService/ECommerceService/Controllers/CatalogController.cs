@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ECommerce.Domain.Models;
+using ECommerce.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -31,9 +33,15 @@ namespace ECommerceService.Controllers
         //private readonly IWorkContext _workContext;
         //private readonly MediaSettings _mediaSettings;
         //private readonly VendorSettings _vendorSettings;
-        public CatalogController(/*CatalogSetup, ICatalogService, IProductService productService*/)
+
+        private IGenericRepository<Category> repository = null;
+        public CatalogController(IGenericRepository<Category> repository/*CatalogSetup, ICatalogService, IProductService productService*/)
         {
+            this.repository = repository;
         }
+
+
+
 
 
     }
