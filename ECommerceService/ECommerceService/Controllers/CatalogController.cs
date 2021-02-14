@@ -34,10 +34,12 @@ namespace ECommerceService.Controllers
         //private readonly MediaSettings _mediaSettings;
         //private readonly VendorSettings _vendorSettings;
 
+        private IGenericRepository<Product> _productRepository = null;
         private IGenericRepository<Category> repository = null;
-        public CatalogController(IGenericRepository<Category> repository/*CatalogSetup, ICatalogService, IProductService productService*/)
+        public CatalogController(IGenericRepository<Category> repository, IGenericRepository<Product> productRepo/*CatalogSetup, ICatalogService, IProductService productService*/)
         {
             this.repository = repository;
+            this._productRepository = productRepo;
         }
 
 

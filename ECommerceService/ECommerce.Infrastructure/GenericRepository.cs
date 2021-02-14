@@ -20,6 +20,11 @@ namespace ECommerce.Infrastructure
         public void Delete(object id)
         {
             T existing = dbSet.Find(id);
+            if (existing == null)
+            {
+                throw new ArgumentException(" object doesn't exist.");
+                return;
+            }
             dbSet.Remove(existing);
         }
         public virtual void Delete(T entity)
@@ -44,7 +49,12 @@ namespace ECommerce.Infrastructure
         }
         public virtual void Insert(T obj)
         {
+            if(obj == null)
+            {
+                throw new ArgumentException("entity");
+            }
             dbSet.Add(obj);
+            Save();
         }
         public virtual void Save()
         {
@@ -52,6 +62,10 @@ namespace ECommerce.Infrastructure
         }
         public virtual void Update(T obj)
         {
+            if(obj == null)
+            {
+                throw new ArgumentException("entity");
+            }
             dbSet.Attach(obj);
             context.Entry(obj).State = EntityState.Modified;
         }
