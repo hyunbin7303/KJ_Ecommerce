@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
@@ -26,25 +27,32 @@ namespace ECommerceService.Controllers
             return allProducts;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ProductDetails(string productId, string updateCartItemId= null)
+        [HttpGet("Details")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult ProductDetails(string productId, string updateCartItemId = null)
         {
-            var product = _productRepository.GetById(productId);
-            if(product == null)
+            var product =  _productRepository.GetByIdAsync(productId);
+            if (product == null)
             {
-                return BadRequest();
+                return NotFound(); 
             }
             return Ok(product);
         }
 
-
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateAsync(Product product)
         {
-
+            if (product.Description.Contains("XYZ Widget"))
+            {
+                return BadRequest();
+            }
+             _productRepository.Insert(product);
+            return CreatedAtAction(nameof(ProductDetails), new { id = product.Id }, product);
         }
-
 
     }
 }

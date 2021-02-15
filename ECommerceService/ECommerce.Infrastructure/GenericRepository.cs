@@ -39,7 +39,7 @@ namespace ECommerce.Infrastructure
         {
             return dbSet.ToList();
         }
-        public virtual T GetById(object id)
+        public virtual T GetByIdAsync(object id)
         {
             return dbSet.Find(id);
         }
@@ -68,6 +68,11 @@ namespace ECommerce.Infrastructure
             }
             dbSet.Attach(obj);
             context.Entry(obj).State = EntityState.Modified;
+        }
+
+        public bool TryGetObject(object id, out object obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }
