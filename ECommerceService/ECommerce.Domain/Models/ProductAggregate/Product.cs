@@ -7,6 +7,7 @@ namespace ECommerce.Domain.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int SupplierId { get; set; }
         public string Customer { get; set; }
         public string ProductFormat { get; set; }
         public int? QuantityPerUnit { get; set; }

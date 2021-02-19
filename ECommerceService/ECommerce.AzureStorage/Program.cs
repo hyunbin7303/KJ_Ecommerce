@@ -10,7 +10,7 @@ namespace ECommerce.AzureStorage
     {
         static public string connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
         static public string filePath = "C:\\Users\\Hyunbin\\Desktop\\";
-        static async public void UploadFile(string fileName)
+        static public async void UploadFile(string fileName)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
             string containerName = "kp-container";
