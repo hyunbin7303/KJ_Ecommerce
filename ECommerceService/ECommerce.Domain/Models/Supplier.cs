@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ECommerce.Domain.Models
+﻿namespace ECommerce.Domain.Models
 {
     public class Supplier
     {
