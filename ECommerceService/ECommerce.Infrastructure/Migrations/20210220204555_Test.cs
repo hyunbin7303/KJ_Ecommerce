@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECommerce.Infrastructure.Migrations
 {
-    public partial class UpdateTableProductCustomer : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

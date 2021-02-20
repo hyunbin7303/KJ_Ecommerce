@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(MainEcommerceDBContext))]
-    [Migration("20210220190035_UpdateTableProductCustomer")]
-    partial class UpdateTableProductCustomer
+    [Migration("20210220204555_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

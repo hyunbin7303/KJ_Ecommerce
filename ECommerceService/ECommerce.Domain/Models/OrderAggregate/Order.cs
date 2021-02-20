@@ -4,7 +4,10 @@ using System.Text;
 
 namespace ECommerce.Domain.Models.OrderAggregate
 {
-    class Order
+    public class Order
     {
+        public int OrderId { get; set; }
+        public string CustomerId { get; set; }
+        //public OrderStatus OrderStatus { get; set; }
     }
 }

@@ -12,12 +12,10 @@ namespace ECommerce.Infrastructure
         public MainEcommerceDBContext()
         {
         }
-
         public MainEcommerceDBContext(DbContextOptions<MainEcommerceDBContext> options)
             : base(options)
         {
         }
-
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
@@ -36,7 +34,6 @@ namespace ECommerce.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.FirstName)
@@ -45,7 +42,6 @@ namespace ECommerce.Infrastructure
 
                 entity.Property(e => e.ZipCode).IsRequired();
             });
-
             modelBuilder.Entity<Invoice>(entity =>
             {
                 entity.HasIndex(e => e.CustomerId, "IX_Invoices_CustomerId");
@@ -54,7 +50,6 @@ namespace ECommerce.Infrastructure
                     .WithMany(p => p.Invoices)
                     .HasForeignKey(d => d.CustomerId);
             });
-
             modelBuilder.Entity<InvoiceItem>(entity =>
             {
                 entity.HasIndex(e => e.InvoiceId, "IX_InvoiceItems_InvoiceId");
@@ -63,7 +58,6 @@ namespace ECommerce.Infrastructure
                     .WithMany(p => p.InvoiceItems)
                     .HasForeignKey(d => d.InvoiceId);
             });
-
             OnModelCreatingPartial(modelBuilder);
         }
 

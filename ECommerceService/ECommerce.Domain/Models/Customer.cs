@@ -17,6 +17,7 @@ namespace ECommerce.Domain.Models
         [Required]
         [RegularExpression(@"^\d{5}(?:[-\s]\d{4})?$", ErrorMessage= "Enter a valid zip code.")]
         public string ZipCode { get; set; }
+        public string Description { get; set; }
         public virtual List<Invoice> Invoices { get; set; }
     }
 }
