@@ -9,12 +9,12 @@ namespace ECommerce.Infrastructure
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        //private MainEcommerceDBContext context;
+        private MainEcommerceDBContext context;
         internal DbSet<T> dbSet = null;
-        public GenericRepository(/*MainEcommerceDBContext context*/)
+        public GenericRepository(MainEcommerceDBContext context)
         {
-            //this.context = context;
-            //this.dbSet = context.Set<T>();
+            this.context = context;
+            this.dbSet = context.Set<T>();
         }
         public void Delete(object id)
         {
@@ -57,7 +57,7 @@ namespace ECommerce.Infrastructure
         }
         public virtual void Save()
         {
-            //context.SaveChanges();
+            context.SaveChanges();
         }
         public virtual void Update(T obj)
         {
@@ -66,7 +66,7 @@ namespace ECommerce.Infrastructure
                 throw new ArgumentException("entity");
             }
             dbSet.Attach(obj);
-            //context.Entry(obj).State = EntityState.Modified;
+            context.Entry(obj).State = EntityState.Modified;
         }
 
         public bool TryGetObject(object id, out object obj)

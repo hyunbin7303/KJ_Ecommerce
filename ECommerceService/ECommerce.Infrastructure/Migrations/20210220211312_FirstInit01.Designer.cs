@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(MainEcommerceDBContext))]
-    [Migration("20210220204555_Test")]
-    partial class Test
+    [Migration("20210220211312_FirstInit01")]
+    partial class FirstInit01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,9 @@ namespace ECommerce.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -113,9 +116,6 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(max)");
 
@@ -148,8 +148,6 @@ namespace ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
-
                     b.ToTable("Products");
                 });
 
@@ -171,15 +169,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Invoice");
-                });
-
-            modelBuilder.Entity("ECommerce.Domain.Models.Product", b =>
-                {
-                    b.HasOne("ECommerce.Domain.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId1");
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("ECommerce.Domain.Models.Customer", b =>

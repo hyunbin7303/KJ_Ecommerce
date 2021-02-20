@@ -15,6 +15,6 @@
         public int? CategoryId { get; set; }
         public string ImageAddress { get; set; }
         public string Note { get; set; }
-        public virtual Category Category { get; set; }
+        //public virtual Category Category { get; set; }
     }
 }

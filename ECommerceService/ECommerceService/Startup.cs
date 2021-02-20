@@ -29,7 +29,7 @@ namespace ECommerceService
         {
 
             // Required to update this!
-            //services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
+            services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
 
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

@@ -114,9 +114,6 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(max)");
 
@@ -149,8 +146,6 @@ namespace ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
-
                     b.ToTable("Products");
                 });
 
@@ -172,15 +167,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Invoice");
-                });
-
-            modelBuilder.Entity("ECommerce.Domain.Models.Product", b =>
-                {
-                    b.HasOne("ECommerce.Domain.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId1");
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("ECommerce.Domain.Models.Customer", b =>
