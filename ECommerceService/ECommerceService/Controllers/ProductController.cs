@@ -1,13 +1,11 @@
 ﻿using ECommerce.Domain.Models;
 using ECommerce.Infrastructure;
-using ECommerce.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
-using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {

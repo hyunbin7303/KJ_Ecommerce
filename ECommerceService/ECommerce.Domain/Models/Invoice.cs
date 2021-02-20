@@ -7,13 +7,15 @@ namespace ECommerce.Domain.Models
 {
     public class Invoice
     {
+        public Invoice()
+        {
+            InvoiceItems = new HashSet<InvoiceItem>();
+        }
         public int Id { get; set; }
         public DateTime Date { get; set; }
-
         public int CustomerId { get; set; }
 
-        [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
-        public virtual List<InvoiceItem> Items { get; set; }
+        public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
     }
 }
