@@ -1,6 +1,6 @@
 ﻿namespace ECommerce.Domain.Models
 {
-    public class Product
+    public class Product : Entity
     {
 
         public string Id { get; set; }

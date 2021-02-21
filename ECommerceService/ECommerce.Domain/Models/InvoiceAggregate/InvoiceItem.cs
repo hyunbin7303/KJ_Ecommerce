@@ -6,6 +6,9 @@ namespace ECommerce.Domain.Models
         public int InvoiceItemId { get; set; }
         public int InvoiceId { get; set; }
         public string Code { get; set; }
+        public decimal Amount { get; set; }
+
+
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }
     }

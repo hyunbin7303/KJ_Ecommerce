@@ -22,7 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="EmailService\SendGrid\" />
     <Folder Include="Localization\" />
+    <Folder Include="Logging\" />
+    <Folder Include="InMemory-DataCache\" />
+    <Folder Include="Redis\" />
   </ItemGroup>
 
 </Project>
