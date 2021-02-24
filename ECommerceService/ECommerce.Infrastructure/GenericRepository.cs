@@ -32,7 +32,25 @@ namespace ECommerce.Infrastructure
         }
         public virtual IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = dbSet;
+            if(filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach(var includeProperty in includeProperties.Split(new char[] { ','}, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if(orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return orderBy(query).ToList();
+            }
         }
         public virtual IEnumerable<T> GetAll()
         {
