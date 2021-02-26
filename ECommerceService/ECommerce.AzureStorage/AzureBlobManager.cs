@@ -1,12 +1,20 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure;
+using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace ECommerce.AzureStorage
 {
+    public class MyFileContainer
+    {
+
+    }
+
     public class AzureBlobManager
     {
         static public string connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
@@ -37,28 +45,11 @@ namespace ECommerce.AzureStorage
                 Console.WriteLine("\t" + blobItem.Name);
             }
         }
-        private BlobContainerClient GetBlobContainerClient(string containerName)
+        public static BlobContainerClient GetBlobContainerClient(string containerName)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient("StorageConnectionString");
             BlobContainerClient container = blobServiceClient.GetBlobContainerClient(containerName);
             return container;
         }
-
-        //private BlobContainerClient GetImagesBlobContainer()
-        //{
-            
-        //    var storageAccount = CloudStorageAccount.Parse(_blobStorageConnectionString);
-        //    var blobClient = storageAccount.CreateCloudBlobClient();
-        //    var container = blobClient.GetContainerReference(_containerName);
-        //    container.CreateIfNotExists();
-        //    container.SetPermissions(
-        //        new BlobContainerPermissions
-        //        {
-        //            PublicAccess = BlobContainerPublicAccessType.Blob
-        //        });
-        //    return container;
-        //}
-
-
     }
 }
