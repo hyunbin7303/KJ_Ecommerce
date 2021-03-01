@@ -13,7 +13,7 @@ namespace ECommerce.Infrastructure
         internal DbSet<T> dbSet = null;
         public GenericRepository(MainEcommerceDBContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.dbSet = context.Set<T>();
         }
         public void Delete(object id)
@@ -22,9 +22,11 @@ namespace ECommerce.Infrastructure
             if (existing == null)
             {
                 throw new ArgumentException(" object doesn't exist.");
-                return;
             }
-            dbSet.Remove(existing);
+            else
+            {
+                dbSet.Remove(existing);
+            }
         }
         public virtual void Delete(T entity)
         {
@@ -86,7 +88,6 @@ namespace ECommerce.Infrastructure
             dbSet.Attach(obj);
             context.Entry(obj).State = EntityState.Modified;
         }
-
         public bool TryGetObject(object id, out object obj)
         {
             throw new NotImplementedException();

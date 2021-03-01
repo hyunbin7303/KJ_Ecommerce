@@ -12,9 +12,7 @@ namespace ECommerce.AzureStorage
 {
     public class MyFileContainer
     {
-
     }
-
     public class AzureBlobManager
     {
         static public string connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
@@ -34,7 +32,6 @@ namespace ECommerce.AzureStorage
             using FileStream uploadFileStream = File.OpenRead(localFilePath);
             await blobClient.UploadAsync(uploadFileStream, true);
             uploadFileStream.Close();
-
         }
         static public void GetBlobItemsFromContainer(string containerName)
         {

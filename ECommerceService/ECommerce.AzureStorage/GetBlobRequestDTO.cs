@@ -5,7 +5,7 @@ namespace ECommerce.AzureStorage
     public class GetBlobRequestDTO
     {
         [Required]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         public override string ToString()
         {
