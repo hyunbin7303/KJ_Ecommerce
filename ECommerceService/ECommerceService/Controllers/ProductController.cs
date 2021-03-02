@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {
@@ -78,5 +79,21 @@ namespace ECommerceService.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<string> DeleteAsync(string id)
+        {
+            try
+            {
+                var HttpMessage = await _productRepository.DeleteAsync(id);
+                return HttpMessage.ToString();
+            }
+            catch (Exception e)
+            {
+                //  _logger.LogWarning(e, "Unable to PUT product.");
+                return e.Message;
+            }
+        }
     }
 }

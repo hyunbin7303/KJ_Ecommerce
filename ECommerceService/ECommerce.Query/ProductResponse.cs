@@ -1,11 +1,13 @@
 ﻿
+using ECommerce.Domain.Models;
+
 namespace ECommerce.Query
 {
 
     // Can be used in Service Layer.
-    public class ProductResponse<T> : BaseResponse<T>
+    public class ProductResponse : BaseResponse<Product>
     {
-        public ProductResponse(T product) : base(product) { }
+        public ProductResponse(Product product) : base(product) { }
 
         public ProductResponse(string message) : base(message) { }
     }
