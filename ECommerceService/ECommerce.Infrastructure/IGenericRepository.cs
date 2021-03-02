@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ECommerce.Infrastructure
 {
@@ -14,7 +16,7 @@ namespace ECommerce.Infrastructure
         IEnumerable<T> GetWithSql(string query, params object[] paras);
         void Insert(T obj);
         void Update(T obj);
-        void Delete(object id);
+        Task<HttpStatusCode> DeleteAsync(object id);
         void Delete(T entity);
         void Save();
     }
