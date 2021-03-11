@@ -12,6 +12,6 @@ namespace ECommerce.Infrastructure.Repository
         Task<Product> GetProductById(string productId);
         Task<IEnumerable<Product>> GetProductsByNameAsync(string productName);
         //Task<Product> GetProductByIdWithCategoryAsync(string productId);
-        Task<IEnumerable<Product>> GetProduuctByCategoryAsync(int categoryId);
+        Task<IEnumerable<Product>> GetProductByCategoryAsync(int categoryId);
     }
 }

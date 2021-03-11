@@ -20,23 +20,23 @@ namespace ECommerce.Infrastructure
             this.dbSet = context.Set<T>();
         }
 
-        public async Task<HttpStatusCode> DeleteAsync(object id)
+        public async Task DeleteAsync(object id)
         {
             try
             {
                 T existing = dbSet.Find(id);
                 if (existing == null)
                 {
-                    return HttpStatusCode.NotFound;
+                    // not found
                 }
 
                 dbSet.Remove(existing);
                 await context.SaveChangesAsync();
-                return HttpStatusCode.OK;
+                // Okay 
             }
             catch
             {
-                return HttpStatusCode.BadRequest;
+                // exception
             }
 
         }

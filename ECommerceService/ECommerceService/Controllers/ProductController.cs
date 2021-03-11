@@ -17,10 +17,12 @@ namespace ECommerceService.Controllers
     {
         //private IGenericRepository<Product> _productRepository = null;
         private IProductRepository _productRepository = null;
+
         public ProductController(IProductRepository repo)
         {
             _productRepository = repo ?? null;
         }
+
         [HttpGet]
         public IEnumerable<Product> Get()
         {
@@ -84,17 +86,15 @@ namespace ECommerceService.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<string> DeleteAsync(string id)
+        public async Task DeleteAsync(Product product)
         {
             try
             {
-                var HttpMessage = await _productRepository.DeleteAsync(id);
-                return HttpMessage.ToString();
+                await _productRepository.DeleteAsync(product.Id);
             }
             catch (Exception e)
             {
-                //  _logger.LogWarning(e, "Unable to PUT product.");
-                return e.Message;
+                //  _logger.LogWarning(e, "Unable to Delete product.");
             }
         }
     }

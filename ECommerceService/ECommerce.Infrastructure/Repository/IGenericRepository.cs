@@ -16,7 +16,7 @@ namespace ECommerce.Infrastructure
         IEnumerable<T> GetWithSql(string query, params object[] paras);
         void Insert(T obj);
         void Update(T obj);
-        Task<HttpStatusCode> DeleteAsync(object id);
+        Task DeleteAsync(object id);
         void Delete(T entity);
         void Save();
     }

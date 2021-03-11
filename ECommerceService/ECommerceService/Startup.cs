@@ -1,4 +1,5 @@
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,7 @@ namespace ECommerceService
 
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
