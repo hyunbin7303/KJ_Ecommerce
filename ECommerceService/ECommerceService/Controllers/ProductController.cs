@@ -1,5 +1,6 @@
 ﻿using ECommerce.Domain.Models;
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,8 +15,9 @@ namespace ECommerceService.Controllers
     [ApiController] 
     public class ProductController : ControllerBase
     {
-        private IGenericRepository<Product> _productRepository = null;
-        public ProductController(IGenericRepository<Product> repo)
+        //private IGenericRepository<Product> _productRepository = null;
+        private IProductRepository _productRepository = null;
+        public ProductController(IProductRepository repo)
         {
             _productRepository = repo ?? null;
         }

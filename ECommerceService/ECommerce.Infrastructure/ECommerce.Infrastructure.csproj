@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ECommerce.Domain\ECommerce.Domain.csproj" />
+    <ProjectReference Include="..\ECommerce.Query\ECommerce.Query.csproj" />
   </ItemGroup>
 
   <ItemGroup>
