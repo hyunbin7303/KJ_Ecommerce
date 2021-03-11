@@ -38,7 +38,7 @@ namespace ECommerceService.Test
         {
             var connStr = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
             BlobServiceClient client = new BlobServiceClient(connStr);
-            var check = ImageService.CreateContainerAsync(client, "test");
+            var check = ImageService.CreateContainerAsync(client, "test-01");
             Assert.AreEqual(TaskStatus.RanToCompletion, check.Status);
         }
 

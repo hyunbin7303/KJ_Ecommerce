@@ -1,3 +1,4 @@
+using ECommerce.AzureStorage;
 using NUnit.Framework;
 
 namespace ECommerceService.Test
@@ -13,6 +14,7 @@ namespace ECommerceService.Test
         public void Test1()
         {
             Assert.Pass();
+
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ECommerceService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CatalogController : ControllerBase
+    public class CategoryController : ControllerBase
     {
         //API endpoint: /api/categories
         //private readonly CatalogSettings _catalogSettings;
@@ -33,15 +33,31 @@ namespace ECommerceService.Controllers
         //private readonly IWorkContext _workContext;
         //private readonly MediaSettings _mediaSettings;
         //private readonly VendorSettings _vendorSettings;
+        private IGenericRepository<Category> _categoryRepository = null;
         private IGenericRepository<Product> _productRepository = null;
-        private IGenericRepository<Category> repository = null;
-        public CatalogController(IGenericRepository<Category> repository, IGenericRepository<Product> productRepo/*CatalogSetup, ICatalogService, IProductService productService*/)
+        public CategoryController(IGenericRepository<Category> categoryRepo, IGenericRepository<Product> productRepo)
         {
-            this.repository = repository;
+            this._categoryRepository = categoryRepo;
             this._productRepository = productRepo;
         }
-
-
+        [HttpGet]
+        public IEnumerable<Category> Get()
+        {
+            var allCategories = _categoryRepository.GetAll();
+            return allCategories;
+        }
+        //[HttpGet("Details")]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public IActionResult CategoryDetails(string categoryId)
+        //{
+        //    var product = _productRepository.GetByCate(categoryId);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(product);
+        //}
 
 
 
