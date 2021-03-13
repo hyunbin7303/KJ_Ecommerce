@@ -1,10 +1,12 @@
 ﻿using ECommerce.Domain.Models;
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
@@ -33,9 +35,9 @@ namespace ECommerceService.Controllers
         //private readonly IWorkContext _workContext;
         //private readonly MediaSettings _mediaSettings;
         //private readonly VendorSettings _vendorSettings;
-        private IGenericRepository<Category> _categoryRepository = null;
-        private IGenericRepository<Product> _productRepository = null;
-        public CategoryController(IGenericRepository<Category> categoryRepo, IGenericRepository<Product> productRepo)
+        private ICategoryRepository _categoryRepository = null;
+        private IProductRepository _productRepository = null;
+        public CategoryController(ICategoryRepository categoryRepo, IProductRepository productRepo)
         {
             this._categoryRepository = categoryRepo;
             this._productRepository = productRepo;
@@ -46,19 +48,28 @@ namespace ECommerceService.Controllers
             var allCategories = _categoryRepository.GetAll();
             return allCategories;
         }
-        //[HttpGet("Details")]
-        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public IActionResult CategoryDetails(string categoryId)
-        //{
-        //    var product = _productRepository.GetByCate(categoryId);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(product);
-        //}
 
+        [HttpPost]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Product> CreateAsync(Category category)
+        {
+            try
+            {
+                if (category.Name.Contains("XYZ Widget"))
+                {
+                    return BadRequest();
+                }
+                _categoryRepository.Insert(category);
+                return CreatedAtAction(nameof(Category), new { id = category.Id }, category);
+
+            }
+            catch (Exception e)
+            {
+                return ValidationProblem(e.Message);
+            }
+        }
 
 
     }
