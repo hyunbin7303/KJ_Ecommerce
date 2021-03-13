@@ -124,5 +124,15 @@ namespace ECommerce.AzureStorage
                 return null;
             }
         }
+
+        public string GetFileUrl(string iamgeName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SaveFileAsync(Stream fileBinaryStream, string fileName, string mimeType = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
