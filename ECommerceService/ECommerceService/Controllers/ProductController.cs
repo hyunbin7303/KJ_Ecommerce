@@ -22,14 +22,12 @@ namespace ECommerceService.Controllers
         {
             _productRepository = repo ?? null;
         }
-
         [HttpGet]
         public IEnumerable<Product> Get()
         {
             var allProducts = _productRepository.GetAll();
             return allProducts;
         }
-
         [HttpGet("Details")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -42,6 +40,21 @@ namespace ECommerceService.Controllers
             }
             return Ok(product);
         }
+
+        [HttpGet("Category")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult ProductsByCategoryId(int categoryId)
+        {
+            var products = _productRepository.GetProductByCategoryAsync(categoryId);
+            if (products == null)
+            {
+                return NotFound();
+            }
+            return Ok(products);
+        }
+
+
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
