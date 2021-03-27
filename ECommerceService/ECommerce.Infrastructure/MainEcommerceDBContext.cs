@@ -1,5 +1,6 @@
 ﻿using System;
 using ECommerce.Domain.Models;
+using ECommerce.Domain.Models.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -21,6 +22,8 @@ namespace ECommerce.Infrastructure
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<InvoiceItem> InvoiceItems { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -58,9 +61,11 @@ namespace ECommerce.Infrastructure
                     .WithMany(p => p.InvoiceItems)
                     .HasForeignKey(d => d.InvoiceId);
             });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
+
 }

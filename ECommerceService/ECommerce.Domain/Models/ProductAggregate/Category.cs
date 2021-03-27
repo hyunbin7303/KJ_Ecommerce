@@ -6,7 +6,6 @@ namespace ECommerce.Domain.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string ParentId { get; set; }
-        public string 
         //public IList<Product> Products { get; set; } = new List<Product>();
     }
 

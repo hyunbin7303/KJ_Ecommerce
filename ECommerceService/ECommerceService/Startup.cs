@@ -43,7 +43,7 @@ namespace ECommerceService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MainEcommerceDBContext db)
         {
             if (env.IsDevelopment())
             {
@@ -51,7 +51,11 @@ namespace ECommerceService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerceService v1"));
             }
-
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            db.Database.EnsureCreated();
             app.UseRouting();
 
             app.UseAuthorization();

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ECommerce.Domain.Models.OrderAggregate
 {
-    public static class OrderStatus
+    public class OrderStatus
     {
         public static string Pending = "Pending";
         public static string Cancelled = "Cancelled";
