@@ -4,14 +4,14 @@ using System.Text;
 
 namespace ECommerce.Domain.Models.OrderAggregate
 {
-    public class OrderStatus
+    public enum OrderStatus
     {
-        public static string Pending = "Pending";
-        public static string Cancelled = "Cancelled";
-        public static string Submitted = "Submitted";
-        public static string PendingSubmitted = "PendingSubmitted";
-        public static string Filled = "Filled";
-        public static string None = "None";
-        public static string Ready = "Ready";
+        None = 0,
+        Ready = 10,
+        Submitted = 20,
+        Pending = 30,
+        PendingSubmitted = 40,
+        Filled = 50,
+        Cancelled = 60
     }
 }

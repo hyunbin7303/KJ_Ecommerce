@@ -8,7 +8,7 @@ namespace ECommerce.Domain.Models
     public class Customer : Entity
     {
         [Required]   
-        public string CustomerId { get; set; }
+        public string Account { get; set; }
         [Required]
         [StringLength(100, ErrorMessage ="First name cannot exceed 100 characters.")]
         public string FirstName { get; set; }
@@ -23,6 +23,7 @@ namespace ECommerce.Domain.Models
         public string ZipCode { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Description { get; set; }
+        public DateTimeOffset LatestUpdateTime { get; set; }
         public virtual List<Invoice> Invoices { get; set; }
     }
 }

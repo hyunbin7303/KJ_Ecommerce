@@ -20,7 +20,7 @@ namespace ECommerce.Domain.Models.OrderAggregate
         public decimal OrderTotal { get; set; }
         public decimal OrderSubTotal { get; set; }
         public decimal TotalTax { get; set; }
-        public virtual OrderStatus OrderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; }
         private readonly List<OrderDetails> _orderItems = new List<OrderDetails>();
         public IReadOnlyCollection<OrderDetails> OrderItems => _orderItems.AsReadOnly();
     }

@@ -6,7 +6,10 @@ namespace ECommerce.Domain.Models.OrderAggregate
 {
     public class OrderDetails : Entity
     {
-        public decimal UnitPrice { get; private set; }
-        public int Units { get; private set; }
+        public string OrderId { get; set; }
+        public string ProductId { get; set; }
+        public int Quantity { get;  set; }
+        public decimal UnitPrice { get; set; }
+        public decimal Discount { get; set; }
     }
 }
