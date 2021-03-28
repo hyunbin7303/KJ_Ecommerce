@@ -1,11 +1,11 @@
 import './App.css';
-import List from  "./Components/List/List";
+import HomePage from "./Components/Pages/HomePage/HomePage";
 
 function App() {
   return (
     <div className="App">
       <div className="h1">KJ Ecommerce</div>
-      <List />
+      <HomePage />
     </div>
   );
 }
