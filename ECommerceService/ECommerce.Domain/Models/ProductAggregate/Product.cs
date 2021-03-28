@@ -1,8 +1,13 @@
-﻿namespace ECommerce.Domain.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ECommerce.Domain.Models
 {
     public class Product : Entity
     {
-        public string Id { get; set; }
+        [Key]
+        [Column("product_id")]
+        public string ProductId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int SupplierId { get; set; }

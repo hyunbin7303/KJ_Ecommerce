@@ -22,11 +22,11 @@ namespace ECommerce.Infrastructure
             });
             mb.Entity<Order>(x =>
             {
-                x.Property(e => e.orderId)
+                x.Property(e => e.OrderId)
                     .IsRequired()
                     .HasMaxLength(200);
 
-                x.Property(e => e.orderId).IsRequired();
+                x.Property(e => e.OrderId).IsRequired();
             });
         }
     }

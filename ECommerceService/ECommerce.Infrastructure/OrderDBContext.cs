@@ -29,10 +29,10 @@ namespace ECommerce.Infrastructure
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.orderId)
+                entity.Property(e => e.OrderId)
                     .IsRequired()
                     .HasMaxLength(200);
-                entity.Property(e => e.orderId).IsRequired();
+                entity.Property(e => e.OrderId).IsRequired();
             });
             OnModelCreatingPartial(modelBuilder);
         }

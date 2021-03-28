@@ -10,7 +10,9 @@ namespace ECommerce.Domain.Models.OrderAggregate
     {
         [Key]
         [Column("order_id")]
-        public string orderId { get; set; }
+        public string OrderId { get; set; }
+
+        [ForeignKey("customer_id")]
         public string CustomerId { get; set; }
         public string BuyerId { get; private set; }
         public string OrderCreatedBy { get; set; }

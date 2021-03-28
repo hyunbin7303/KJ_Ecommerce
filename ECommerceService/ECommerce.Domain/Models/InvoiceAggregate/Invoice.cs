@@ -6,13 +6,12 @@ using System.Text;
 
 namespace ECommerce.Domain.Models
 {
-    public class Invoice
+    public class Invoice : Entity
     {
         public Invoice()
         {
             InvoiceItems = new HashSet<InvoiceItem>();
         }
-        public int Id { get; set; }
         public DateTime Date { get; set; }
         public string CustomerId { get; set; }
         public string SupplierId { get; set; }
