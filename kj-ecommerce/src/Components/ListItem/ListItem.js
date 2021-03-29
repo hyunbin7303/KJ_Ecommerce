@@ -17,8 +17,8 @@ import TmpPic from "../../Assets/Images/TmpPic.png";
 const ListItem = (props) => {
   const [showModal, setShowModal] = useState(false);
 
-  const productDetailModel = {
-    name: "nani",
+  const [productInfomartion, setProductInformation] = useState({
+    name: "",
     description: "",
     supplierId: 0,
     customerId: "",
@@ -30,17 +30,14 @@ const ListItem = (props) => {
     imageAddress: "",
     note: "",
     id: "",
-  };
+  });
 
-  const [productInfomartion, setProductInformation] = useState(
-    productDetailModel
-  );
-
-  console.log("NAME : " + productDetailModel.name);
   const showDetails = () => {
     getProductDetails();
     setShowModal((prev) => !prev);
   };
+
+  const updatedProductInfo = {};
 
   const getProductDetails = async () => {
     await axios
@@ -48,23 +45,10 @@ const ListItem = (props) => {
         params: { productId: "d630cf81-94eb-4d42-932f-131ea7ad8074" },
       })
       .then((response) => {
-        setProductInformation({
-          name: response.data.name,
-          description: response.data.description,
-          supplierId: response.data.supplierId,
-          customerId: response.data.customerId,
-          productFormat: response.data.productFormat,
-          quantityPerUnit: response.data.quantityPerUnit,
-          unitPrice: response.data.unitPrice,
-          unitsInStock: response.data.unitsInStock,
-          categoryId: response.data.categoryId,
-          imageAddress: response.data.imageAddress,
-          note: response.data.note,
-          id: response.data.id,
-        });
-        console.log("Response Data: " + response);
+        setProductInformation(Object.assign(productInfomartion, response.data));
+
         console.log("Response Data: " + response.data.name);
-        console.log("Prod: " + productInfomartion.name);
+        console.log("Prod: " + productInfomartion.description);
       })
       .catch((error) => {
         console.log("ERROR getting response: " + error);
@@ -85,10 +69,10 @@ const ListItem = (props) => {
           </ListItemButton>
 
           <ProductDetail
-            key={productDetailModel.id}
+            key={productInfomartion.id}
             src={TmpPic}
-            title={productDetailModel.name}
-            description={productDetailModel.description}
+            title={productInfomartion.name}
+            description={productInfomartion.description}
             showModal={showModal}
             setShowModal={setShowModal}
           />

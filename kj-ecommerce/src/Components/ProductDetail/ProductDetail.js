@@ -25,23 +25,28 @@ const CloseModalButton = styled(MdClose)`
 `;
 
 const ProductDetail = ({
+  title,
+  src,
+  description,
   showModal,
   setShowModal,
-}, props) => {
+}) => {
+
+  console.log("TITLE: " + title);
   return (
     <>
       {showModal ? (
         <ProductDetailContainer>
           <ProductDetailCard>
             <ProductDetailImgWrapper>
-              <ProductDetailImg src={props.src} />
+              <ProductDetailImg src={src} />
             </ProductDetailImgWrapper>
             <ProductDetailInfo>
               <ProductDetailTitle>
-                {props.title}
+                {title}
                 <ProductDetailCategory>Technology</ProductDetailCategory>
                 <ProductDetailDescription>
-                  {props.description}
+                  {description}
                 </ProductDetailDescription>
               </ProductDetailTitle>
             </ProductDetailInfo>
