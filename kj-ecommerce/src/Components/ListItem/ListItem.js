@@ -37,8 +37,6 @@ const ListItem = (props) => {
     setShowModal((prev) => !prev);
   };
 
-  const updatedProductInfo = {};
-
   const getProductDetails = async () => {
     await axios
       .get("/api/Product/Details", {
