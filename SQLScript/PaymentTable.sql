@@ -1,0 +1,25 @@
+USE [MainEcommerceDB]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+DROP TABLE IF EXISTS [dbo].[Payment];
+
+CREATE TABLE [dbo].[Payment](
+	[Id] [nvarchar](255) NOT NULL,
+	[InvoiceId] [nvarchar](255) FOREIGN KEY REFERENCES InvoiceTable (Id) NOT NULL,	
+	[PaymentTypeId] [nvarchar](255) FOREIGN KEY REFERENCES PaymentTypeTable (Id) NOT NULL,
+	[Date] Datetime DEFAULT(GETDATE()) NOT NULL,
+	[Status] [nvarchar](255) NOT NULL,
+	[PaymentMethod] [nvarchar](255) NOT NULL
+
+ CONSTRAINT [PK_Payment] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
