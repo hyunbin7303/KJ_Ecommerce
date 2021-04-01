@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>EcommerceService-EFA30328-1CB7-4835-A88A-319FB643534F</UserSecretsId>
+
   </PropertyGroup>
 
   <ItemGroup>

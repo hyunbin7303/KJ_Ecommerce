@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ECommerce.Domain.Models
 {
-    public class Customer : Entity
+    public class User : Entity
     {
         [Required]   
         public string Account { get; set; }

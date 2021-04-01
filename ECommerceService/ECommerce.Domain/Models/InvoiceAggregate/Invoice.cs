@@ -16,7 +16,7 @@ namespace ECommerce.Domain.Models
         public string CustomerId { get; set; }
         public string SupplierId { get; set; }
         public decimal Total { get; set; }
-        public virtual Customer Customer { get; set; }
+        public virtual User Customer { get; set; }
         public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
     
         public decimal InvoiceTotal
