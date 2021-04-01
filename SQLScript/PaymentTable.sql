@@ -14,7 +14,8 @@ CREATE TABLE [dbo].[Payment](
 	[InvoiceId] [nvarchar](255) FOREIGN KEY REFERENCES InvoiceTable (Id) NOT NULL,	
 	[PaymentTypeId] [nvarchar](255) FOREIGN KEY REFERENCES PaymentTypeTable (Id) NOT NULL,
 	[Date] Datetime DEFAULT(GETDATE()) NOT NULL,
-	[Status] [nvarchar](255) NOT NULL
+	[Status] [nvarchar](255) NOT NULL,
+	[PaymentMethod] [nvarchar](255) NOT NULL
 
  CONSTRAINT [PK_Payment] PRIMARY KEY CLUSTERED 
 (
