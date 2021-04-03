@@ -17,8 +17,8 @@ import TmpPic from "../../Assets/Images/TmpPic.png";
 const ListItem = (props) => {
   const [showModal, setShowModal] = useState(false);
 
-  const [productInfomartion, setProductInformation] = useState({
-    name: "",
+  const productDetailModel = {
+    name: "nani",
     description: "",
     supplierId: 0,
     customerId: "",
@@ -30,8 +30,13 @@ const ListItem = (props) => {
     imageAddress: "",
     note: "",
     id: "",
-  });
+  };
 
+  const [productInfomartion, setProductInformation] = useState(
+    productDetailModel
+  );
+
+  console.log("NAME : " + productDetailModel.name);
   const showDetails = () => {
     getProductDetails();
     setShowModal((prev) => !prev);
@@ -43,10 +48,23 @@ const ListItem = (props) => {
         params: { productId: "d630cf81-94eb-4d42-932f-131ea7ad8074" },
       })
       .then((response) => {
-        setProductInformation(Object.assign(productInfomartion, response.data));
-
+        setProductInformation({
+          name: response.data.name,
+          description: response.data.description,
+          supplierId: response.data.supplierId,
+          customerId: response.data.customerId,
+          productFormat: response.data.productFormat,
+          quantityPerUnit: response.data.quantityPerUnit,
+          unitPrice: response.data.unitPrice,
+          unitsInStock: response.data.unitsInStock,
+          categoryId: response.data.categoryId,
+          imageAddress: response.data.imageAddress,
+          note: response.data.note,
+          id: response.data.id,
+        });
+        console.log("Response Data: " + response);
         console.log("Response Data: " + response.data.name);
-        console.log("Prod: " + productInfomartion.description);
+        console.log("Prod: " + productInfomartion.name);
       })
       .catch((error) => {
         console.log("ERROR getting response: " + error);
@@ -67,10 +85,10 @@ const ListItem = (props) => {
           </ListItemButton>
 
           <ProductDetail
-            key={productInfomartion.id}
+            key={productDetailModel.id}
             src={TmpPic}
-            title={productInfomartion.name}
-            description={productInfomartion.description}
+            title={productDetailModel.name}
+            description={productDetailModel.description}
             showModal={showModal}
             setShowModal={setShowModal}
           />

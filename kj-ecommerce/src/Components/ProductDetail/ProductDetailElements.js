@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { MdClose } from "react-icons/md";
-
 export const ProductDetailContainer = styled.div`
   z-index: 2;
   background: rgba(255, 255, 255, 0.5);
@@ -116,13 +114,16 @@ export const ProductDetailDescription = styled.p`
   }
 `;
 
-export const CloseModalButton = styled(MdClose)`
-  cursor: pointer;
+export const ProductDetailCloseBtn = styled.button`
+  color: #555;
+  z-index: 3;
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  z-index: 10;
+  right: 0;
+  font-size: 20px;
+  margin: 20px;
+  cursor: pointer;
+
+  @media (max-width: 900px) {
+    z-index: 4;
+  }
 `;
