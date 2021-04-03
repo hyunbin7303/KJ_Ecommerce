@@ -1,3 +1,7 @@
+
+
+
+
 USE [MainEcommerceDB]
 GO
 SET QUOTED_IDENTIFIER ON
@@ -198,3 +202,4 @@ ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[EC_UserTokens] CHECK CONSTRAINT [FK_EC_UserTokens_EC_Users_UserId]
 GO
+
