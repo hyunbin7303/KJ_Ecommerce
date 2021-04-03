@@ -130,3 +130,27 @@ GO
 
 
 
+/****** Object:  Table [dbo].[Vendor]    Script Date: 2021-04-03 3:19:40 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Vendors](
+	[id] [int] NOT NULL,
+	[vendor_name] [varchar](50) NOT NULL,
+	[address_id] [int] NULL,
+	[phone_number] [varchar](50) NULL,
+	[email] [varchar](100) NULL,
+	[website] [varchar](50) NULL,
+	[last_updatedtime] [timestamp] NULL,
+	[note] [varchar](500) NULL,
+ CONSTRAINT [PK_Vendors] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
