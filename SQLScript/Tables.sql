@@ -143,3 +143,41 @@ CREATE TABLE [dbo].[Attribute](
 ) ON [PRIMARY]
 GO
 
+
+CREATE TABLE OrderItem (
+    [id][nvarchar](100) NULL
+    Quantity decimal(8, 2),
+    Unit nvarchar(10),
+    PriceUnit money,
+    Price money,
+    CreatedAt smalldatetime,
+    UpdatedAt smalldatetime,
+    order_id int FOREIGN KEY REFERENCES [Order](order_id),
+    product_id int FOREIGN KEY REFERENCES Product(id)
+);
+
+CREATE TABLE Order (
+    [id] [nvarchar](100) NULL PRIMARY KEY,
+    Status nvarchar(1),
+    RequiredDate Date,
+    Comment nvarchar(200),
+    CreatedAt smalldate,
+    UpdatedAt smalldate,
+    CustomerId int FOREIGN KEY REFERENCES Customer(Id)
+);
+
+
+
+
+CREATE TABLE [dbo].[AppSetting](
+	[Id] [nvarchar](450) NOT NULL,
+	[Value] [nvarchar](450) NULL,
+	[Module] [nvarchar](450) NULL,
+	[IsVisibleInCommonSettingPage] [bit] NOT NULL,
+	[Description][nVarchar](450)
+ CONSTRAINT [PK_Core_AppSetting] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
