@@ -8,7 +8,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[Categories](
+CREATE TABLE [dbo].[Category](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](max) NULL,
 	[ProductId] [nvarchar](max) NULL,
@@ -30,73 +30,17 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[Customers](
-	[CustomerId] [nvarchar](450) NOT NULL,
-	[FirstName] [nvarchar](100) NOT NULL,
-	[LastName] [nvarchar](max) NULL,
-	[Address] [nvarchar](max) NULL,
-	[ZipCode] [nvarchar](max) NOT NULL,
+CREATE TABLE [dbo].[Customer](
+	[id] [nvarchar](450) NOT NULL,
+	[user_id][int] NOT NULL,
+	[customer_name] [nvarchar](100) NOT NULL,
+	[address_id] [int]NOT NULL,
 	[Description] [nvarchar](max) NULL,
  CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
 (
-	[CustomerId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-
-
-
-
-/****** Object:  Table [dbo].[Invoices]    Script Date: 2021-03-29 10:00:43 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[Invoices](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Date] [datetime2](7) NOT NULL,
-	[CustomerId] [nvarchar](450) NULL,
- CONSTRAINT [PK_Invoices] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[Invoices]  WITH CHECK ADD  CONSTRAINT [FK_Invoices_Customers_CustomerId] FOREIGN KEY([CustomerId])
-REFERENCES [dbo].[Customers] ([CustomerId])
-GO
-
-ALTER TABLE [dbo].[Invoices] CHECK CONSTRAINT [FK_Invoices_Customers_CustomerId]
-GO
-
-
-/****** Object:  Table [dbo].[InvoiceItems]    Script Date: 2021-03-29 10:04:05 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[InvoiceItems](
-	[InvoiceItemId] [int] IDENTITY(1,1) NOT NULL,
-	[InvoiceId] [int] NOT NULL,
-	[Code] [nvarchar](max) NULL,
- CONSTRAINT [PK_InvoiceItems] PRIMARY KEY CLUSTERED 
-(
-	[InvoiceItemId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[InvoiceItems]  WITH CHECK ADD  CONSTRAINT [FK_InvoiceItems_Invoices_InvoiceId] FOREIGN KEY([InvoiceId])
-REFERENCES [dbo].[Invoices] ([Id])
-ON DELETE CASCADE
-GO
-
-ALTER TABLE [dbo].[InvoiceItems] CHECK CONSTRAINT [FK_InvoiceItems_Invoices_InvoiceId]
 GO
 
 
@@ -107,20 +51,25 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[Products](
+CREATE TABLE [dbo].[Product](
 	[Id] [nvarchar](450) NOT NULL,
-	[Name] [nvarchar](max) NULL,
-	[Description] [nvarchar](max) NULL,
-	[SupplierId] [int] NOT NULL,
-	[CustomerId] [nvarchar](max) NULL,
+	[Name] [nvarchar](450) NULL,
+	[DisplayName][nvarchar](450) NULL,
+	[Description] [nvarchar](450) NULL,
+	[VendorId] [int] NOT NULL,
+	[UserId] [nvarchar](max) NULL,
 	[ProductFormat] [nvarchar](max) NULL,
 	[QuantityPerUnit] [int] NULL,
 	[UnitPrice] [float] NULL,
 	[UnitsInStock] [nvarchar](max) NULL,
 	[CategoryId] [int] NULL,
+	[Discount] [float] NULL,
+	[OrderAvailable] [bit] NOT NULL,
+	[ProductAvailable] [bit] NOT NULL,
+	[DiscountAvailable] [bit] NOT NULL,
 	[ImageAddress] [nvarchar](max) NULL,
 	[Note] [nvarchar](max) NULL,
- CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -137,7 +86,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[Vendors](
+CREATE TABLE [dbo].[Vendor](
 	[id] [int] NOT NULL,
 	[vendor_name] [varchar](50) NOT NULL,
 	[address_id] [int] NULL,
@@ -146,11 +95,51 @@ CREATE TABLE [dbo].[Vendors](
 	[website] [varchar](50) NULL,
 	[last_updatedtime] [timestamp] NULL,
 	[note] [varchar](500) NULL,
- CONSTRAINT [PK_Vendors] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Address](
+	[id] [int] NOT NULL,
+	[CAontactName] [nvarchar](100) NULL,
+	[Phone] [nvarchar](100) NULL,
+	[Address1] [nvarchar](100) NULL,
+	[Address2] [nvarchar](100) NULL,
+	[City] [nvarchar](50) NULL,
+	[Province] [nvarchar](50) NULL,
+	[Country] [nvarchar](50) NULL,
+	[Description] [nvarchar](200) NULL
+) ON [PRIMARY]
+GO
+
+
+
+CREATE TABLE [dbo].[ProductAttribute](
+	[product_id] [int] NOT NULL,
+	[attribute_id] [int] NOT NULL,
+ CONSTRAINT [PK_ProductAttribute] PRIMARY KEY CLUSTERED 
+(
+	[product_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[Attribute](
+	[id] [int] NOT NULL,
+	[attribute_name] [nvarchar](200) NULL,
+	[attribute_value] [nvarchar](200) NOT NULL,
+	[description] [nvarchar](200) NOT NULL
+) ON [PRIMARY]
+GO
 
