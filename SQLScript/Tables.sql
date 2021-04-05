@@ -152,19 +152,27 @@ CREATE TABLE OrderItem (
     Price money,
     CreatedAt smalldatetime,
     UpdatedAt smalldatetime,
-    order_id int FOREIGN KEY REFERENCES [Order](order_id),
-    product_id int FOREIGN KEY REFERENCES Product(id)
-);
+	CONSTRAINT [PK_OrderItem] PRIMARY KEY CLUSTERED 
+	(
+		[id] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 
 CREATE TABLE Order (
     [id] [nvarchar](100) NULL PRIMARY KEY,
     Status nvarchar(1),
     RequiredDate Date,
     Comment nvarchar(200),
-    CreatedAt smalldate,
-    UpdatedAt smalldate,
-    CustomerId int FOREIGN KEY REFERENCES Customer(Id)
-);
+    CreatedAt smalldatetime,
+    UpdatedAt smalldatetime,
+	CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
+	(
+		[id] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 
 
 
