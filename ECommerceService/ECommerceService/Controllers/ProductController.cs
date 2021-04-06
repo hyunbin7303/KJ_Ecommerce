@@ -68,6 +68,10 @@ namespace ECommerceService.Controllers
                 {
                     return BadRequest();
                 }
+                //temporary create GUID product Id
+                Guid tmpId = Guid.NewGuid();
+                product.Id = tmpId.ToString();
+                
                 _productRepository.Insert(product);
                 return CreatedAtAction(nameof(ProductDetails), new { id = product.Id }, product);
 
