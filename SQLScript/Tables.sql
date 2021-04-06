@@ -225,12 +225,12 @@ CREATE TABLE [dbo].[Warehouse](
 GO
 DROP TABLE IF EXISTS [dbo].[AppSetting];
 CREATE TABLE [dbo].[AppSetting](
-	[Id] [nvarchar](450) NOT NULL,
-	[Value] [nvarchar](450) NULL,
-	[Module] [nvarchar](450) NULL,
+	[Id] [nvarchar](100) NOT NULL,
+	[Value] [nvarchar](300) NULL,
+	[Module] [nvarchar](300) NULL,
 	[IsVisibleInCommonSettingPage] [bit] NOT NULL,
 	[Description][nVarchar](450)
- CONSTRAINT [PK_Core_AppSetting] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AppSetting] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
