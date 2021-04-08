@@ -82,21 +82,28 @@ CREATE TABLE [dbo].[Address](
 GO
 DROP TABLE IF EXISTS [dbo].[ProductAttribute];
 CREATE TABLE [dbo].[ProductAttribute](
+	[Id] [int] NOT NULL,
 	[ProductId] [int] NOT NULL,
 	[AttributeId] [int] NOT NULL,
  CONSTRAINT [PK_ProductAttribute] PRIMARY KEY CLUSTERED 
 (
-	[ProductId] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 DROP TABLE IF EXISTS [dbo].[Attribute];
 CREATE TABLE [dbo].[Attribute](
-	[id] [int] NOT NULL,
+	[Id] [int] NOT NULL,
 	[attribute_name] [nvarchar](200) NULL,
 	[attribute_value] [nvarchar](200) NOT NULL,
 	[description] [nvarchar](200) NOT NULL
+ CONSTRAINT [PK_Attribute] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
 GO
 DROP TABLE IF EXISTS [dbo].OrderItem;
 CREATE TABLE OrderItem (
