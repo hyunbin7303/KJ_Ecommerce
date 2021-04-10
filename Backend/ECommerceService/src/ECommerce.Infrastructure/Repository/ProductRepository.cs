@@ -9,9 +9,9 @@ namespace ECommerce.Infrastructure.Repository
 {
     public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
-        public ProductRepository(MainEcommerceDBContext context) : base(context)
-        {
-        }
+        //public ProductRepository(MainEcommerceDBContext context) : base(context)
+        //{
+        //}
 
         public Task<Product> GetProductById(string productId)
         {

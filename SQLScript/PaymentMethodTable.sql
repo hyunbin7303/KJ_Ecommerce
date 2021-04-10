@@ -1,6 +1,0 @@
-USE [MainEcommerceDB]
-GO
-
-SET ANSI_NULLS ON
-GO
-

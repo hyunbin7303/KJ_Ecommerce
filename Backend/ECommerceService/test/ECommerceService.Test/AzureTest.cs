@@ -1,5 +1,4 @@
 ﻿using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
 using ECommerce.AzureStorage;
 using NUnit.Framework;
 using System;

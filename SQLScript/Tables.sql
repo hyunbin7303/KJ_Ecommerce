@@ -237,6 +237,22 @@ CREATE TABLE [dbo].[Warehouse](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+DROP TABLE IF EXISTS [dbo].[ProductReview];
+CREATE TABLE [dbo].[AppSetting](
+	[Id] [nvarchar](100) NOT NULL,
+	[CustomerId] [int] NOT NULL,
+	[Rating] [int] NOT NULL,
+	[CreatedDate] datetimeoffset(7),
+	[Title][nVarchar](100) NULL,
+	[Comment][nVarchar](450) NULL,
+ CONSTRAINT [PK_ProductReview] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 DROP TABLE IF EXISTS [dbo].[AppSetting];
 CREATE TABLE [dbo].[AppSetting](
 	[Id] [nvarchar](100) NOT NULL,

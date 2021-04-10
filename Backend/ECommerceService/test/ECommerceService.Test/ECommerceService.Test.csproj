@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ECommerce.AzureStorage\ECommerce.AzureStorage.csproj" />
-    <ProjectReference Include="..\ECommerceService\ECommerceService.csproj" />
+    <ProjectReference Include="..\..\src\ECommerce.AzureStorage\ECommerce.AzureStorage.csproj" />
+    <ProjectReference Include="..\..\src\ECommerceService\ECommerceService.csproj" />
   </ItemGroup>
 
 </Project>

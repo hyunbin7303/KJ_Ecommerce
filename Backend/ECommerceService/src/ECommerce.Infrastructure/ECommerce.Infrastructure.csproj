@@ -27,6 +27,7 @@
     <Folder Include="Localization\" />
     <Folder Include="InMemory-DataCache\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Identity\" />
     <Folder Include="Redis\" />
   </ItemGroup>
 
