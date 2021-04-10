@@ -6,3 +6,7 @@ ALTER TABLE [CartItem]   ADD CONSTRAINT FK_CartId FOREIGN KEY   (CartId) REFEREN
 ALTER TABLE [Payment]   ADD CONSTRAINT FK_PaymentMethodId FOREIGN KEY   (PaymentMethodId) REFERENCES [PaymentMethod](id);
 ALTER TABLE [ProductAttribute]   ADD CONSTRAINT FK_ProductAttribute_ProudctId FOREIGN KEY   (ProductId) REFERENCES [Product](id);
 ALTER TABLE [ProductAttribute]   ADD CONSTRAINT FK_ProductAttribute_AttributeId FOREIGN KEY (AttributeId) REFERENCES [Attribute](id);
+
+
+
+

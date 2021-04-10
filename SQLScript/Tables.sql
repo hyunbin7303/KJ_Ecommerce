@@ -112,8 +112,8 @@ CREATE TABLE OrderItem (
 	[ProductId][int] NOT NULL,
     [Quantity] decimal(8, 2),
     Unit nvarchar(10),
-    PriceUnit money,
-    Price money,
+    PriceUnit [decimal](18,2) NULL,
+    Price [decimal](18,2) NULL,
     CreatedAt datetimeoffset(7),
     UpdatedAt datetimeoffset(7),
 	CONSTRAINT [PK_OrderItem] PRIMARY KEY CLUSTERED 
@@ -124,8 +124,9 @@ CREATE TABLE OrderItem (
 GO
 DROP TABLE IF EXISTS [dbo].[Order];
 CREATE TABLE [dbo].[Order] (
-    [id] [nvarchar](100) NOT NULL,
+    [Id] [nvarchar](100) NOT NULL,
 	[CustomerId] [nvarchar](100) NOT NULL,
+	[CartId][nvarchar](100) NULL,
     [Status] nvarchar(1),
     RequiredDate Date,
     Comment nvarchar(200),
@@ -133,13 +134,13 @@ CREATE TABLE [dbo].[Order] (
     UpdatedAt datetimeoffset(7),
 	CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 	(
-		[id] ASC
+		[Id] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 DROP TABLE IF EXISTS [dbo].[Cart];
 CREATE TABLE [dbo].[Cart](
-	[Id] [int] NOT NULL,
+	[Id] [nvarchar](100) NOT NULL,
 	[CustomerId] [int] NOT NULL,
 	[CreatedDate] datetimeoffset(7) NOT NULL,
 	CONSTRAINT Cart_CreatedDate CHECK (CreatedDate > '1 April 2021'),
@@ -149,8 +150,9 @@ GO
 DROP TABLE IF EXISTS [dbo].[CartItem];
 CREATE TABLE [dbo].[CartItem](
 	[Id] [int] NOT NULL,
-	[CustomerId] [int] NOT NULL,
 	[CartId] [int],
+	[ProductId] [int],
+	 [Quantity] decimal(8, 2),
 	CreatedDate datetimeoffset(7),
 	CONSTRAINT CartItem_CreatedDate CHECK (CreatedDate > '1 April 2021'),
 	CONSTRAINT PK_CartItem PRIMARY KEY(Id),
@@ -161,12 +163,15 @@ CREATE TABLE [dbo].[Invoice](
 	[Id] [int]  IDENTITY(1,1) NOT NULL,
 	[OrderId] [nvarchar](100) NOT NULL,
 	[CustomerId] [nvarchar](100) NULL,
+	[ShipmentId] [nvarchar](100) NOT NULL,
+	[PaymentId] [nvarchar](100) NOT NULL,
 	[Date] datetimeoffset(7) NOT NULL,
-    [SubTotal] [decimal] NOT NULL,
-	[ShippingTotal] [decimal] NULL, 
-    [Total] [decimal](18) NULL,
-    [ShippingToId] [nvarchar](255) NOT NULL,
-	[BillingToId] [nvarchar](255) NOT NULL
+    [SubTotal] [decimal](18,2) NOT NULL,
+	[ShippingTotal] [decimal](18,2) NULL, 
+	[VAT][decimal](18,2) NULL, -- Value-Added Tax. 
+    [Total] [decimal](18,2) NULL,
+	[CustomerNote] [nvarchar](1000) NULL,
+
  CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -175,9 +180,9 @@ CREATE TABLE [dbo].[Invoice](
 GO
 DROP TABLE IF EXISTS [dbo].[Payment];
 CREATE TABLE [dbo].[Payment](
-	[Id] [nvarchar](255) NOT NULL,
-	[InvoiceId] [nvarchar](255) NOT NULL,	
-	[PaymentMethodId] [nvarchar](255) NOT NULL,
+	[Id] [nvarchar](100) NOT NULL,
+	[InvoiceId] [nvarchar](100) NULL,	
+	[PaymentMethodId] [int] NOT NULL,
 	[Date] datetimeoffset(7) NOT NULL,
 	[Status] [nvarchar](255) NOT NULL,
 	[TransactionType] [nvarchar](255) NOT NULL
@@ -190,7 +195,7 @@ CREATE TABLE [dbo].[Payment](
 GO
 DROP TABLE IF EXISTS [dbo].[PaymentMethod];
 CREATE TABLE [dbo].[PaymentMethod](
-	[Id] [nvarchar](255) NOT NULL,
+	[Id] [int] NOT NULL,
 	[Description] [nvarchar](255) NOT NULL,
 	[TrnCode] [nvarchar](255) NOT NULL,
 	[MethodCode] [varchar](2) NOT NULL,
@@ -201,16 +206,18 @@ CREATE TABLE [dbo].[PaymentMethod](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-DROP TABLE IF EXISTS [dbo].[Shipments];
-CREATE TABLE [dbo].[Shipments](
+DROP TABLE IF EXISTS [dbo].[Shipment];
+CREATE TABLE [dbo].[Shipment](
 	[Id] [nvarchar](100) NOT NULL,
-	[OrderId] [nvarchar](100) NOT NULL,
 	[TrackingNumber] [nvarchar](450) NULL,
+	[AddressId] [int] NULL,
 	[WarehouseId] [int] NULL,
 	[VendorId] [int] NULL,
 	[CreatedDate] datetimeoffset(7),
 	[LatestUpdatedDate] datetimeoffset(7),
+	[QuantityShipped] [int] NULL,
 	[Description][nVarchar](450)
+	--Carrier Id.
  CONSTRAINT [PK_Shipment] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
