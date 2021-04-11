@@ -1,10 +1,14 @@
-﻿using System;
+﻿using ECommerce.Infrastructure.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
+
 namespace ECommerce.Domain.Models
 {
+
+    // TODO : This class needs  to be updated.
     public class User : Entity
     {
         [Required]   

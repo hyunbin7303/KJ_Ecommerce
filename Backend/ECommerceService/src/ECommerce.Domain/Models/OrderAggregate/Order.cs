@@ -1,29 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace ECommerce.Domain.Models.OrderAggregate
+#nullable disable
+
+namespace ECommerce.Infrastructure.Models
 {
-    public class Order : Entity
+    public partial class Order
     {
-        [Key]
-        [Column("order_id")]
-        public string OrderId { get; set; }
+        public Order()
+        {
+            OrderItems = new HashSet<OrderItem>();
+        }
 
-        [ForeignKey("customer_id")]
+        public string Id { get; set; }
         public string CustomerId { get; set; }
-        public string BuyerId { get; private set; }
-        public string OrderCreatedBy { get; set; }
-        public DateTimeOffset OrderDate { get; private set; } = DateTimeOffset.Now;
-        public DateTimeOffset OrderUpdateDate { get; private set; } = DateTimeOffset.Now;
-        public Address ShipToAddress => new Address();
-        public decimal OrderTotal { get; set; }
-        public decimal OrderSubTotal { get; set; }
-        public decimal TotalTax { get; set; }
-        public OrderStatus OrderStatus { get; set; }
-        private readonly List<OrderDetails> _orderItems = new List<OrderDetails>();
-        public IReadOnlyCollection<OrderDetails> OrderItems => _orderItems.AsReadOnly();
+        public string CartId { get; set; }
+        public string Status { get; set; }
+        public DateTime? RequiredDate { get; set; }
+        public string Comment { get; set; }
+        public DateTimeOffset? CreatedAt { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

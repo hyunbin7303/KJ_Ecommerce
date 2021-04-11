@@ -150,7 +150,7 @@ GO
 DROP TABLE IF EXISTS [dbo].[CartItem];
 CREATE TABLE [dbo].[CartItem](
 	[Id] [int] NOT NULL,
-	[CartId] [int],
+	[CartId] [nvarchar](100) NULL,
 	[ProductId] [int],
 	 [Quantity] decimal(8, 2),
 	CreatedDate datetimeoffset(7),
@@ -239,7 +239,7 @@ CREATE TABLE [dbo].[Warehouse](
 GO
 
 DROP TABLE IF EXISTS [dbo].[ProductReview];
-CREATE TABLE [dbo].[AppSetting](
+CREATE TABLE [dbo].[ProductReview](
 	[Id] [nvarchar](100) NOT NULL,
 	[CustomerId] [int] NOT NULL,
 	[Rating] [int] NOT NULL,
@@ -267,3 +267,59 @@ CREATE TABLE [dbo].[AppSetting](
 ) ON [PRIMARY]
 GO
 
+
+
+
+
+DROP TABLE IF EXISTS [dbo].[AppSetting];
+CREATE TABLE [dbo].[AppSetting](
+	[Id] [nvarchar](100) NOT NULL,
+	[Value] [nvarchar](300) NULL,
+	[Module] [nvarchar](300) NULL,
+	[IsVisibleInCommonSettingPage] [bit] NOT NULL,
+	[Description][nVarchar](450)
+ CONSTRAINT [PK_AppSetting] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+DROP TABLE IF EXISTS [dbo].[App_Menu];
+CREATE TABLE [dbo].[App_Menu](
+	[Id] [nvarchar](200) NOT NULL,
+	[UsedBy][nvarchar](100) NULL,
+	[ParentId] [nvarchar](200) NULL,
+	[MenuName] [nvarchar](300) NULL,
+	[MenuType] [varchar](4) NULL,
+	[Visibility][nvarchar](20) NULL,
+	[Availability][nvarchar](20) NULL,
+	[LatestUpdatedDate] datetimeoffset(7),
+	[Description][nVarchar](450)
+ CONSTRAINT [PK_App_Menu] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+DROP TABLE IF EXISTS [dbo].[ProductImage];
+CREATE TABLE [dbo].[ProductImage](
+	[ProductId] [int] NOT NULL,
+	[ImageId] [int] NOT NULL)
+GO
+
+DROP TABLE IF EXISTS [dbo].[Image];
+CREATE TABLE [dbo].[Image](
+	[Id] [int] NOT NULL,
+	[ImageTitle] [nvarchar](100) NULL,
+	[ImageURL] [nvarchar](450) NULL,
+ CONSTRAINT [PK_Image] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO

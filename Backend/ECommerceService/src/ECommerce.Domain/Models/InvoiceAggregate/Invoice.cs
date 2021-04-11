@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
 
-namespace ECommerce.Domain.Models
+#nullable disable
+
+namespace ECommerce.Infrastructure.Models
 {
-    public class Invoice : Entity
+    public partial class Invoice
     {
-        public Invoice()
-        {
-            InvoiceItems = new HashSet<InvoiceItem>();
-        }
-        public DateTime Date { get; set; }
+        public int Id { get; set; }
+        public string OrderId { get; set; }
         public string CustomerId { get; set; }
-        public string SupplierId { get; set; }
-        public decimal Total { get; set; }
-        public virtual User Customer { get; set; }
-        public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
-    
-        public decimal InvoiceTotal
-        {
-            get { return this.InvoiceItems.Select(p => p.Amount).Sum(); }
-        }
-    
+        public string ShipmentId { get; set; }
+        public string PaymentId { get; set; }
+        public DateTimeOffset Date { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal? ShippingTotal { get; set; }
+        public decimal? Vat { get; set; }
+        public decimal? Total { get; set; }
+        public string CustomerNote { get; set; }
+
     }
 }

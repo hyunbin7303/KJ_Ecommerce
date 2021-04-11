@@ -1,12 +1,21 @@
-﻿using System.Collections.Generic;
-namespace ECommerce.Domain.Models
-{
-    public class Category : Entity
-    {
-        public string Name { get; set; }
-        public string ParentId { get; set; }
-        //public IList<Product> Products { get; set; } = new List<Product>();
-        public string Description { get; set; }
-    }
+﻿using System;
+using System.Collections.Generic;
 
+#nullable disable
+
+namespace ECommerce.Infrastructure.Models
+{
+    public partial class Category
+    {
+        public Category()
+        {
+            Products = new HashSet<Product>();
+        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ProductId { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
+    }
 }
