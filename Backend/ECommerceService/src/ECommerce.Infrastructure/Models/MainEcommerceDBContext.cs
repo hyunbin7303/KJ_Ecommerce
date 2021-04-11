@@ -18,8 +18,6 @@ namespace ECommerce.Infrastructure.Models
         {
         }
         public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<AppMenu> AppMenus { get; set; }
-        public virtual DbSet<AppSetting> AppSettings { get; set; }
         public virtual DbSet<Domain.Models.Attribute> Attributes { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<CartItem> CartItems { get; set; }
@@ -54,7 +52,6 @@ namespace ECommerce.Infrastructure.Models
                 optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MainEcommerceDB;User ID=sa;Password=Cc7594435;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -505,7 +502,6 @@ namespace ECommerce.Infrastructure.Models
             });
             OnModelCreatingPartial(modelBuilder);
         }
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
