@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ECommerce.Infrastructure.Models
+namespace ECommerce.Domain.Models
 {
     public partial class ProductAttribute
     {

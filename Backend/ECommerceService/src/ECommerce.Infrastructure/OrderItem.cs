@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ECommerce.Domain.Models.OrderAggregate
+namespace ECommerce.Infrastructure
 {
     public partial class OrderItem
     {

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ECommerce.Domain.Models.OrderAggregate;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace ECommerce.Infrastructure.Models
+namespace ECommerce.Domain.Models
 {
-    public partial class Product
+    public class Product
     {
         public Product()
         {
@@ -29,7 +30,6 @@ namespace ECommerce.Infrastructure.Models
         public bool DiscountAvailable { get; set; }
         public int? ImageId { get; set; }
         public string Note { get; set; }
-
         public virtual Category Category { get; set; }
         public virtual Vendor Vendor { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }

@@ -114,8 +114,8 @@ CREATE TABLE OrderItem (
     Unit nvarchar(10),
     PriceUnit [decimal](18,2) NULL,
     Price [decimal](18,2) NULL,
-    CreatedAt datetimeoffset(7),
-    UpdatedAt datetimeoffset(7),
+    CreatedDate datetimeoffset(7),
+    UpdatedDate datetimeoffset(7),
 	CONSTRAINT [PK_OrderItem] PRIMARY KEY CLUSTERED 
 	(
 		[id] ASC
@@ -128,10 +128,10 @@ CREATE TABLE [dbo].[Order] (
 	[CustomerId] [nvarchar](100) NOT NULL,
 	[CartId][nvarchar](100) NULL,
     [Status] nvarchar(1),
-    RequiredDate Date,
     Comment nvarchar(200),
-    CreatedAt datetimeoffset(7),
-    UpdatedAt datetimeoffset(7),
+    RequiredDate datetimeoffset(7),
+    CreatedDate datetimeoffset(7),
+    UpdatedDate datetimeoffset(7),
 	CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 	(
 		[Id] ASC
@@ -267,26 +267,6 @@ CREATE TABLE [dbo].[AppSetting](
 ) ON [PRIMARY]
 GO
 
-
-
-
-
-DROP TABLE IF EXISTS [dbo].[AppSetting];
-CREATE TABLE [dbo].[AppSetting](
-	[Id] [nvarchar](100) NOT NULL,
-	[Value] [nvarchar](300) NULL,
-	[Module] [nvarchar](300) NULL,
-	[IsVisibleInCommonSettingPage] [bit] NOT NULL,
-	[Description][nVarchar](450)
- CONSTRAINT [PK_AppSetting] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-
-
 DROP TABLE IF EXISTS [dbo].[App_Menu];
 CREATE TABLE [dbo].[App_Menu](
 	[Id] [nvarchar](200) NOT NULL,
@@ -323,3 +303,19 @@ CREATE TABLE [dbo].[Image](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
+
+
+ALTER TABLE [OrderItem] ADD CONSTRAINT FK_OrderId FOREIGN KEY (OrderId) REFERENCES [Order](id);
+ALTER TABLE [OrderItem] ADD CONSTRAINT FK_ProductId FOREIGN KEY (ProductId) REFERENCES [Product](id);
+ALTER TABLE [Product]   ADD CONSTRAINT FK_CategoryId FOREIGN KEY (CategoryId) REFERENCES [Category](id);
+ALTER TABLE [Product]   ADD CONSTRAINT FK_VendorId FOREIGN KEY   (VendorId) REFERENCES [Vendor](id);
+ALTER TABLE [CartItem]   ADD CONSTRAINT FK_CartId FOREIGN KEY   (CartId) REFERENCES [Cart](id);
+ALTER TABLE [Payment]   ADD CONSTRAINT FK_PaymentMethodId FOREIGN KEY   (PaymentMethodId) REFERENCES [PaymentMethod](id);
+ALTER TABLE [ProductAttribute]   ADD CONSTRAINT FK_ProductAttribute_ProudctId FOREIGN KEY   (ProductId) REFERENCES [Product](id);
+ALTER TABLE [ProductAttribute]   ADD CONSTRAINT FK_ProductAttribute_AttributeId FOREIGN KEY (AttributeId) REFERENCES [Attribute](id);
+
+
+
+

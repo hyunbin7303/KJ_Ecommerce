@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ECommerce.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,12 @@ namespace ECommerce.Infrastructure
     {
         //private MainEcommerceDBContext context;
         internal DbSet<T> dbSet = null;
+        private MainEcommerceDBContext context;
+
+        public GenericRepository(MainEcommerceDBContext context)
+        {
+            this.context = context;
+        }
 
         //public GenericRepository(MainEcommerceDBContext context)
         //{

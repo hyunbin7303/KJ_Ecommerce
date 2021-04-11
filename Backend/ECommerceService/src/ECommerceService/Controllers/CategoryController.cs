@@ -1,5 +1,6 @@
 ﻿using ECommerce.Domain.Models;
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Models;
 using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

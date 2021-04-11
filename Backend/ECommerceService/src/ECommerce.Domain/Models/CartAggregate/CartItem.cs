@@ -12,7 +12,6 @@ namespace ECommerce.Infrastructure.Models
         public int? ProductId { get; set; }
         public decimal? Quantity { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
-
         public virtual Cart Cart { get; set; }
     }
 }

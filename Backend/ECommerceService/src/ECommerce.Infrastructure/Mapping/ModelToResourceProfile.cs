@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ECommerce.Domain.Models;
+using ECommerce.Infrastructure.Models;
 using ECommerce.Query;
 using System;
 using System.Collections.Generic;

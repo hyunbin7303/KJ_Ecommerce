@@ -1,4 +1,5 @@
-﻿using ECommerce.Domain.Models.OrderAggregate;
+﻿using ECommerce.Domain.Models;
+using ECommerce.Domain.Models.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,11 @@ namespace ECommerce.Infrastructure
             });
             mb.Entity<Order>(x =>
             {
-                x.Property(e => e.OrderId)
+                x.Property(e => e.Id)
                     .IsRequired()
                     .HasMaxLength(200);
 
-                x.Property(e => e.OrderId).IsRequired();
+                x.Property(e => e.Id).IsRequired();
             });
         }
     }

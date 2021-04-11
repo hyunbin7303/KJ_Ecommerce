@@ -11,8 +11,8 @@ namespace ECommerce.Infrastructure.Repository
 {
     public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
     {
-        //public CategoryRepository(MainEcommerceDBContext context) : base(context)
-        //{
-        //}
+        public CategoryRepository(MainEcommerceDBContext context) : base(context)
+        {
+        }
     }
 }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ECommerce.Domain;
+using System;
 using System.Collections.Generic;
-
-#nullable disable
+using System.Linq;
 
 namespace ECommerce.Infrastructure.Models
 {
-    public partial class Cart
+    public class Cart : Entity
     {
         public Cart()
         {
@@ -15,7 +15,17 @@ namespace ECommerce.Infrastructure.Models
         public string Id { get; set; }
         public int CustomerId { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
-
         public virtual ICollection<CartItem> CartItems { get; set; }
+
+        public void AddCartItem(int productId, int quantity = 1)
+        {
+            var item = CartItems.FirstOrDefault(i => i.ProductId == productId);
+            if(item != null)
+            {
+                item.Quantity++;
+            }
+        }
+
+
     }
 }
