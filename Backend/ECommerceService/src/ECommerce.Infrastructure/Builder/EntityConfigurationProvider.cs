@@ -26,9 +26,9 @@ namespace ECommerce.Infrastructure
 
             dbContext.Database.EnsureCreated();
 
-            //Data = dbContext.Settings.Any()
-            //    ? dbContext.Settings.ToDictionary(c => c.Id, c => c.Value)
-            //    : CreateAndSaveDefaultValues(dbContext);
+            Data = dbContext.AppSettings.Any()
+                ? dbContext.AppSettings.ToDictionary(c => c.Id, c => c.Value)
+                : CreateAndSaveDefaultValues(dbContext);
         }
 
         static IDictionary<string, string> CreateAndSaveDefaultValues(
@@ -42,8 +42,8 @@ namespace ECommerce.Infrastructure
                 ["WidgetRoute"] = "api/widgets"
             };
 
-            //context.Settings.AddRange(
-            //    settings.Select(kvp => new Settings(kvp.Key, kvp.Value))
+            //context.AppSettings.AddRange(
+            //    settings.Select(kvp => new AppSettings(kvp.Key, kvp.Value))
             //            .ToArray());
 
             context.SaveChanges();

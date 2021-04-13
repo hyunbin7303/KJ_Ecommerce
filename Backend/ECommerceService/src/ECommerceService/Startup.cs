@@ -1,4 +1,5 @@
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Models;
 using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,12 +31,12 @@ namespace ECommerceService
         {
 
             // Required to update this!
-            //services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
+            services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
             //services.AddDbContext<OrderDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer"), 
-                //sqlServerOptionsAction: sqlOptions =>
-                //{
-                //    sqlOptions.EnableRetryOnFailure();
-                //}));
+            //sqlServerOptionsAction: sqlOptions =>
+            //{
+            //    sqlOptions.EnableRetryOnFailure();
+            //}));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));

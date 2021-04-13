@@ -1,13 +1,13 @@
-﻿using System;
+﻿using ECommerce.Domain;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace ECommerce.Infrastructure.Models
 {
-    public partial class Shipment
+    public partial class Shipment : Entity
     {
-        public string Id { get; set; }
         public string TrackingNumber { get; set; }
         public int? AddressId { get; set; }
         public int? WarehouseId { get; set; }

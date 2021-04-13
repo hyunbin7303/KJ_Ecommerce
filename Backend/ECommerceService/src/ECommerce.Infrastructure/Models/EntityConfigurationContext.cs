@@ -7,7 +7,6 @@ namespace ECommerce.Infrastructure.Models
 {
     public partial class EntityConfigurationContext : DbContext
     {
-        //public DbSet<Settings> Settings { get; set; }
         public virtual DbSet<AppMenu> AppMenus { get; set; }
         public virtual DbSet<AppSetting> AppSettings { get; set; }
         public EntityConfigurationContext(DbContextOptions options)

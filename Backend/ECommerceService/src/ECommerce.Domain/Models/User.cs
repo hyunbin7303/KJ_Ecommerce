@@ -7,7 +7,6 @@ using System.Text;
 
 namespace ECommerce.Domain.Models
 {
-
     // TODO : This class needs  to be updated.
     public class User : Entity
     {

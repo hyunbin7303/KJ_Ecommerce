@@ -12,21 +12,14 @@ namespace ECommerce.Infrastructure
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        //private MainEcommerceDBContext context;
         internal DbSet<T> dbSet = null;
         private MainEcommerceDBContext context;
 
         public GenericRepository(MainEcommerceDBContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.dbSet = context.Set<T>();
         }
-
-        //public GenericRepository(MainEcommerceDBContext context)
-        //{
-        //    this.context = context ?? throw new ArgumentNullException(nameof(context));
-        //    this.dbSet = context.Set<T>();
-        //}
-
         public async Task DeleteAsync(object id)
         {
             try
@@ -38,7 +31,7 @@ namespace ECommerce.Infrastructure
                 }
 
                 dbSet.Remove(existing);
-                //await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 // Okay 
             }
             catch
@@ -103,7 +96,7 @@ namespace ECommerce.Infrastructure
 
         public virtual void Save()
         {
-            //context.SaveChanges();
+            context.SaveChanges();
         }
 
         public virtual void Update(T obj)
@@ -113,7 +106,7 @@ namespace ECommerce.Infrastructure
                 throw new ArgumentException("entity");
             }
             dbSet.Attach(obj);
-            //context.Entry(obj).State = EntityState.Modified;
+            context.Entry(obj).State = EntityState.Modified;
         }
 
         public bool TryGetObject(object id, out object obj)
