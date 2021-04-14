@@ -23,6 +23,31 @@ INSERT INTO [dbo].[Product]([Id], [Name], [DisplayName], [Description], [VendorI
 INSERT INTO [dbo].[Product]([Id], [Name], [DisplayName], [Description], [VendorId], [CategoryId], [ProductFormat], [QuantityPerUnit], [UnitPrice], [UnitsInStock], [Discount], [OrderAvailable], [ProductAvailable], [DiscountAvailable], [ImageId], [Note])VALUES(11,'Necklace',						'Cross Necklace',						'Sterling Silver Thin 0.6mm Box Chain Necklace',	4, null, 'Warehouse Item',	3,	19,			'False',	null, 0, 0, 0,	NULL,NULL)
 INSERT INTO [dbo].[Product]([Id], [Name], [DisplayName], [Description], [VendorId], [CategoryId], [ProductFormat], [QuantityPerUnit], [UnitPrice], [UnitsInStock], [Discount], [OrderAvailable], [ProductAvailable], [DiscountAvailable], [ImageId], [Note])VALUES(12,'Hot Wheels Car',					'Fast and Furios Paul Walker Car',		'Hot wheels R/C 1:64 Mini Nissan Skyline',			5, null, 'Warehouse Item',	5,	13,			'True',		null, 1, 1, 0,	NULL,NULL)		
 
+GO
+INSERT INTO [dbo].[Address] VALUES
+(1,'Habib Shakibanejad', '222-123-1234', '534 Main St.', 'Kitchener', 'Ontario','Canada'),
+(2,'Julio Rivas', '456-123-1253', '534 Main St.', 'Kitchener', 'Ontario','Canada'),
+(3,'Kevin Park', '234-754-4234', '4 Old Mill Rd.', 'Waterloo', 'Ontario','Canada'),
+(4,'Evan', '867-456-3472', '6412 Westrood Rd.', 'Guelph', 'Ontario','Canada'),
+(5,'Michael Jackson', '876-786-7375', '2355 Cresthaven St.', 'Toronto', 'Ontario','Canada'),
+(6,'Roosie McDonald', '769-456-4565', '87 Orchard Mill Rd.', 'Ottawa', 'Ontario','Canada'),
+(7,'Client Eastwood', '656-456-4554', '48 Booth St.', 'Kitchener', 'Cambridge','Canada')
 
+GO
+INSERT INTO [dbo].[Customer] VALUES 
+('1',1,1,'Habib Shakibanejad',null),
+('2',2,2,'Julio Rivas',null),
+('3',3,3,'Kevin Park',null),
+('4',4,4,'Evan',null),
+('5',5,5,'Michael Jackson',null),
+('6',6,6,'Chris Tucker',null)
 
+GO
+INSERT INTO [dbo].Cart VALUES
+('1',1,GETDATE()-1),
+('2',2,GETDATE()-2),
+('3',3,GETDATE()-3),
+('4',4,GETDATE()-4),
+('5',5,GETDATE()-5),
+('6',6,GETDATE()-6)
 
