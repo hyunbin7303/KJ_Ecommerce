@@ -70,11 +70,7 @@ namespace ECommerceService.Controllers
                 }
                 //temporary create GUID product Id
                 Guid tmpId = Guid.NewGuid();
-<<<<<<< HEAD:Backend/ECommerceService/src/ECommerceService/Controllers/ProductController.cs
-                //product.Id = tmpId.ToString();
-=======
                 product.Id = tmpId.ToString();
->>>>>>> #36 #33:ECommerceService/ECommerceService/Controllers/ProductController.cs
                 
                 _productRepository.Insert(product);
                 return CreatedAtAction(nameof(ProductDetails), new { id = product.Id }, product);
