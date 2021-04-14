@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+<<<<<<< HEAD
+=======
+import { MdClose } from "react-icons/md";
+
+>>>>>>> a6d79959fd4806f37936f61128b757e342be339c
 export const ProductDetailContainer = styled.div`
   z-index: 2;
   background: rgba(255, 255, 255, 0.5);
@@ -114,6 +119,7 @@ export const ProductDetailDescription = styled.p`
   }
 `;
 
+<<<<<<< HEAD
 export const ProductDetailCloseBtn = styled.button`
   color: #555;
   z-index: 3;
@@ -127,3 +133,15 @@ export const ProductDetailCloseBtn = styled.button`
     z-index: 4;
   }
 `;
+=======
+export const CloseModalButton = styled(MdClose)`
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  z-index: 10;
+`;
+>>>>>>> a6d79959fd4806f37936f61128b757e342be339c

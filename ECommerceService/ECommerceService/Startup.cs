@@ -31,7 +31,11 @@ namespace ECommerceService
 
             // Required to update this!
             services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
-
+            //services.AddDbContext<OrderDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer"), 
+                //sqlServerOptionsAction: sqlOptions =>
+                //{
+                //    sqlOptions.EnableRetryOnFailure();
+                //}));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
@@ -43,7 +47,7 @@ namespace ECommerceService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MainEcommerceDBContext db)
         {
             if (env.IsDevelopment())
             {
@@ -51,7 +55,12 @@ namespace ECommerceService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerceService v1"));
             }
-
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            db.Database.EnsureCreated();
+            //orderdb.Database.EnsureCreated();
             app.UseRouting();
 
             app.UseAuthorization();

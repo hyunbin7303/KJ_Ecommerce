@@ -1,9 +1,13 @@
-﻿namespace ECommerce.Domain.Models
+﻿using System;
+
+namespace ECommerce.Domain.Models
 {
-    public class Supplier
+    public class Supplier : Entity
     {
-        public int SupplierId { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
+        public string Description { get; set; }
+        public string Email { get; set; }
+        public DateTimeOffset? LatestupdatedTime { get; set; }
     }
 }

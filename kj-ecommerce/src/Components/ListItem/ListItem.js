@@ -17,8 +17,13 @@ import TmpPic from "../../Assets/Images/TmpPic.png";
 const ListItem = (props) => {
   const [showModal, setShowModal] = useState(false);
 
+<<<<<<< HEAD
   const productDetailModel = {
     name: "nani",
+=======
+  const [productInfomartion, setProductInformation] = useState({
+    name: "",
+>>>>>>> a6d79959fd4806f37936f61128b757e342be339c
     description: "",
     supplierId: 0,
     customerId: "",
@@ -30,6 +35,7 @@ const ListItem = (props) => {
     imageAddress: "",
     note: "",
     id: "",
+<<<<<<< HEAD
   };
 
   const [productInfomartion, setProductInformation] = useState(
@@ -37,6 +43,10 @@ const ListItem = (props) => {
   );
 
   console.log("NAME : " + productDetailModel.name);
+=======
+  });
+
+>>>>>>> a6d79959fd4806f37936f61128b757e342be339c
   const showDetails = () => {
     getProductDetails();
     setShowModal((prev) => !prev);
@@ -48,6 +58,7 @@ const ListItem = (props) => {
         params: { productId: "d630cf81-94eb-4d42-932f-131ea7ad8074" },
       })
       .then((response) => {
+<<<<<<< HEAD
         setProductInformation({
           name: response.data.name,
           description: response.data.description,
@@ -65,6 +76,12 @@ const ListItem = (props) => {
         console.log("Response Data: " + response);
         console.log("Response Data: " + response.data.name);
         console.log("Prod: " + productInfomartion.name);
+=======
+        setProductInformation(Object.assign(productInfomartion, response.data));
+
+        console.log("Response Data: " + response.data.name);
+        console.log("Prod: " + productInfomartion.description);
+>>>>>>> a6d79959fd4806f37936f61128b757e342be339c
       })
       .catch((error) => {
         console.log("ERROR getting response: " + error);
@@ -85,10 +102,17 @@ const ListItem = (props) => {
           </ListItemButton>
 
           <ProductDetail
+<<<<<<< HEAD
             key={productDetailModel.id}
             src={TmpPic}
             title={productDetailModel.name}
             description={productDetailModel.description}
+=======
+            key={productInfomartion.id}
+            src={TmpPic}
+            title={productInfomartion.name}
+            description={productInfomartion.description}
+>>>>>>> a6d79959fd4806f37936f61128b757e342be339c
             showModal={showModal}
             setShowModal={setShowModal}
           />

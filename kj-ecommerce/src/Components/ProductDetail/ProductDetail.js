@@ -5,6 +5,7 @@ import {
   ProductDetailImgWrapper,
   ProductDetailImg,
   ProductDetailInfo,
+<<<<<<< HEAD
   ProductDetailCloseBtn,
   ProductDetailTitle,
   ProductDetailCategory,
@@ -28,6 +29,15 @@ const ProductDetail = ({
   showModal,
   setShowModal,
 }, props) => {
+=======
+  ProductDetailTitle,
+  ProductDetailCategory,
+  ProductDetailDescription,
+  CloseModalButton
+} from "./ProductDetailElements";
+
+const ProductDetail = ({ showModal, setShowModal }, props) => {
+>>>>>>> a6d79959fd4806f37936f61128b757e342be339c
   return (
     <>
       {showModal ? (
@@ -46,7 +56,14 @@ const ProductDetail = ({
               </ProductDetailTitle>
             </ProductDetailInfo>
           </ProductDetailCard>
+<<<<<<< HEAD
           <CloseModalButton aria-label="Close Modal" onClick={() => setShowModal(prev => !prev)}/>
+=======
+          <CloseModalButton
+            aria-label="Close Modal"
+            onClick={() => setShowModal((prev) => !prev)}
+          />
+>>>>>>> a6d79959fd4806f37936f61128b757e342be339c
         </ProductDetailContainer>
       ) : null}
     </>

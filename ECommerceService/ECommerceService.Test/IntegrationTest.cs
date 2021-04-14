@@ -36,12 +36,12 @@ namespace ECommerceService.Test
 
         protected async Task AuthenticateAsync()
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", await GetJwtAsync());
+            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", await GetJwtAsync());
         }
-        private async Task<string> GetJwtAsync()
-        {
+        //private async Task<string> GetJwtAsync()
+        //{
 
-        }
+        //}
 
 
     }
