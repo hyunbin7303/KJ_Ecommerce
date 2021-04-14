@@ -16,7 +16,7 @@ namespace ECommerceService.Controllers
     public class ProductController : ControllerBase
     {
         //private IGenericRepository<Product> _productRepository = null;
-        private IProductRepository _productRepository = null;
+        private IProductRepository _productRepository = null; 
 
         public ProductController(IProductRepository repo)
         {
