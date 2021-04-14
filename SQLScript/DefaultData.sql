@@ -11,10 +11,3 @@ INSERT INTO [dbo].[Products]([Id],[Name],[Description],[SupplierId],[CustomerId]
 INSERT INTO [dbo].[Products]([Id],[Name],[Description],[SupplierId],[CustomerId],[ProductFormat],[QuantityPerUnit],[UnitPrice],[UnitsInStock],[CategoryId],[ImageAddress],[Note])VALUES(NEWID(),'Lord of the Ring - fellowship', 	'LOTR hard copy',				0,'','InStore',	1,	10,			'True',	null,	NULL,NULL)
 INSERT INTO [dbo].[Products]([Id],[Name],[Description],[SupplierId],[CustomerId],[ProductFormat],[QuantityPerUnit],[UnitPrice],[UnitsInStock],[CategoryId],[ImageAddress],[Note])VALUES(NEWID(),'Coke - Pack#1',					'Pack of Coca Cola',			0,'','InStore',	6,	12,			'True',	null,	NULL,NULL)
 INSERT INTO [dbo].[Products]([Id],[Name],[Description],[SupplierId],[CustomerId],[ProductFormat],[QuantityPerUnit],[UnitPrice],[UnitsInStock],[CategoryId],[ImageAddress],[Note])VALUES(NEWID(),'Coke - Pack#1',					'Pack of Coca Cola',			0,'','App',		6,	13,			'True',	null,	NULL,NULL)	
-
-INSERT INTO 
-
-
-
-
-
