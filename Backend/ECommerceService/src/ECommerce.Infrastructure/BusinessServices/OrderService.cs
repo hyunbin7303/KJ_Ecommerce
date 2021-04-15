@@ -45,16 +45,10 @@ namespace ECommerce.Infrastructure.BusinessServices
 
             cart.CartItems.ToList().ForEach(i => orderitems.Add(new OrderItem
             { 
-                OrderId = order.Id,
-                 
+                OrderId = order.Id                
             }));
 
-
-            foreach(var item in cart.CartItems)
-            {
-               
-            }
-           
+                       
         }
 
         public Task RemoveOrderItem(string orderId, List<string> orderItemId)
