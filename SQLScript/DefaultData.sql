@@ -1,6 +1,9 @@
 USE [MainEcommerceDB]
 GO
-INSERT INTO [dbo].[Category]([Id], [Name], [ProductId])VALUES(1, 'Example Category', null)
+INSERT INTO [dbo].[Category]([Name], [ProductId])VALUES('Example Category', null)
+
+select * from Category
+
 
 GO
 INSERT INTO [dbo].[Vendor]([Id], [vendor_name], [AddressId], [phone_number], [website], [email], [last_updatedtime], [note])VALUES(1, 'Habib Vendor', null, null, null, null, null, null)
@@ -50,4 +53,11 @@ INSERT INTO [dbo].Cart VALUES
 ('4',4,GETDATE()-4),
 ('5',5,GETDATE()-5),
 ('6',6,GETDATE()-6)
+
+
+INSERT INTO [dbo].[Image] VALUES
+(1,1,'wifi installation','www.google.com'),
+(2,1,'wifi installation2','www.google.com/12354'),
+(3,1,'wifi installation2-1','www.google.com/12357774'),
+(4,1,'wifi installation3-1K','www.google.com/12354666')
 

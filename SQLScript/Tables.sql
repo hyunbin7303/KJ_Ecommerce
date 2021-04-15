@@ -286,15 +286,10 @@ CREATE TABLE [dbo].[App_Menu](
 GO
 
 
-DROP TABLE IF EXISTS [dbo].[ProductImage];
-CREATE TABLE [dbo].[ProductImage](
-	[ProductId] [int] NOT NULL,
-	[ImageId] [int] NOT NULL)
-GO
-
 DROP TABLE IF EXISTS [dbo].[Image];
 CREATE TABLE [dbo].[Image](
 	[Id] [int] NOT NULL,
+	[ProductId][int] NOT NULL,
 	[ImageTitle] [nvarchar](100) NULL,
 	[ImageURL] [nvarchar](450) NULL,
  CONSTRAINT [PK_Image] PRIMARY KEY CLUSTERED 
