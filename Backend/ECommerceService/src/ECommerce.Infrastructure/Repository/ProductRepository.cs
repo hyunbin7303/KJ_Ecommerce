@@ -35,33 +35,5 @@ namespace ECommerce.Infrastructure.Repository
             var check = Get(expressionCategory);
             return Task.FromResult(check);
         }
-        Task<IEnumerable<Product>> IProductRepository.GetProductsAsync()
-        {
-            throw new NotImplementedException();
-        }
-        Task<Product> IProductRepository.GetProductById(string productId)
-        {
-            throw new NotImplementedException();
-        }
-        Task<IEnumerable<Product>> IProductRepository.GetProductsByNameAsync(string productName)
-        {
-            throw new NotImplementedException();
-        }
-        Task<IEnumerable<Product>> IProductRepository.GetProductByCategoryAsync(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
-        IEnumerable<Product> IGenericRepository<Product>.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-        public IEnumerable<Product> Get(Expression<Func<Product, bool>> filter = null, Func<System.Linq.IQueryable<Product>, System.Linq.IOrderedQueryable<Product>> orderBy = null, string includeProperties = "")
-        {
-            throw new NotImplementedException();
-        }
-        IEnumerable<Product> IGenericRepository<Product>.GetWithSql(string query, params object[] paras)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
