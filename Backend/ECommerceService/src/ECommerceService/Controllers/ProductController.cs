@@ -17,7 +17,7 @@ namespace ECommerceService.Controllers
     {
         //private IGenericRepository<Product> _productRepository = null;
         private IProductRepository _productRepository = null;
-
+        // AUtomapper setting.
         public ProductController(IProductRepository repo)
         {
             _productRepository = repo ?? null;
@@ -26,6 +26,7 @@ namespace ECommerceService.Controllers
         public IEnumerable<Product> Get()
         {
             var allProducts = _productRepository.GetAll();
+            //TODO: Create AutoMapper interface
             return allProducts;
         }
         [HttpGet("Details")]
