@@ -6,8 +6,8 @@ namespace ECommerce.Domain.Models
     public class Product : Entity
     {
         [Key]
-        [Column("product_id")]
-        public string ProductId { get; set; }
+        //[Column("Id")]
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int SupplierId { get; set; }
