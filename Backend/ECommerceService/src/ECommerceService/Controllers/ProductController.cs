@@ -32,9 +32,9 @@ namespace ECommerceService.Controllers
         [HttpGet("Details")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult ProductDetails(string productId, string updateCartItemId = null)
+        public async Task<IActionResult> ProductDetails(string productId, string updateCartItemId = null)
         {
-            var product =  _productRepository.GetByIdAsync(productId);
+            var product =  await _productRepository.GetByIdAsync(productId);
             if (product == null)
             {
                 return NotFound(); 

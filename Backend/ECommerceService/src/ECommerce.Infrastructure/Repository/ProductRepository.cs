@@ -13,10 +13,10 @@ namespace ECommerce.Infrastructure.Repository
         public ProductRepository(MainEcommerceDBContext context) : base(context)
         {
         }
-        public Task<Product> GetProductById(string productId)
+        public async Task<Product> GetProductById(string productId)
         {
-            var product = GetByIdAsync(productId);
-            return Task.FromResult(product);
+            var product = await GetByIdAsync(productId);
+            return product;
         }
         public Task<IEnumerable<Product>> GetProductsAsync()
         {
@@ -35,6 +35,5 @@ namespace ECommerce.Infrastructure.Repository
             var check = Get(expressionCategory);
             return Task.FromResult(check);
         }
-
     }
 }

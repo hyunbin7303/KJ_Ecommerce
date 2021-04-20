@@ -74,11 +74,6 @@ namespace ECommerce.Infrastructure
             return dbSet.ToList();
         }
 
-        public virtual T GetByIdAsync(object id)
-        {
-            return dbSet.Find(id);
-        }
-
         public virtual IEnumerable<T> GetWithSql(string query, params object[] paras)
         {
             return dbSet.FromSqlRaw<T>(query, paras);
@@ -112,6 +107,11 @@ namespace ECommerce.Infrastructure
         public bool TryGetObject(object id, out object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public virtual async Task<T> GetByIdAsync(object id)
+        {
+            return await dbSet.FindAsync(id);
         }
     }
 }
