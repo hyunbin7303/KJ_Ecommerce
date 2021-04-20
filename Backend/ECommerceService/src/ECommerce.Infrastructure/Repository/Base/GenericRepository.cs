@@ -102,6 +102,7 @@ namespace ECommerce.Infrastructure
             }
             dbSet.Attach(obj);
             context.Entry(obj).State = EntityState.Modified;
+            Save();
         }
 
         public bool TryGetObject(object id, out object obj)
