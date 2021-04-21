@@ -10,7 +10,6 @@ namespace ECommerce.Domain.Models
     {
         public Product()
         {
-            OrderItems = new HashSet<OrderItem>();
             ProductAttributes = new HashSet<ProductAttribute>();
         }
         public int Id { get; set; }
@@ -32,7 +31,6 @@ namespace ECommerce.Domain.Models
 
         public virtual Category Category { get; set; }
         public virtual Vendor Vendor { get; set; }
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
     }
 }

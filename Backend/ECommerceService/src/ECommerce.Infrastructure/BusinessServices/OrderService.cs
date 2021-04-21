@@ -62,6 +62,11 @@ namespace ECommerce.Infrastructure.BusinessServices
             throw new NotImplementedException();
         }
 
+        public Task ChangeShippingAddress(Address shippingAddr, string orderId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task InvoiceOrder(string orderId)
         {
             var order = await _orderRepository.GetByIdAsync(orderId);

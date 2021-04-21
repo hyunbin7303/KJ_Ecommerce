@@ -15,11 +15,11 @@ namespace ECommerce.Domain.Models.OrderAggregate
         public string CustomerId { get; set; }
         public int? VendorId { get; set; }
         public string CartId { get; set; }
-        public string Status { get; set; }
+        public OrderStatus Status { get; set; }
         public string Comment { get; set; }
         public DateTimeOffset? RequiredDate { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public DateTimeOffset? UpdatedDate { get; set; }
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
     }
 }
