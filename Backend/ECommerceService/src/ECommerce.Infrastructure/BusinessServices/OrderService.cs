@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using ECommerce.Domain.Models;
 
 namespace ECommerce.Infrastructure.BusinessServices
 {
@@ -24,36 +25,46 @@ namespace ECommerce.Infrastructure.BusinessServices
             throw new NotImplementedException();
         }
 
-        public Task CancelOrder(string orderId)
+        public async Task CancelOrder(string orderId)
         {
-            throw new NotImplementedException();
+            var order = await _orderRepository.GetByIdAsync(orderId);
+            order.Status = OrderStatus.Cancelled;
         }
 
-        public Task CheckoutOrder(string orderId)
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task CreateOrder(string cartId)
+        public async Task<Order> CheckoutCart(string cartId)
         {
-            throw new NotImplementedException();
-            var order = new Order();
-          
+            var order = new Order();          
             var orderitems = new List<OrderItem>();
 
             var cart = await _cartRepository.GetByIdAsync(cartId);
 
             cart.CartItems.ToList().ForEach(i => orderitems.Add(new OrderItem
             { 
-                OrderId = order.Id                
+                OrderId = Guid.NewGuid().ToString(),
+                ProductId = i.ProductId,
+                
             }));
 
-                       
+            order.Status = OrderStatus.PendingSubmitted;
+            return order;                       
         }
 
         public Task RemoveOrderItem(string orderId, List<string> orderItemId)
         {
             throw new NotImplementedException();
+        }
+
+        public Task ChangeShippingAddress(Address shippingAddr, string orderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task InvoiceOrder(string orderId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId);
+
+            order.Status = OrderStatus.Submitted;
         }
     }
 }

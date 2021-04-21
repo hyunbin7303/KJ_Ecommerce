@@ -9,21 +9,26 @@ namespace ECommerce.Infrastructure.Models
     {
         public Cart()
         {
-            CartItems = new HashSet<CartItem>();
+            CartItems = new List<CartItem>();
         }
 
-        public string Id { get; set; }
+        public override string Id { get; set; }
         public int CustomerId { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }
 
-        public void AddCartItem(int productId, int quantity = 1)
+        public void AddCartItem(CartItem item)
         {
-            var item = CartItems.FirstOrDefault(i => i.ProductId == productId);
             if(item != null)
             {
-                item.Quantity++;
+                CartItems.Add(item);
             }
+        }
+
+        public bool RemoveCartItem(int itemId)
+        {
+            var item = CartItems.FirstOrDefault(e => e.Id == itemId);
+            return CartItems.Remove(item);
         }
 
 

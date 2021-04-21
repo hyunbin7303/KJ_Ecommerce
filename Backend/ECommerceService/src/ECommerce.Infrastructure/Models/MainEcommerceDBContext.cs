@@ -149,10 +149,10 @@ namespace ECommerce.Infrastructure.Models
 
                 entity.Property(e => e.Quantity).HasColumnType("decimal(8, 2)");
 
-                entity.HasOne(d => d.Cart)
-                    .WithMany(p => p.CartItems)
-                    .HasForeignKey(d => d.CartId)
-                    .HasConstraintName("FK_CartId");
+                //entity.HasOne(d => d.Cart)
+                //    .WithMany(p => p.CartItems)
+                //    .HasForeignKey(d => d.CartId)
+                //    .HasConstraintName("FK_CartId");
             });
             modelBuilder.Entity<Category>(entity =>
             {
