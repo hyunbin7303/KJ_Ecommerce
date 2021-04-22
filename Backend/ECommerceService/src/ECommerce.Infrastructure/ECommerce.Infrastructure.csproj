@@ -5,6 +5,27 @@
     <!--<GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>-->
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="EmailService\**" />
+    <Compile Remove="Identity\**" />
+    <Compile Remove="InMemory-DataCache\**" />
+    <Compile Remove="Localization\**" />
+    <Compile Remove="Migrations\**" />
+    <Compile Remove="Redis\**" />
+    <EmbeddedResource Remove="EmailService\**" />
+    <EmbeddedResource Remove="Identity\**" />
+    <EmbeddedResource Remove="InMemory-DataCache\**" />
+    <EmbeddedResource Remove="Localization\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="Redis\**" />
+    <None Remove="EmailService\**" />
+    <None Remove="Identity\**" />
+    <None Remove="InMemory-DataCache\**" />
+    <None Remove="Localization\**" />
+    <None Remove="Migrations\**" />
+    <None Remove="Redis\**" />
+  </ItemGroup>
+
 
 
   <ItemGroup>
@@ -23,15 +44,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ECommerce.Domain\ECommerce.Domain.csproj" />
     <ProjectReference Include="..\ECommerce.Query\ECommerce.Query.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EmailService\SendGrid\" />
-    <Folder Include="Localization\" />
-    <Folder Include="InMemory-DataCache\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Identity\" />
-    <Folder Include="Redis\" />
   </ItemGroup> 
 
 </Project>
