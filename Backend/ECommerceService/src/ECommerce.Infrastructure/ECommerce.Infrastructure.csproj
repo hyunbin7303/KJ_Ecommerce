@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <!--<GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EmailService\**" />
+    <Compile Remove="Identity\**" />
+    <Compile Remove="InMemory-DataCache\**" />
+    <Compile Remove="Localization\**" />
+    <Compile Remove="Migrations\**" />
+    <Compile Remove="Redis\**" />
+    <EmbeddedResource Remove="EmailService\**" />
+    <EmbeddedResource Remove="Identity\**" />
+    <EmbeddedResource Remove="InMemory-DataCache\**" />
+    <EmbeddedResource Remove="Localization\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="Redis\**" />
+    <None Remove="EmailService\**" />
+    <None Remove="Identity\**" />
+    <None Remove="InMemory-DataCache\**" />
+    <None Remove="Localization\**" />
+    <None Remove="Migrations\**" />
+    <None Remove="Redis\**" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerce.Domain\ECommerce.Domain.csproj" />
+    <ProjectReference Include="..\ECommerce.Query\ECommerce.Query.csproj" />
+  </ItemGroup> 
+
+</Project>
