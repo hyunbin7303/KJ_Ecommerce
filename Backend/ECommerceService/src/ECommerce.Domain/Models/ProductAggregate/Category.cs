@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace ECommerce.Domain.Models
 {
-    public partial class Category
+    public class Category
     {
         public Category()
         {
-            Products = new HashSet<Product>();
+            Products = new List<Product>();
         }
 
         public int Id { get; set; }

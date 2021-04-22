@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ECommerce.Domain.Models
 {
-    public partial class Vendor
+    public class Vendor
     {
         public Vendor()
         {

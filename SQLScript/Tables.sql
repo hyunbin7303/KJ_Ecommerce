@@ -107,16 +107,16 @@ GO
 GO
 DROP TABLE IF EXISTS [dbo].OrderItem;
 CREATE TABLE OrderItem (
-    [id][nvarchar](100) NOT NULL,
-	[OrderId][nvarchar](100) NOT NULL,
-	[ProductId][int] NOT NULL,
+    [id][nvarchar](100) NOT NULL, 
+    [OrderId][nvarchar](100) NOT NULL,
+    [ProductId][int] NOT NULL,
     [Quantity] decimal(8, 2),
-    Unit nvarchar(10),
-    PriceUnit [decimal](18,2) NULL,
-    Price [decimal](18,2) NULL,
+    UnitPrice [decimal](18,2) NULL,
+    TotalPrice  [decimal](18,2) NULL,
+    Discount [decimal](18,2) NULL,
     CreatedDate datetimeoffset(7),
     UpdatedDate datetimeoffset(7),
-	CONSTRAINT [PK_OrderItem] PRIMARY KEY CLUSTERED 
+    CONSTRAINT [PK_OrderItem] PRIMARY KEY CLUSTERED 
 	(
 		[id] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -125,8 +125,9 @@ GO
 DROP TABLE IF EXISTS [dbo].[Order];
 CREATE TABLE [dbo].[Order] (
     [Id] [nvarchar](100) NOT NULL,
-	[CustomerId] [nvarchar](100) NOT NULL,
-	[CartId][nvarchar](100) NULL,
+    [CustomerId] [nvarchar](100) NOT NULL,
+    [VendorId][int] NULL,
+    [CartId][nvarchar](100) NULL,
     [Status] nvarchar(1),
     Comment nvarchar(200),
     RequiredDate datetimeoffset(7),
@@ -152,7 +153,7 @@ CREATE TABLE [dbo].[CartItem](
 	[Id] [int] NOT NULL,
 	[CartId] [nvarchar](100) NULL,
 	[ProductId] [int],
-	 [Quantity] decimal(8, 2),
+	[Quantity] decimal(8, 2),
 	CreatedDate datetimeoffset(7),
 	CONSTRAINT CartItem_CreatedDate CHECK (CreatedDate > '1 April 2021'),
 	CONSTRAINT PK_CartItem PRIMARY KEY(Id),
@@ -166,10 +167,10 @@ CREATE TABLE [dbo].[Invoice](
 	[ShipmentId] [nvarchar](100) NOT NULL,
 	[PaymentId] [nvarchar](100) NOT NULL,
 	[Date] datetimeoffset(7) NOT NULL,
-    [SubTotal] [decimal](18,2) NOT NULL,
+        [SubTotal] [decimal](18,2) NOT NULL,
 	[ShippingTotal] [decimal](18,2) NULL, 
 	[VAT][decimal](18,2) NULL, -- Value-Added Tax. 
-    [Total] [decimal](18,2) NULL,
+        [Total] [decimal](18,2) NULL,
 	[CustomerNote] [nvarchar](1000) NULL,
 
  CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 

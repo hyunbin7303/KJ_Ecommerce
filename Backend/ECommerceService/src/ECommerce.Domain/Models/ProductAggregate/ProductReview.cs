@@ -5,9 +5,8 @@ using System.Collections.Generic;
 
 namespace ECommerce.Domain.Models
 {
-    public partial class ProductReview
+    public class ProductReview : Entity
     {
-        public string Id { get; set; }
         public int CustomerId { get; set; }
         public int Rating { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }

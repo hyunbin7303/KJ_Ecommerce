@@ -1,4 +1,5 @@
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.BusinessServices;
 using ECommerce.Infrastructure.Models;
 using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +41,8 @@ namespace ECommerceService
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+
+            services.AddScoped<IOrderService, OrderService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

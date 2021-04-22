@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using ECommerce.Domain.Models;
+using ECommerce.Infrastructure.Helpers;
 
 namespace ECommerce.Infrastructure.BusinessServices
 {
@@ -28,7 +29,8 @@ namespace ECommerce.Infrastructure.BusinessServices
         public async Task CancelOrder(string orderId)
         {
             var order = await _orderRepository.GetByIdAsync(orderId);
-            order.Status = OrderStatus.Cancelled;
+            var status = EnumExtensions.ToDescriptionString(OrderStatus.Cancelled);
+            order.Status = status;
         }
 
 
@@ -42,11 +44,11 @@ namespace ECommerce.Infrastructure.BusinessServices
             cart.CartItems.ToList().ForEach(i => orderitems.Add(new OrderItem
             { 
                 OrderId = Guid.NewGuid().ToString(),
-                ProductId = i.ProductId,
+                ProductId = i.ProductId.Value,
                 
             }));
-
-            order.Status = OrderStatus.PendingSubmitted;
+            var status = EnumExtensions.ToDescriptionString(OrderStatus.PendingSubmitted);
+            order.Status = status;
             return order;                       
         }
 
@@ -63,8 +65,8 @@ namespace ECommerce.Infrastructure.BusinessServices
         public async Task InvoiceOrder(string orderId)
         {
             var order = await _orderRepository.GetByIdAsync(orderId);
-
-            order.Status = OrderStatus.Submitted;
+            var status= EnumExtensions.ToDescriptionString(OrderStatus.Submitted);
+            order.Status = status;
         }
     }
 }

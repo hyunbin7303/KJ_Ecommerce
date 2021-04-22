@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ECommerce.Domain.Models.OrderAggregate
+﻿namespace ECommerce.Domain.Models.OrderAggregate
 {
     public enum OrderStatus
     {

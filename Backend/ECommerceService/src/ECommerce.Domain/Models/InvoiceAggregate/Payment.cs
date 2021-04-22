@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace ECommerce.Domain.Models
 {
-    public partial class Payment
+    public class Payment : Entity
     {
-        public string Id { get; set; }
         public string InvoiceId { get; set; }
         public int PaymentMethodId { get; set; }
         public DateTimeOffset Date { get; set; }

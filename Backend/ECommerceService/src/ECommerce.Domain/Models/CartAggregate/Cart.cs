@@ -11,12 +11,9 @@ namespace ECommerce.Infrastructure.Models
         {
             CartItems = new List<CartItem>();
         }
-
-        public override string Id { get; set; }
         public int CustomerId { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }
-
         public void AddCartItem(CartItem item)
         {
             if(item != null)
@@ -24,7 +21,6 @@ namespace ECommerce.Infrastructure.Models
                 CartItems.Add(item);
             }
         }
-
         public bool RemoveCartItem(int itemId)
         {
             var item = CartItems.FirstOrDefault(e => e.Id == itemId);
