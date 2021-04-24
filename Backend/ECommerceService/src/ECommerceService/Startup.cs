@@ -38,11 +38,15 @@ namespace ECommerceService
             //{
             //    sqlOptions.EnableRetryOnFailure();
             //}));
-
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+            services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
+            services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
+            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<IOrderService, OrderService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -36,16 +36,16 @@ namespace ECommerce.Infrastructure.BusinessServices
 
         public async Task<Order> CheckoutCart(string cartId)
         {
-            var order = new Order();          
+            var order = new Order();
             var orderitems = new List<OrderItem>();
 
             var cart = await _cartRepository.GetByIdAsync(cartId);
 
             cart.CartItems.ToList().ForEach(i => orderitems.Add(new OrderItem
-            { 
+            {
                 OrderId = Guid.NewGuid().ToString(),
                 ProductId = i.ProductId.Value,
-                
+
             }));
             var status = EnumExtensions.ToDescriptionString(OrderStatus.PendingSubmitted);
             order.Status = status;

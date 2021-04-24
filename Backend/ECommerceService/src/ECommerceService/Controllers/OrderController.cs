@@ -18,12 +18,7 @@ namespace ECommerceService.Controllers
         {
             _orderService = orderService;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpPost]
+        [HttpPost("CheckoutCart")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CheckoutCart(string shoppingCartId)
         {
@@ -31,7 +26,7 @@ namespace ECommerceService.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("RemoveOrderItem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveOrderItem(string orderId, List<string> orderItemId)
         {
@@ -39,7 +34,7 @@ namespace ECommerceService.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("InvoiceOrder")]
         public async Task<IActionResult> InvoiceOrder(string orderId)
         {
             await _orderService.InvoiceOrder(orderId);
