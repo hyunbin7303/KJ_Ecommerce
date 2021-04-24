@@ -1,4 +1,4 @@
-﻿using ECommerce.Domain.Models.OrderAggregate;
+﻿using ECommerce.Core.Models.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Text;

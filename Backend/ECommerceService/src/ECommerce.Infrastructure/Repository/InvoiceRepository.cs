@@ -1,6 +1,6 @@
-﻿using ECommerce.Domain.Models;
-using ECommerce.Domain.Models.OrderAggregate;
-using ECommerce.Infrastructure.Models;
+﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models;
+using ECommerce.Infrastructure.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,6 @@
-﻿using ECommerce.Domain.Models.OrderAggregate;
-using ECommerce.Infrastructure.Models;
+﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.OrderAggregate;
+using ECommerce.Infrastructure.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace ECommerce.Infrastructure.Repository
     {
         public OrderRepository(MainEcommerceDBContext context) : base(context)
         {
+        }
+
+        public override IEnumerable<Order> Get(Expression<Func<Order, bool>> filter = null, Func<IQueryable<Order>, IOrderedQueryable<Order>> orderBy = null, string includeProperties = "")
+        {
+            return base.Get(filter, orderBy, includeProperties);
         }
 
         public Task<IEnumerable<Order>> GetAllOrdersByTime(DateTimeOffset? startTime, DateTimeOffset? endTime)
@@ -35,11 +41,6 @@ namespace ECommerce.Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public Task<OrderItem> getOrderItems(string orderId)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<OrderItem> GetOrderItems(string orderId)
         {
             throw new NotImplementedException();
@@ -53,10 +54,6 @@ namespace ECommerce.Infrastructure.Repository
         public Task<IEnumerable<Order>> GetOrdersByVendorId(string vendorId)
         {
             throw new NotImplementedException();
-        }
-        public override IEnumerable<Order> Get(Expression<Func<Order, bool>> filter = null, Func<IQueryable<Order>, IOrderedQueryable<Order>> orderBy = null, string includeProperties = "")
-        {
-            return base.Get(filter, orderBy, includeProperties);
         }
     }
 }

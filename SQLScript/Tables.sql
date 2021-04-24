@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[Category](
 GO
 DROP TABLE IF EXISTS [dbo].[Customer];
 CREATE TABLE [dbo].[Customer](
-	[id] [nvarchar](100) NOT NULL,
+	[Id] [nvarchar](100) NOT NULL,
 	[UserId][int] NOT NULL,
 	[AddressId] [int]NOT NULL,
 	[customer_name] [nvarchar](100) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE [dbo].[Customer](
 GO
 DROP TABLE IF EXISTS [dbo].[Product];
 CREATE TABLE [dbo].[Product](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](450) NOT NULL,
 	[DisplayName][nvarchar](450) NULL,
 	[Description] [nvarchar](450) NULL,
@@ -53,7 +53,7 @@ CREATE TABLE [dbo].[Product](
 GO
 DROP TABLE IF EXISTS [dbo].[Vendor];
 CREATE TABLE [dbo].[Vendor](
-	[id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[vendor_name] [varchar](50) NOT NULL,
 	[AddressId] [int] NULL,
 	[phone_number] [varchar](50) NULL,
@@ -69,7 +69,7 @@ CREATE TABLE [dbo].[Vendor](
 GO
 DROP TABLE IF EXISTS [dbo].[Address];
 CREATE TABLE [dbo].[Address](
-	[id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ContactName] [nvarchar](100) NULL,
 	[Phone] [nvarchar](100) NULL,
 	[Address1] [nvarchar](100) NULL,
@@ -82,7 +82,7 @@ CREATE TABLE [dbo].[Address](
 GO
 DROP TABLE IF EXISTS [dbo].[ProductAttribute];
 CREATE TABLE [dbo].[ProductAttribute](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ProductId] [int] NOT NULL,
 	[AttributeId] [int] NOT NULL,
  CONSTRAINT [PK_ProductAttribute] PRIMARY KEY CLUSTERED 
@@ -93,7 +93,7 @@ CREATE TABLE [dbo].[ProductAttribute](
 GO
 DROP TABLE IF EXISTS [dbo].[Attribute];
 CREATE TABLE [dbo].[Attribute](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[attribute_name] [nvarchar](200) NULL,
 	[attribute_value] [nvarchar](200) NOT NULL,
 	[description] [nvarchar](200) NOT NULL
@@ -150,7 +150,7 @@ CREATE TABLE [dbo].[Cart](
 GO
 DROP TABLE IF EXISTS [dbo].[CartItem];
 CREATE TABLE [dbo].[CartItem](
-	[Id] [int] NOT NULL,
+	[Id] [nvarchar](100) NOT NULL,
 	[CartId] [nvarchar](100) NULL,
 	[ProductId] [int],
 	[Quantity] decimal(8, 2),
@@ -161,7 +161,7 @@ CREATE TABLE [dbo].[CartItem](
 GO
 DROP TABLE IF EXISTS [dbo].[Invoice];
 CREATE TABLE [dbo].[Invoice](
-	[Id] [int]  IDENTITY(1,1) NOT NULL,
+	[Id] [nvarchar](100) NOT NULL,
 	[OrderId] [nvarchar](100) NOT NULL,
 	[CustomerId] [nvarchar](100) NULL,
 	[ShipmentId] [nvarchar](100) NOT NULL,
@@ -196,7 +196,7 @@ CREATE TABLE [dbo].[Payment](
 GO
 DROP TABLE IF EXISTS [dbo].[PaymentMethod];
 CREATE TABLE [dbo].[PaymentMethod](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Description] [nvarchar](255) NOT NULL,
 	[TrnCode] [nvarchar](255) NOT NULL,
 	[MethodCode] [varchar](2) NOT NULL,
@@ -227,7 +227,7 @@ CREATE TABLE [dbo].[Shipment](
 GO
 DROP TABLE IF EXISTS [dbo].[Warehouse];
 CREATE TABLE [dbo].[Warehouse](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](100) NULL,
 	[AddressId] [nvarchar](450) NULL,
 	[VendorId] [INT] NULL,
@@ -242,7 +242,7 @@ GO
 DROP TABLE IF EXISTS [dbo].[ProductReview];
 CREATE TABLE [dbo].[ProductReview](
 	[Id] [nvarchar](100) NOT NULL,
-	[CustomerId] [int] NOT NULL,
+	[CustomerId] [nvarchar](100) NOT NULL,
 	[Rating] [int] NOT NULL,
 	[CreatedDate] datetimeoffset(7),
 	[Title][nVarchar](100) NULL,
@@ -289,7 +289,7 @@ GO
 
 DROP TABLE IF EXISTS [dbo].[Image];
 CREATE TABLE [dbo].[Image](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ProductId][int] NOT NULL,
 	[ImageTitle] [nvarchar](100) NULL,
 	[ImageURL] [nvarchar](450) NULL,

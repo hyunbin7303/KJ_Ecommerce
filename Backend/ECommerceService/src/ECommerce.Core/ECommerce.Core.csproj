@@ -5,9 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Services\**" />
+    <Folder Include="BusinessServices\" />
+    <Folder Include="DomainEvents\" />
   </ItemGroup>
 
 </Project>

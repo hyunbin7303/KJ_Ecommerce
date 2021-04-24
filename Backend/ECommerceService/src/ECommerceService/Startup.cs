@@ -1,7 +1,8 @@
+using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.BusinessServices;
-using ECommerce.Infrastructure.Models;
 using ECommerce.Infrastructure.Repository;
+using ECommerce.Infrastructure.Repository.Base;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

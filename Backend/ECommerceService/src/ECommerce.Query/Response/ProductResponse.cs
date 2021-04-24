@@ -1,5 +1,5 @@
 ﻿
-using ECommerce.Domain.Models;
+using ECommerce.Core.Models.ProductAggregate;
 
 namespace ECommerce.Query
 {

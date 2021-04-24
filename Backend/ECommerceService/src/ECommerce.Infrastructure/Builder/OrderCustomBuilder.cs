@@ -1,6 +1,4 @@
-﻿using ECommerce.Domain.Models;
-using ECommerce.Domain.Models.OrderAggregate;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;

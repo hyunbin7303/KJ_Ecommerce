@@ -1,6 +1,5 @@
-﻿using ECommerce.Domain.Models;
-using ECommerce.Infrastructure;
-using ECommerce.Infrastructure.Repository;
+﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.ProductAggregate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

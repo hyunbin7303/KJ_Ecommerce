@@ -1,4 +1,4 @@
-﻿using ECommerce.Domain.Models;
+﻿using ECommerce.Core.Models.ProductAggregate;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
