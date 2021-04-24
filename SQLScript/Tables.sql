@@ -59,7 +59,6 @@ CREATE TABLE [dbo].[Vendor](
 	[phone_number] [varchar](50) NULL,
 	[website] [varchar](50) NULL,
 	[email] [varchar](100) NULL,
-	[last_updatedtime] [timestamp] NULL,
 	[note] [varchar](500) NULL,
  CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED 
 (
@@ -128,7 +127,7 @@ CREATE TABLE [dbo].[Order] (
     [CustomerId] [nvarchar](100) NOT NULL,
     [VendorId][int] NULL,
     [CartId][nvarchar](100) NULL,
-    [Status] nvarchar(1),
+    [Status] nvarchar(2),
     Comment nvarchar(200),
     RequiredDate datetimeoffset(7),
     CreatedDate datetimeoffset(7),
@@ -142,7 +141,7 @@ GO
 DROP TABLE IF EXISTS [dbo].[Cart];
 CREATE TABLE [dbo].[Cart](
 	[Id] [nvarchar](100) NOT NULL,
-	[CustomerId] [int] NOT NULL,
+	[CustomerId] [nvarchar](100) NOT NULL,
 	[CreatedDate] datetimeoffset(7) NOT NULL,
 	CONSTRAINT Cart_CreatedDate CHECK (CreatedDate > '1 April 2021'),
 	CONSTRAINT PK_Cart PRIMARY KEY(Id)
