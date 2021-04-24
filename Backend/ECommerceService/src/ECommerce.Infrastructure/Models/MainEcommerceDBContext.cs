@@ -50,7 +50,6 @@ namespace ECommerce.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.HasNoKey();
@@ -75,7 +74,6 @@ namespace ECommerce.Infrastructure
 
                 entity.Property(e => e.Province).HasMaxLength(50);
             });
-
             modelBuilder.Entity<AppMenu>(entity =>
             {
                 entity.ToTable("App_Menu");
@@ -98,7 +96,6 @@ namespace ECommerce.Infrastructure
 
                 entity.Property(e => e.Visibility).HasMaxLength(20);
             });
-
             modelBuilder.Entity<AppSetting>(entity =>
             {
                 entity.ToTable("AppSetting");
@@ -111,7 +108,6 @@ namespace ECommerce.Infrastructure
 
                 entity.Property(e => e.Value).HasMaxLength(300);
             });
-
             modelBuilder.Entity<ECommerce.Domain.Models.Attribute>(entity =>
             {
                 entity.ToTable("Attribute");
@@ -132,14 +128,17 @@ namespace ECommerce.Infrastructure
                     .HasMaxLength(200)
                     .HasColumnName("description");
             });
-
             modelBuilder.Entity<Cart>(entity =>
             {
                 entity.ToTable("Cart");
 
                 entity.Property(e => e.Id).HasMaxLength(100);
-            });
+              
+                entity.Property(e => e.CustomerId)
+                    .IsRequired()
+                    .HasMaxLength(100);
 
+            });
             modelBuilder.Entity<CartItem>(entity =>
             {
                 entity.ToTable("CartItem");
@@ -155,12 +154,10 @@ namespace ECommerce.Infrastructure
                     .HasForeignKey(d => d.CartId)
                     .HasConstraintName("FK_CartId");
             });
-
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
             });
-
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.ToTable("Customer");
@@ -174,7 +171,6 @@ namespace ECommerce.Infrastructure
                     .HasMaxLength(100)
                     .HasColumnName("customer_name");
             });
-
             modelBuilder.Entity<Image>(entity =>
             {
                 entity.ToTable("Image");
@@ -187,7 +183,6 @@ namespace ECommerce.Infrastructure
                     .HasMaxLength(450)
                     .HasColumnName("ImageURL");
             });
-
             modelBuilder.Entity<Invoice>(entity =>
             {
                 entity.ToTable("Invoice");
@@ -218,24 +213,17 @@ namespace ECommerce.Infrastructure
                     .HasColumnType("decimal(18, 2)")
                     .HasColumnName("VAT");
             });
-
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.ToTable("Order");
-
                 entity.Property(e => e.Id).HasMaxLength(100);
-
                 entity.Property(e => e.CartId).HasMaxLength(100);
-
                 entity.Property(e => e.Comment).HasMaxLength(200);
-
                 entity.Property(e => e.CustomerId)
                     .IsRequired()
                     .HasMaxLength(100);
-
-                entity.Property(e => e.Status).HasMaxLength(1);
+                entity.Property(e => e.Status).HasMaxLength(2);
             });
-
             modelBuilder.Entity<OrderItem>(entity =>
             {
                 entity.ToTable("OrderItem");
@@ -268,7 +256,6 @@ namespace ECommerce.Infrastructure
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductId");
             });
-
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.ToTable("Payment");
@@ -291,7 +278,6 @@ namespace ECommerce.Infrastructure
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PaymentMethodId");
             });
-
             modelBuilder.Entity<PaymentMethod>(entity =>
             {
                 entity.ToTable("PaymentMethod");
@@ -311,7 +297,6 @@ namespace ECommerce.Infrastructure
                     .IsRequired()
                     .HasMaxLength(255);
             });
-
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
@@ -337,7 +322,6 @@ namespace ECommerce.Infrastructure
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_VendorId");
             });
-
             modelBuilder.Entity<ProductAttribute>(entity =>
             {
                 entity.ToTable("ProductAttribute");
@@ -356,15 +340,11 @@ namespace ECommerce.Infrastructure
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductAttribute_ProudctId");
             });
-
             modelBuilder.Entity<ProductReview>(entity =>
             {
                 entity.ToTable("ProductReview");
-
                 entity.Property(e => e.Id).HasMaxLength(100);
-
                 entity.Property(e => e.Comment).HasMaxLength(450);
-
                 entity.Property(e => e.Title).HasMaxLength(100);
             });
 
@@ -391,11 +371,6 @@ namespace ECommerce.Infrastructure
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("email");
-
-                entity.Property(e => e.LastUpdatedtime)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("last_updatedtime");
 
                 entity.Property(e => e.Note)
                     .HasMaxLength(500)

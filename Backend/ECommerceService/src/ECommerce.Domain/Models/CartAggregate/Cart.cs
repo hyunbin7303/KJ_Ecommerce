@@ -11,7 +11,7 @@ namespace ECommerce.Infrastructure.Models
         {
             CartItems = new List<CartItem>();
         }
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }
         public void AddCartItem(CartItem item)
