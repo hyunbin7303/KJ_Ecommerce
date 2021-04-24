@@ -6,6 +6,7 @@ using ECommerce.Core.Models.ProductAggregate;
 using ECommerce.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 #nullable disable
 
@@ -52,6 +53,8 @@ namespace ECommerce.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.ApplyConfiguration(new ApplicationSettingConfiguration());
+
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.HasNoKey();
@@ -97,18 +100,6 @@ namespace ECommerce.Infrastructure
                 entity.Property(e => e.UsedBy).HasMaxLength(100);
 
                 entity.Property(e => e.Visibility).HasMaxLength(20);
-            });
-            modelBuilder.Entity<AppSetting>(entity =>
-            {
-                entity.ToTable("AppSetting");
-
-                entity.Property(e => e.Id).HasMaxLength(100);
-
-                entity.Property(e => e.Description).HasMaxLength(450);
-
-                entity.Property(e => e.Module).HasMaxLength(300);
-
-                entity.Property(e => e.Value).HasMaxLength(300);
             });
 
             modelBuilder.Entity<Core.Models.ProductAggregate.Attribute>(entity =>
@@ -314,11 +305,6 @@ namespace ECommerce.Infrastructure
                     .IsRequired()
                     .HasMaxLength(450);
 
-                //entity.HasOne(d => d.Category)
-                //    .WithMany(p => p.Products)
-                //    .HasForeignKey(d => d.CategoryId)
-                //    .HasConstraintName("FK_CategoryId");
-
                 entity.HasOne(d => d.Vendor)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.VendorId)
@@ -350,7 +336,6 @@ namespace ECommerce.Infrastructure
                 entity.Property(e => e.Comment).HasMaxLength(450);
                 entity.Property(e => e.Title).HasMaxLength(100);
             });
-
             modelBuilder.Entity<Shipment>(entity =>
             {
                 entity.ToTable("Shipment");
@@ -361,7 +346,6 @@ namespace ECommerce.Infrastructure
 
                 entity.Property(e => e.TrackingNumber).HasMaxLength(450);
             });
-
             modelBuilder.Entity<Vendor>(entity =>
             {
                 entity.ToTable("Vendor");
@@ -396,7 +380,6 @@ namespace ECommerce.Infrastructure
                     .IsUnicode(false)
                     .HasColumnName("website");
             });
-
             modelBuilder.Entity<Warehouse>(entity =>
             {
                 entity.ToTable("Warehouse");
@@ -413,6 +396,26 @@ namespace ECommerce.Infrastructure
             OnModelCreatingPartial(modelBuilder);
         }
 
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    }
+
+    public class CartConfigurqation : IEntityTypeConfiguration<Cart>
+    {
+        public void Configure(EntityTypeBuilder<Cart> builder)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class ApplicationSettingConfiguration : IEntityTypeConfiguration<AppSetting>
+    {
+        public void Configure(EntityTypeBuilder<AppSetting> builder)
+        {
+            builder.ToTable("AppSetting");
+            builder.Property(e => e.Id).HasMaxLength(100);
+            builder.Property(e => e.Description).HasMaxLength(450);
+            builder.Property(e => e.Module).HasMaxLength(300);
+            builder.Property(e => e.Value).HasMaxLength(300);
+        }
     }
 }
