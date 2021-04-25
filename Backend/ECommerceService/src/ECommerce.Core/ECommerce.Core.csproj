@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessServices\" />
     <Folder Include="DomainEvents\" />
   </ItemGroup>
 
