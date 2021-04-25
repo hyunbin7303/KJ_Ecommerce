@@ -21,5 +21,10 @@ namespace ECommerce.Core.Models.OrderAggregate
         public DateTimeOffset? CreatedDate { get; set; }
         public DateTimeOffset? UpdatedDate { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
+
+        //public DateTimeOffset CalculateExpirationDate()
+        //{
+
+        //}
     }
 }

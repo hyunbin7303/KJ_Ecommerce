@@ -9,22 +9,23 @@ namespace ECommerce.Core.Models.CartAggregate
     {
         public Cart()
         {
-            CartItems = new List<CartItem>();
+            _cartitems = new List<CartItem>();
         }
         public string CustomerId { get; set; }
-        public DateTimeOffset CreatedDate { get; set; }
-        public virtual ICollection<CartItem> CartItems { get; set; }
-        public void AddCartItem(CartItem item)
+        public DateTimeOffset CreatedDate { get; private set; }
+        public IEnumerable<CartItem> CartItems => _cartitems.ToList();
+        private ICollection<CartItem> _cartitems;
+        public void AddCartItem(int productId, decimal quantity)
         {
-            if(item != null)
-            {
-                CartItems.Add(item);
-            }
+            _cartitems.Add(new CartItem { Id = Guid.NewGuid().ToString(), CartId = Id, ProductId = productId, Quantity = quantity, CreatedDate = DateTimeOffset.UtcNow }); ;
+        }
+        public void UpdateQauntityCartItem(string cartItemId, decimal quantity)
+        {
         }
         public bool RemoveCartItem(string itemId)
         {
             var item = CartItems.FirstOrDefault(e => e.Id == itemId);
-            return CartItems.Remove(item);
+            return _cartitems.Remove(item);
         }
 
 
