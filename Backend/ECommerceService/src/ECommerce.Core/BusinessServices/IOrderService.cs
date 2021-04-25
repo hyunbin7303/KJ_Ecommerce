@@ -14,7 +14,7 @@ namespace ECommerce.Core.BusinessServices
         Task InvoiceOrder(string orderId);
         Task ChangeShippingAddress(Address shippingAddr, string orderId);
         Task AddOrderItem(string orderId, List<string> orderItemId);
-        Task RemoveOrderItem(string orderId, List<string> orderItemId);
+        Task RemoveOrderItem(string orderId, string orderItemId);
 
 
     }

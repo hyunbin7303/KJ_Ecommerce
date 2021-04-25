@@ -16,6 +16,11 @@ namespace ECommerce.Infrastructure.Repository
         {
         }
 
+        public Task ChangeQuantity(string orderItem, decimal quantity)
+        {
+            throw new NotImplementedException();
+        }
+
         public override IEnumerable<Order> Get(Expression<Func<Order, bool>> filter = null, Func<IQueryable<Order>, IOrderedQueryable<Order>> orderBy = null, string includeProperties = "")
         {
             return base.Get(filter, orderBy, includeProperties);
@@ -41,17 +46,22 @@ namespace ECommerce.Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public Task<OrderItem> GetOrderItems(string orderId)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<IEnumerable<Order>> GetOrdersByCustomerId(string customerId)
         {
             throw new NotImplementedException();
         }
 
         public Task<IEnumerable<Order>> GetOrdersByVendorId(string vendorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveOrderItem(string orderId, string orderItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<OrderItem>> GetOrderItems(string orderId)
         {
             throw new NotImplementedException();
         }

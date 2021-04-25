@@ -10,7 +10,7 @@ namespace ECommerce.Core.Models.OrderAggregate
     {
         public Order()
         {
-            OrderItems = new List<OrderItem>();
+            OrderItems = new List<OrderItem>();           
         }
         public string CustomerId { get; set; }
         public int? VendorId { get; set; }
