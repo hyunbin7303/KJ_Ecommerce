@@ -153,7 +153,8 @@ CREATE TABLE [dbo].[CartItem](
 	[CartId] [nvarchar](100) NULL,
 	[ProductId] [int],
 	[Quantity] decimal(8, 2),
-	CreatedDate datetimeoffset(7),
+	[UnitPrice] decimal(8, 2),
+	[CreatedDate] datetimeoffset(7),
 	CONSTRAINT CartItem_CreatedDate CHECK (CreatedDate > '1 April 2021'),
 	CONSTRAINT PK_CartItem PRIMARY KEY(Id),
 );

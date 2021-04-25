@@ -217,6 +217,9 @@ namespace ECommerce.Infrastructure
                     .IsRequired()
                     .HasMaxLength(100);
                 entity.Property(e => e.Status).HasMaxLength(2);
+                entity.HasMany(o => o.OrderItems)
+                    .WithOne(i => i.Order)
+                    .HasForeignKey(i => i.OrderId);
             });
             modelBuilder.Entity<OrderItem>(entity =>
             {
@@ -238,11 +241,12 @@ namespace ECommerce.Infrastructure
 
                 entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
 
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_OrderId");
+                // I dont think we need these, if system doesn't break, then delete
+                //entity.HasOne(d => d.Order)
+                //    .WithMany(p => p.OrderItems)
+                //    .HasForeignKey(d => d.OrderId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_OrderId");
 
                 //entity.HasOne(d => d.Product)
                 //    .WithMany(p => p.OrderItems) // FIX THIS 

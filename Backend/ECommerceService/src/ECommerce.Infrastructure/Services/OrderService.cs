@@ -8,6 +8,7 @@ using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models;
 using ECommerce.Core.Models.OrderAggregate;
 using ECommerce.Core.BusinessServices;
+using Ardalis.GuardClauses;
 
 namespace ECommerce.Infrastructure.BusinessServices
 {
@@ -38,24 +39,33 @@ namespace ECommerce.Infrastructure.BusinessServices
         public async Task<Order> CheckoutCart(string cartId)
         {
             var order = new Order();
+            order.Id = Guid.NewGuid().ToString();
             var orderitems = new List<OrderItem>();
 
             var cart = await _cartRepository.GetByIdAsync(cartId);
 
             cart.CartItems.ToList().ForEach(i => orderitems.Add(new OrderItem
             {
-                OrderId = Guid.NewGuid().ToString(),
+                OrderId = order.Id,
                 ProductId = i.ProductId,
-
+                Id = Guid.NewGuid().ToString(),
+                Quantity = i.Quantity,
+                UnitPrice = i.UnitPrice,
+                TotalPrice = i.Quantity*i.UnitPrice
             }));
             var status = EnumExtensions.ToDescriptionString(OrderStatus.PendingSubmitted);
-            order.Status = OrderStatus.Ready;
+            order.Status = OrderStatus.PendingSubmitted;
+
+            _orderRepository.Save();
             return order;                       
         }
 
-        public Task RemoveOrderItem(string orderId, List<string> orderItemId)
+        public async Task RemoveOrderItem(string orderId, string orderItemId)
         {
-            throw new NotImplementedException();
+            Guard.Against.NullOrEmpty(orderId, nameof(orderId));
+            Guard.Against.NullOrEmpty(orderItemId, nameof(orderItemId));
+
+            await _orderRepository.RemoveOrderItem(orderId,orderItemId);
         }
 
         public Task ChangeShippingAddress(Address shippingAddr, string orderId)

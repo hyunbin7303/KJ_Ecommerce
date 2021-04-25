@@ -28,7 +28,7 @@ namespace ECommerceService.Controllers
 
         [HttpPost("RemoveOrderItem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> RemoveOrderItem(string orderId, List<string> orderItemId)
+        public async Task<IActionResult> RemoveOrderItem(string orderId, string orderItemId)
         {
             await _orderService.RemoveOrderItem(orderId, orderItemId);
             return Ok();

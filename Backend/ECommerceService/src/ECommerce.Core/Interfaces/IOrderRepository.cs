@@ -14,7 +14,9 @@ namespace ECommerce.Core.Interfaces
         Task<IEnumerable<Order>> GetOrdersByVendorId(string vendorId);
         Task<Order> GetOrderByCartId(string cartId);
         Task<IEnumerable<Order>> GetAllOrdersByTime(DateTimeOffset? startTime, DateTimeOffset? endTime);
-        Task<OrderItem> GetOrderItems(string orderId);
+        Task<IEnumerable<OrderItem>> GetOrderItems(string orderId);
         Task<IEnumerable<OrderItem>> GetllOrderItemsByOrderId(string orderId);
+        Task RemoveOrderItem(string orderId, string orderItem);
+        Task ChangeQuantity(string orderItem, decimal quantity);
     }
 }
