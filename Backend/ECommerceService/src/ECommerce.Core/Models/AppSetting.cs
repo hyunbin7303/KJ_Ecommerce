@@ -8,7 +8,6 @@ namespace ECommerce.Core.Models
 {
     public class AppSetting : Entity<string>
     {
-        public string Id { get; set; }
         public string Value { get; set; }
         public string Module { get; set; }
         public bool IsVisibleInCommonSettingPage { get; set; }
