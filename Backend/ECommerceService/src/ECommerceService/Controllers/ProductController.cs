@@ -1,4 +1,5 @@
-﻿using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.BusinessServices;
+using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,12 @@ namespace ECommerceService.Controllers
     public class ProductController : ControllerBase
     {
         //private IGenericRepository<Product> _productRepository = null;
+        private IProductService _productService = null;
         private IProductRepository _productRepository = null;
         // AUtomapper setting.
-        public ProductController(IProductRepository repo)
+        public ProductController(IProductService productService,IProductRepository repo)
         {
+            _productService = productService ?? null;
             _productRepository = repo ?? null;
         }
         [HttpGet]

@@ -14,7 +14,7 @@ namespace ECommerce.Infrastructure.Repository
         public ProductRepository(MainEcommerceDBContext context) : base(context)
         {
         }
-        public async Task<Product> GetProductById(string productId)
+        public async Task<Product> GetProductById(int productId)
         {
             var product = await GetByIdAsync(productId);
             return product;

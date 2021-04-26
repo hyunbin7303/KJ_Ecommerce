@@ -12,11 +12,11 @@ namespace ECommerce.Core.Models.ProductAggregate
         {
             ProductAttributes = new HashSet<ProductAttribute>();
         }
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
+        public string Name { get; private set; }
+        public string DisplayName { get; private set; }
         public string Description { get; set; }
-        public int VendorId { get; set; }
-        public int? CategoryId { get; set; }
+        public int VendorId { get; private set; }
+        public int? CategoryId { get; private set; }
         public string ProductFormat { get; set; }
         public int? QuantityPerUnit { get; set; }
         public double? UnitPrice { get; set; }
@@ -31,5 +31,16 @@ namespace ECommerce.Core.Models.ProductAggregate
         public virtual Category Category { get; set; }
         public virtual Vendor Vendor { get; set; }
         public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
+
+        // Read this later : https://www.omnicalculator.com/finance/discount#discount-formula
+        public double PriceAfterDiscount()
+        {
+            if(Discount.HasValue && DiscountAvailable)
+            {
+                var discountedPrice = UnitPrice - (UnitPrice * (Discount / 100));
+                return discountedPrice.Value;
+            }
+            return UnitPrice.Value;
+        }
     }
 }
