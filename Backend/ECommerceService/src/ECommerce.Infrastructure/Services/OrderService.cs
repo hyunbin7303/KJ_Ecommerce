@@ -55,8 +55,8 @@ namespace ECommerce.Infrastructure.BusinessServices
             }));
             var status = EnumExtensions.ToDescriptionString(OrderStatus.PendingSubmitted);
             order.Status = OrderStatus.PendingSubmitted;
-
-            _orderRepository.Save();
+            
+            // TODO : Sending message to the Payment service.
             return order;                       
         }
 

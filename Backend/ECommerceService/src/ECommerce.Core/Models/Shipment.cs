@@ -8,10 +8,10 @@ namespace ECommerce.Core.Models
 {
     public partial class Shipment : Entity<string>
     {
-        public string TrackingNumber { get; set; }
-        public int? AddressId { get; set; }
-        public int? WarehouseId { get; set; }
-        public int? VendorId { get; set; }
+        public string TrackingNumber { get; private set; }
+        public int? AddressId { get; private set; }
+        public int? WarehouseId { get; private set; }
+        public int? VendorId { get; private set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public DateTimeOffset? LatestUpdatedDate { get; set; }
         public int? QuantityShipped { get; set; }

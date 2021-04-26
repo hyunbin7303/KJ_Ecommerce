@@ -18,6 +18,5 @@ namespace ECommerce.Core.Interfaces
         void Update(T obj);
         Task DeleteAsync(object id);
         void Delete(T entity);
-        void Save();
     }
 }

@@ -90,7 +90,7 @@ namespace ECommerce.Infrastructure.Repository.Base
             Save();
         }
 
-        public virtual void Save()
+        protected virtual void Save()
         {
             context.SaveChanges();
         }
