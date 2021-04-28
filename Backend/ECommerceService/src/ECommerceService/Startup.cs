@@ -1,6 +1,8 @@
+using AutoMapper;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Models;
 using ECommerce.Infrastructure.Repository;
+using ECommerce.Infrastructure.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +24,11 @@ namespace ECommerceService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ObjectMapper.Initialize();
         }
 
         public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -32,14 +36,18 @@ namespace ECommerceService
 
             // Required to update this!
             services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
+            services.AddMvc();
+
             //services.AddDbContext<OrderDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer"), 
             //sqlServerOptionsAction: sqlOptions =>
             //{
             //    sqlOptions.EnableRetryOnFailure();
             //}));
+            //services.AddAutoMapper(typeof(ObjectMapper));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

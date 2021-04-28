@@ -10,7 +10,7 @@ namespace ECommerce.Domain.Models
     {
         public Product()
         {
-            ProductAttributes = new HashSet<ProductAttribute>();
+            ProductAttributes = new List<ProductAttribute>();
         }
 
         public int Id { get; set; }
