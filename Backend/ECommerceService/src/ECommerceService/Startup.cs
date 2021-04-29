@@ -56,6 +56,9 @@ namespace ECommerceService
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ECommerceService", Version = "v1" });
             });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(ECommerce.Infrastructure.Mapping.ModelToResourceProfile).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

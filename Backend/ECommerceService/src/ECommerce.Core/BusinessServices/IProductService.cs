@@ -3,12 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace ECommerce.Core.BusinessServices
 {
     public interface IProductService
     {
-        Task<IList<Product>> GetProducts();
+        Task<Product> GetProducts();
         Task<Product> SearchProduct(); // change this code later(To get more paras)
         Task<Product> GetProductById(int productId);
         Task<IList<Product>> GetProductsByNameContains(string name);

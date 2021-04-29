@@ -6,6 +6,11 @@
 
   <ItemGroup>
     <Folder Include="DomainEvents\" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerce.Query\ECommerce.Query.csproj" />
   </ItemGroup>
 
 </Project>

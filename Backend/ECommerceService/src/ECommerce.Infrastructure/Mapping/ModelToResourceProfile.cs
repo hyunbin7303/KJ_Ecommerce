@@ -8,7 +8,7 @@ using System.Text;
 namespace ECommerce.Infrastructure.Mapping
 {
     public class ModelToResourceProfile : Profile
-    {
+    { 
         public ModelToResourceProfile()
         {
             CreateMap<Product, ProductDetailsDTO>();
