@@ -10,6 +10,8 @@ namespace ECommerce.Infrastructure.Helpers
             FieldInfo info = @enum.GetType().GetField(@enum.ToString());
             var attributes = (DescriptionAttribute[])info.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
+            var check = @enum.ToString();
+
             return attributes?[0].Description ?? @enum.ToString();
         }
     }

@@ -1,5 +1,6 @@
-﻿using ECommerce.Domain.Models;
-using ECommerce.Infrastructure.Models;
+﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.ProductAggregate;
+using ECommerce.Infrastructure.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -13,7 +14,7 @@ namespace ECommerce.Infrastructure.Repository
         public ProductRepository(MainEcommerceDBContext context) : base(context)
         {
         }
-        public async Task<Product> GetProductById(string productId)
+        public async Task<Product> GetProductById(int productId)
         {
             var product = await GetByIdAsync(productId);
             return product;

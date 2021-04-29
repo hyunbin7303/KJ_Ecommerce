@@ -1,6 +1,6 @@
-﻿using ECommerce.Domain.Models;
-using ECommerce.Infrastructure.Repository;
-using ECommerce.Query;
+﻿using ECommerce.Core.BusinessServices;
+using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.ProductAggregate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,11 +16,12 @@ namespace ECommerceService.Controllers
     public class ProductController : ControllerBase
     {
         //private IGenericRepository<Product> _productRepository = null;
+        private IProductService _productService = null;
         private IProductRepository _productRepository = null;
-        
-
-        public ProductController(IProductRepository repo)
+        // AUtomapper setting.
+        public ProductController(IProductService productService,IProductRepository repo)
         {
+            _productService = productService ?? null;
             _productRepository = repo ?? null;
         }
 

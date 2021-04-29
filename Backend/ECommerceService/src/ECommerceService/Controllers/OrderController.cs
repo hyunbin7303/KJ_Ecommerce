@@ -1,4 +1,4 @@
-﻿using ECommerce.Infrastructure.BusinessServices;
+﻿using ECommerce.Core.BusinessServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,13 +18,6 @@ namespace ECommerceService.Controllers
         {
             _orderService = orderService;
         }
-
-        /* Causing swagger error /swagger/v1/swagger.json ambiguous http method name*/
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
         [HttpPost("CheckoutCart")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CheckoutCart(string shoppingCartId)
@@ -33,9 +26,9 @@ namespace ECommerceService.Controllers
             return Ok();
         }
 
-        [HttpPost("removeOrderItem")]
+        [HttpPost("RemoveOrderItem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> RemoveOrderItem(string orderId, List<string> orderItemId)
+        public async Task<IActionResult> RemoveOrderItem(string orderId, string orderItemId)
         {
             await _orderService.RemoveOrderItem(orderId, orderItemId);
             return Ok();

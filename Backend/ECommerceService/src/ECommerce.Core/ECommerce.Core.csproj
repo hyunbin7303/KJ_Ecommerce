@@ -5,9 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Services\**" />
+    <Folder Include="DomainEvents\" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerce.Query\ECommerce.Query.csproj" />
   </ItemGroup>
 
 </Project>

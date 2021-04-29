@@ -1,8 +1,10 @@
-using AutoMapper;
+using ECommerce.Core.BusinessServices;
+using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
-using ECommerce.Infrastructure.Models;
+using ECommerce.Infrastructure.BusinessServices;
 using ECommerce.Infrastructure.Repository;
-using ECommerce.Infrastructure.Mapping;
+using ECommerce.Infrastructure.Repository.Base;
+using ECommerce.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -43,16 +45,24 @@ namespace ECommerceService
             //{
             //    sqlOptions.EnableRetryOnFailure();
             //}));
-            //services.AddAutoMapper(typeof(ObjectMapper));
-
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+            services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
+            services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
+            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ECommerceService", Version = "v1" });
             });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(ECommerce.Infrastructure.Mapping.ModelToResourceProfile).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using ECommerce.Infrastructure.Models;
+﻿using ECommerce.Core.Interfaces;
+using ECommerce.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 
 
-namespace ECommerce.Infrastructure
+namespace ECommerce.Infrastructure.Repository.Base
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -89,7 +90,7 @@ namespace ECommerce.Infrastructure
             Save();
         }
 
-        public virtual void Save()
+        protected virtual void Save()
         {
             context.SaveChanges();
         }
