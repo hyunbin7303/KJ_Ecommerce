@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using ECommerce.Infrastructure.Mapping;
+using ECommerce.Query;
 
 namespace ECommerceService.Controllers
 {

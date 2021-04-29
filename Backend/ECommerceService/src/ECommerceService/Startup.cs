@@ -1,7 +1,9 @@
+using AutoMapper;
 using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.BusinessServices;
+using ECommerce.Infrastructure.Mapping;
 using ECommerce.Infrastructure.Repository;
 using ECommerce.Infrastructure.Repository.Base;
 using ECommerce.Infrastructure.Services;
@@ -18,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static ECommerce.Infrastructure.Mapping.ObjectMapper;
 
 namespace ECommerceService
 {
@@ -62,7 +65,7 @@ namespace ECommerceService
             });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddAutoMapper(typeof(ECommerce.Infrastructure.Mapping.ModelToResourceProfile).Assembly);
+            services.AddAutoMapper(typeof(ModelToResourceProfile).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
