@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
-using ECommerce.Infrastructure.Helpers;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models;
 using ECommerce.Core.Models.OrderAggregate;
-using ECommerce.Core.BusinessServices;
 using Ardalis.GuardClauses;
 
-namespace ECommerce.Infrastructure.BusinessServices
+namespace ECommerce.Core.BusinessServices
 {
-    public class OrderService : IOrderService
+    public class OrderService 
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ICartRepository _cartRepository;
@@ -25,19 +23,25 @@ namespace ECommerce.Infrastructure.BusinessServices
 
         public Task AddOrderItem(string orderId, List<string> orderItemId)
         {
+            Guard.Against.NullOrEmpty(orderId, nameof(orderId));
+            Guard.Against.NullOrEmpty(orderItemId, nameof(orderItemId));
+
             throw new NotImplementedException();
         }
 
         public async Task CancelOrder(string orderId)
         {
+            Guard.Against.NullOrEmpty(orderId, nameof(orderId));
+
             var order = await _orderRepository.GetByIdAsync(orderId);
-            var status = EnumExtensions.ToDescriptionString(OrderStatus.Cancelled);
+            //var status = EnumExtensions.ToDescriptionString(OrderStatus.Cancelled);
             order.Status =  OrderStatus.Cancelled;
         }
 
-
-        public async Task<Order> CheckoutCart(string cartId)
+        public async Task CheckoutCart(string cartId)
         {
+            Guard.Against.NullOrEmpty(cartId, nameof(cartId));
+
             var order = new Order();
             order.Id = Guid.NewGuid().ToString();
             var orderitems = new List<OrderItem>();
@@ -51,13 +55,15 @@ namespace ECommerce.Infrastructure.BusinessServices
                 Id = Guid.NewGuid().ToString(),
                 Quantity = i.Quantity,
                 UnitPrice = i.UnitPrice,
-                TotalPrice = i.Quantity*i.UnitPrice
+                TotalPrice = i.Quantity * i.UnitPrice
             }));
-            var status = EnumExtensions.ToDescriptionString(OrderStatus.PendingSubmitted);
-            order.Status = OrderStatus.PendingSubmitted;
-            
+            //var status = EnumExtensions.ToDescriptionString(OrderStatus.PendingSubmitted);
+            order.Status = OrderStatus.Ready;
+            order.CartId = cart.Id;
+
+            _orderRepository.Insert(order);
+
             // TODO : Sending message to the Payment service.
-            return order;                       
         }
 
         public async Task RemoveOrderItem(string orderId, string orderItemId)
@@ -76,8 +82,9 @@ namespace ECommerce.Infrastructure.BusinessServices
         public async Task InvoiceOrder(string orderId)
         {
             var order = await _orderRepository.GetByIdAsync(orderId);
-            var status= EnumExtensions.ToDescriptionString(OrderStatus.Submitted);
+            //var status= EnumExtensions.ToDescriptionString(OrderStatus.Submitted);
             order.Status = OrderStatus.Submitted;
         }
+
     }
 }
