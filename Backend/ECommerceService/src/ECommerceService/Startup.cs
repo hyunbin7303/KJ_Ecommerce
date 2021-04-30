@@ -1,7 +1,6 @@
 using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
-using ECommerce.Infrastructure.BusinessServices;
 using ECommerce.Infrastructure.Repository;
 using ECommerce.Infrastructure.Repository.Base;
 using ECommerce.Infrastructure.Services;
@@ -48,7 +47,6 @@ namespace ECommerceService
             services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductService, ProductService>();
 
             services.AddControllers();
