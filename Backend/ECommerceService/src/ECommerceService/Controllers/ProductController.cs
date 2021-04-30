@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using ECommerce.Infrastructure.Mapping;
+using ECommerce.Query;
 
 namespace ECommerceService.Controllers
 {
@@ -24,13 +25,17 @@ namespace ECommerceService.Controllers
             _productService = productService ?? null;
             _productRepository = repo ?? null;
         }
+
+
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public IEnumerable<ProductDetailsDTO> Get()
         {
             var allProducts = _productRepository.GetAll();
-            //TODO: Create AutoMapper interface
-            return allProducts;
+            var mapped = ObjectMapper.Mapper.Map<IEnumerable<ProductDetailsDTO>>(allProducts);
+            return mapped;
         }
+
+
         [HttpGet("Details")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -44,6 +49,7 @@ namespace ECommerceService.Controllers
             return Ok(product);
         }
 
+
         [HttpGet("Category")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -56,7 +62,6 @@ namespace ECommerceService.Controllers
             }
             return Ok(products);
         }
-
 
 
         [HttpPost]
@@ -85,6 +90,7 @@ namespace ECommerceService.Controllers
             }
         }
 
+
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -102,6 +108,7 @@ namespace ECommerceService.Controllers
                 return ValidationProblem(e.Message);
             }
         }
+
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]

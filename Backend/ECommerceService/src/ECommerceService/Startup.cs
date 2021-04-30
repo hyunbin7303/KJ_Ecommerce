@@ -1,3 +1,4 @@
+using AutoMapper;
 using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
@@ -17,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static ECommerce.Infrastructure.Mapping.ObjectMapper;
 
 namespace ECommerceService
 {
@@ -25,9 +27,11 @@ namespace ECommerceService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ObjectMapper.Initialize();
         }
 
         public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,6 +39,8 @@ namespace ECommerceService
 
             // Required to update this!
             services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
+            services.AddMvc();
+
             //services.AddDbContext<OrderDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer"), 
             //sqlServerOptionsAction: sqlOptions =>
             //{
@@ -54,6 +60,9 @@ namespace ECommerceService
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ECommerceService", Version = "v1" });
             });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(ModelToResourceProfile).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

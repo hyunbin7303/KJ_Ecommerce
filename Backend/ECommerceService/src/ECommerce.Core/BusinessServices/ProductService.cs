@@ -62,5 +62,9 @@ namespace ECommerce.Infrastructure.Services
             return Task.FromResult(true);
         }
 
+        Task<Product> IProductService.GetProducts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

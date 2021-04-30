@@ -10,7 +10,7 @@ namespace ECommerce.Core.Models.ProductAggregate
     {
         public Product()
         {
-            ProductAttributes = new HashSet<ProductAttribute>();
+            ProductAttributes = new List<ProductAttribute>();
         }
         public string Name { get; private set; }
         public string DisplayName { get; private set; }
