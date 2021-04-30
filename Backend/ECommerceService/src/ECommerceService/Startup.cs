@@ -2,6 +2,7 @@ using AutoMapper;
 using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Mapping;
 using ECommerce.Infrastructure.Repository;
 using ECommerce.Infrastructure.Repository.Base;
 using ECommerce.Infrastructure.Services;
