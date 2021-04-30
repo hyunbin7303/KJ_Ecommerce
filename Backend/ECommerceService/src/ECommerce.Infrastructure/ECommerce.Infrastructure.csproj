@@ -12,18 +12,21 @@
     <Compile Remove="Localization\**" />
     <Compile Remove="Migrations\**" />
     <Compile Remove="Redis\**" />
+    <Compile Remove="Services\**" />
     <EmbeddedResource Remove="EmailService\**" />
     <EmbeddedResource Remove="Identity\**" />
     <EmbeddedResource Remove="InMemory-DataCache\**" />
     <EmbeddedResource Remove="Localization\**" />
     <EmbeddedResource Remove="Migrations\**" />
     <EmbeddedResource Remove="Redis\**" />
+    <EmbeddedResource Remove="Services\**" />
     <None Remove="EmailService\**" />
     <None Remove="Identity\**" />
     <None Remove="InMemory-DataCache\**" />
     <None Remove="Localization\**" />
     <None Remove="Migrations\**" />
     <None Remove="Redis\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
 
@@ -45,10 +48,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ECommerce.Core\ECommerce.Core.csproj" />
     <ProjectReference Include="..\ECommerce.Query\ECommerce.Query.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup> 
 
 </Project>
