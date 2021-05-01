@@ -12,11 +12,8 @@ using ECommerce.Query;
 
 namespace ECommerceService.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController] 
-    public class ProductController : ControllerBase
+    public class ProductController : BaseController
     {
-        //private IGenericRepository<Product> _productRepository = null;
         private IProductService _productService = null;
         private IProductRepository _productRepository = null;
         // AUtomapper setting.

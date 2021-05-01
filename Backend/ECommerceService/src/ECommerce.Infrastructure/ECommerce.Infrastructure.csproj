@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ECommerce.AzureStorage\ECommerce.AzureStorage.csproj" />
     <ProjectReference Include="..\ECommerce.Core\ECommerce.Core.csproj" />
     <ProjectReference Include="..\ECommerce.Query\ECommerce.Query.csproj" />
   </ItemGroup> 

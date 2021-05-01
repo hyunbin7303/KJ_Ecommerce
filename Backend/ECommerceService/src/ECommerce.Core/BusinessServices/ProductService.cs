@@ -11,9 +11,11 @@ namespace ECommerce.Infrastructure.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        public ProductService(IProductRepository orderRepository)
+        private readonly IImageRepository _imageRepository;
+        public ProductService(IProductRepository orderRepository, IImageRepository imageRepository)
         {
             _productRepository = orderRepository;
+            _imageRepository = imageRepository;
         }
 
         public Task CreateProduct(Product product)

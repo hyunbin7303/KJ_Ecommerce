@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class OrderController : BaseController
     {
         private readonly IOrderService _orderService;

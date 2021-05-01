@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ECommerce.AzureStorage
 {
 
-    public interface IImageService
+    public interface IAzureBlobStorageService
     {
         Task AddImageToBlobStorageAsync(BlobDTO image);
         void DeleteContainer(string containerName);

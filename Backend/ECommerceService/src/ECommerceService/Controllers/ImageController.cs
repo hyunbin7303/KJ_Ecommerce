@@ -1,16 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {
+
+    [Route("api/[controller]")]
     public class ImageController : BaseController
     {
-        public IActionResult Index()
+        [HttpPost("UploadFile")]
+        public async Task<string> UploadFile([FromForm]IFormFile file)
         {
-            return View();
+            string fName = file.FileName;
+            //string path = Path.Combine(hostingEnvironment.ContentRootPath, "Images/" + file.FileName);
+            //using (var stream = new FileStream(path, FileMode.Create))
+            //{
+            //    await file.CopyToAsync(stream);
+            //}
+            return file.FileName;
         }
+
+
     }
 }

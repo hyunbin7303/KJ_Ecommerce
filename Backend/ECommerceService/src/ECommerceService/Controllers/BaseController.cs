@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {
-    public abstract partial class BaseController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public abstract partial class BaseController : ControllerBase
     {
     }
 }

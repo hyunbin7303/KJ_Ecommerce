@@ -10,21 +10,19 @@ using System.Threading.Tasks;
 
 namespace ECommerce.AzureStorage
 {
-    public class ImageService : IImageService
+    public class AzureBlobStorageService : IAzureBlobStorageService
     {
-        //Source
         // https://www.wintellect.com/azure-bits-2-saving-the-image-to-azure-blob-storage/
         //https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-container-create?tabs=dotnet
-
         private readonly string _imageRootPath;
         private static readonly string _container = "kp-container-";
         private readonly string _blobStorageConn;
         private BlobServiceClient blobServiceClient = null;
-        public ImageService(string connectionString = null, string imageRootPath = null)
+        public AzureBlobStorageService(string connectionString = null, string imageRootPath = null)
         {
             _imageRootPath = imageRootPath ?? "C:\\Users\\Hyunbin\\Desktop\\";
             _blobStorageConn = connectionString ?? Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
-            if(_blobStorageConn != null)
+            if (_blobStorageConn != null)
             {
                 blobServiceClient = new BlobServiceClient(_blobStorageConn);
             }
@@ -33,7 +31,6 @@ namespace ECommerce.AzureStorage
         {
             throw new NotImplementedException();
         }
-
         public async Task BlobDownloadInfoTestAsync(BlobClient blobClient, string filePath)
         {
             // Download the blob to a local file
@@ -49,18 +46,18 @@ namespace ECommerce.AzureStorage
                 downloadFileStream.Close();
             }
         }
-        public static  Task<BlobContainerClient> CreateContainerAsync(BlobServiceClient blobServiceClient, string containerName)
+        public static Task<BlobContainerClient> CreateContainerAsync(BlobServiceClient blobServiceClient, string containerName)
         {
             var newContainerName = _container + containerName;
             try
             {
                 BlobContainerClient container = blobServiceClient.CreateBlobContainer(containerName);
-                if( container.Exists())
+                if (container.Exists())
                 {
                     return Task.FromResult(container);
                 }
             }
-            catch(RequestFailedException e)
+            catch (RequestFailedException e)
             {
                 // TODO: Logging in here.
                 Console.WriteLine("HTTP error code {0}: {1}", e.Status, e.ErrorCode);
@@ -87,9 +84,9 @@ namespace ECommerce.AzureStorage
         {
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_container);
             var blobs = containerClient.GetBlobs();
-            foreach(BlobItem b in blobs)
+            foreach (BlobItem b in blobs)
             {
-                if(b.Name == input.Name)
+                if (b.Name == input.Name)
                 {
                     return Task.FromResult(b);
                 }
@@ -124,15 +121,29 @@ namespace ECommerce.AzureStorage
                 return null;
             }
         }
-
         public string GetFileUrl(string iamgeName)
         {
             throw new NotImplementedException();
         }
-
         public Task SaveFileAsync(Stream fileBinaryStream, string fileName, string mimeType = null)
         {
             throw new NotImplementedException();
         }
+        public async void UploadFile(string fileName, string containerName = "kp-container")
+        {
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_blobStorageConn);
+            string _containerName = containerName;
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_containerName);
+            string localFilePath = Path.Combine(_imageRootPath, fileName);
+
+            BlobClient blobClient = containerClient.GetBlobClient("KevinPark_Resume.pdf");
+            Console.WriteLine("Uploading to Blob storage as blob:\n\t {0}\n", blobClient.Uri);
+
+            using FileStream uploadFileStream = File.OpenRead(localFilePath);
+            await blobClient.UploadAsync(uploadFileStream, true);
+            uploadFileStream.Close();
+        }
+
+
     }
 }

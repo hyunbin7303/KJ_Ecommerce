@@ -17,7 +17,7 @@ namespace ECommerceService.Test
         [Test]
         public void GetBlobItemsFromContainer_NullCheck()
         {
-            ImageService imageService = new ImageService();
+            AzureBlobStorageService imageService = new AzureBlobStorageService();
             var check = imageService.GetBlobItemsFromContainer("kp-container");
             //foreach (BlobItem blobItem in check)
             //    Console.WriteLine("\t" + blobItem.Name);
@@ -27,7 +27,7 @@ namespace ECommerceService.Test
         [Test]
         public void GetBlobAsync_FindExistingFileInBlobContainer()
         {
-            ImageService service = new ImageService();
+            AzureBlobStorageService service = new AzureBlobStorageService();
             var check = service.GetBlobAsync(new GetBlobRequestDTO{ Name = "KevinPark_Resume.pdf"});
             Assert.IsNotNull(check);
         }
@@ -37,14 +37,14 @@ namespace ECommerceService.Test
         {
             var connStr = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
             BlobServiceClient client = new BlobServiceClient(connStr);
-            var check = ImageService.CreateContainerAsync(client, "test-01");
+            var check = AzureBlobStorageService.CreateContainerAsync(client, "test-01");
             Assert.AreEqual(TaskStatus.RanToCompletion, check.Status);
         }
 
         [Test]
         public void DeleteContainer_ReturnTrueIfSuccess()
         {
-            ImageService service = new ImageService("kp-container");
+            AzureBlobStorageService service = new AzureBlobStorageService("kp-container");
 
         }
     }

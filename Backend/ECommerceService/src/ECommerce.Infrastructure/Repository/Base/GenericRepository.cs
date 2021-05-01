@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 
 namespace ECommerce.Infrastructure.Repository.Base
 {
@@ -15,6 +15,8 @@ namespace ECommerce.Infrastructure.Repository.Base
     {
         internal DbSet<T> dbSet = null;
         private MainEcommerceDBContext context;
+        // Add Logging in here? 
+
 
         public GenericRepository(MainEcommerceDBContext context)
         {
