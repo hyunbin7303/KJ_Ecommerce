@@ -2,7 +2,6 @@ using AutoMapper;
 using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
-using ECommerce.Infrastructure.BusinessServices;
 using ECommerce.Infrastructure.Mapping;
 using ECommerce.Infrastructure.Repository;
 using ECommerce.Infrastructure.Repository.Base;
@@ -57,7 +56,6 @@ namespace ECommerceService
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductService, ProductService>();
 
             services.AddControllers();

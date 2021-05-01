@@ -1,4 +1,6 @@
 ﻿using ECommerce.Core.BusinessServices;
+using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.OrderAggregate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,11 +12,11 @@ namespace ECommerceService.Controllers
 {
     public class OrderController : BaseController
     {
-        private readonly IOrderService _orderService;
+        private readonly OrderService _orderService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderRepository orderRepository,ICartRepository cartRepository)
         {
-            _orderService = orderService;
+            _orderService = new OrderService(orderRepository,cartRepository);
         }
         [HttpPost("CheckoutCart")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,5 +40,6 @@ namespace ECommerceService.Controllers
             await _orderService.InvoiceOrder(orderId);
             return Ok();
         }
+
     }
 }
