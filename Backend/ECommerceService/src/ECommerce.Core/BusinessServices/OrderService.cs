@@ -38,7 +38,7 @@ namespace ECommerce.Core.BusinessServices
             order.Status =  OrderStatus.Cancelled;
         }
 
-        public async Task CheckoutCart(string cartId)
+        public async Task<Order> CheckoutCart(string cartId)
         {
             Guard.Against.NullOrEmpty(cartId, nameof(cartId));
 
@@ -47,7 +47,7 @@ namespace ECommerce.Core.BusinessServices
             var orderitems = new List<OrderItem>();
 
             var cart = await _cartRepository.GetByIdAsync(cartId);
-
+    
             cart.CartItems.ToList().ForEach(i => orderitems.Add(new OrderItem
             {
                 OrderId = order.Id,
@@ -58,11 +58,15 @@ namespace ECommerce.Core.BusinessServices
                 TotalPrice = i.Quantity * i.UnitPrice
             }));
             //var status = EnumExtensions.ToDescriptionString(OrderStatus.PendingSubmitted);
+            order.OrderItems = orderitems;
             order.Status = OrderStatus.Ready;
             order.CartId = cart.Id;
+            order.VendorId = cart.VendorId;
 
             _orderRepository.Insert(order);
-
+            
+            
+            return order;
             // TODO : Sending message to the Payment service.
         }
 

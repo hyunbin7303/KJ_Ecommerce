@@ -19,11 +19,12 @@ namespace ECommerce.Core.BusinessServices
             _cartRepository = cartRepository;
         }      
 
-        public async Task<Cart> NewShoppingCart()
+        public async Task<Cart> NewShoppingCart(int vendorId)
         {
             var cart = new Cart()
             {
-                Id = Guid.NewGuid().ToString()
+                Id = Guid.NewGuid().ToString(),
+                VendorId = vendorId
             };
             _cartRepository.Insert(cart);
             return cart;

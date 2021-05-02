@@ -11,6 +11,7 @@ namespace ECommerce.Core.Models.CartAggregate
         {
             _cartitems = new List<CartItem>();
         }
+        public int VendorId { get; set; }
         public string CustomerId { get; set; }
         public DateTimeOffset CreatedDate { get; private set; }
         public IEnumerable<CartItem> CartItems => _cartitems.ToList();
