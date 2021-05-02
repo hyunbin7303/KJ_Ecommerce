@@ -141,6 +141,7 @@ GO
 DROP TABLE IF EXISTS [dbo].[Cart];
 CREATE TABLE [dbo].[Cart](
 	[Id] [nvarchar](100) NOT NULL,
+	[VendorId][int] NOT NULL,
 	[CustomerId] [nvarchar](100) NOT NULL,
 	[CreatedDate] datetimeoffset(7) NOT NULL,
 	CONSTRAINT Cart_CreatedDate CHECK (CreatedDate > '1 April 2021'),
