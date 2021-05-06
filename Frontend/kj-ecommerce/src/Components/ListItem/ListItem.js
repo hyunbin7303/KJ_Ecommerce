@@ -18,52 +18,40 @@ const ListItem = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   const productDetailModel = {
-    name: "nani",
-    description: "",
-    supplierId: 0,
-    customerId: "",
-    productFormat: "",
-    quantityPerUnit: 0,
-    unitPrice: 0,
-    unitsInStock: "",
-    categoryId: 0,
-    imageAddress: "",
-    note: "",
-    id: "",
+    id: 0,
+    Name: "",
+    Description: "",
+    DisplayName: "",
+    UnitPrice: 0.0,
+    UnitsInStock: "",
   };
 
   const [productInfomartion, setProductInformation] = useState(
     productDetailModel
   );
 
-  console.log("NAME : " + productDetailModel.name);
-  const showDetails = () => {
-    getProductDetails();
+  const showDetails = (prodId) => {
+    console.log("PRODID : " + prodId);
+    getProductDetails(prodId);
     setShowModal((prev) => !prev);
   };
 
-  const getProductDetails = async () => {
+  const getProductDetails = async (prodId) => {
     await axios
       .get("/api/Product/Details", {
-        params: { productId: "d630cf81-94eb-4d42-932f-131ea7ad8074" },
+        params: { productId: prodId },
       })
       .then((response) => {
         setProductInformation({
-          name: response.data.name,
-          description: response.data.description,
-          supplierId: response.data.supplierId,
-          customerId: response.data.customerId,
-          productFormat: response.data.productFormat,
-          quantityPerUnit: response.data.quantityPerUnit,
-          unitPrice: response.data.unitPrice,
-          unitsInStock: response.data.unitsInStock,
-          categoryId: response.data.categoryId,
-          imageAddress: response.data.imageAddress,
-          note: response.data.note,
           id: response.data.id,
+          Name: response.data.name,
+          Description: response.data.description,
+          DisplayName: response.data.displayName,
+          UnitPrice: response.data.unitPrice,
+          UnitsInStock: response.data.unitsInStock,
         });
         console.log("Response Data: " + response);
-        console.log("Response Data: " + response.data.name);
+        console.log("Response Data Name: " + response.data.name);
         console.log("Prod: " + productInfomartion.name);
       })
       .catch((error) => {
@@ -80,7 +68,7 @@ const ListItem = (props) => {
             <ListItemImg src="https://hpecommerce.blob.core.windows.net/kp-container/lord_of_the_ring_TheFellowshipOfTheRing.jpg" />
           </ListItemImgWrapper>
           <ListItemInfo>{props.ItemDescription}</ListItemInfo>
-          <ListItemButton onClick={() => showDetails()}>
+          <ListItemButton onClick={() => showDetails(props.ItemId + 1)}>
             View Product
           </ListItemButton>
 

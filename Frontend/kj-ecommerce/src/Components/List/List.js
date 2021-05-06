@@ -38,6 +38,7 @@ class List extends Component {
           this.state.Items.map((listItem) => (
             <ListItem
               key={listItem.id}
+              ItemId={listItem.id}
               ItemName={listItem.name}
               ItemImg={TmpPic}
               ItemDescription={listItem.description}
