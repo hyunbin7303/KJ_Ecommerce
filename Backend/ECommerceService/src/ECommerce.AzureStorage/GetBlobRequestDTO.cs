@@ -6,7 +6,6 @@ namespace ECommerce.AzureStorage
     {
         [Required]
         public string Name { get; set; }
-
         public override string ToString()
         {
             // Might Required to pursing?

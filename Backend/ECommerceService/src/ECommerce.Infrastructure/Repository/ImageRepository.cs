@@ -12,25 +12,27 @@ namespace ECommerce.Infrastructure.Repository
 {
     public class ImageRepository : IImageRepository
     {
+        private static readonly string _azure_root = "https://hpecommerce.blob.core.windows.net/";
         public void DeleteImage(int imageId)
         {
             throw new NotImplementedException();
         }
-
         // Not working right now. Need to check. 
         public IEnumerable<Image> GetImageFileUrl(string productId, string productName, string vendorId)
         {
-            string _fileName = vendorId + "|" + productId + "|" + productName + ".jpg";
+            string _fileName = vendorId + "-" + productId + "-" + productName + ".jpg";
             AzureBlobStorageService service = new AzureBlobStorageService();
             var check = service.GetFileUrl(_fileName);
             return null;
         }
+        public IEnumerable<Image> GetProductImageUrl(string productId, string productName, string vendorId)
+        {
+            throw new NotImplementedException();
+        }
         public void InsertImage(IFormFile file)
         {
             AzureBlobStorageService service = new AzureBlobStorageService();
-            // TODO : CHeck if container exists.
-            // get file information and call insert.
-            service.AddImageToBlobStorageAsync(null); // this one or
+            service.AddImageToBlobStorageAsync(null); 
             throw new NotImplementedException();
         }
         public Task<bool> SaveImage(string pictureName, string pictureBase64, CancellationToken cancellationToken)
