@@ -1,6 +1,24 @@
 USE [MainEcommerceDB]
 GO
-INSERT INTO [dbo].[Category]([Name], [ProductId])VALUES('Example Category', null)
+INSERT INTO [dbo].[Category]([Name]) VALUES
+('Desktop Computers'),
+('Monitors'),
+('Printers'),
+('Keyboard'),
+('Mouse'),
+('Networking'),
+('Smart Security'),
+('Cables'),
+('Headsets'),
+('Speakers'),
+('Adapter & Chargers'),
+('Security & Surveillance'),
+('Laptop & Tablet Accessories'),
+('Home & Office Furnitures'),
+('Bundle Gift Items'),
+('Batteries'),
+('Bags & Cases')
+
 GO
 INSERT INTO [dbo].Product VALUES
 (1,'Wifi Installation',				'Wifi Installation',	'Installing wifi at location',1, null, 'Basic',1,100,'True',0.10, 1, 1, 1,NULL,NULL),

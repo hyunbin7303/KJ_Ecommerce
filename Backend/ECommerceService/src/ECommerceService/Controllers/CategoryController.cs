@@ -13,32 +13,12 @@ namespace ECommerceService.Controllers
     [Route("api/[controller]")]
     public class CategoryController : BaseController
     {
-        //API endpoint: /api/categories
-        //private readonly CatalogSettings _catalogSettings;
-        //private readonly IAclService _aclService;
-        //private readonly ICatalogModelFactory _catalogModelFactory;
-        //private readonly ICategoryService _categoryService;
-        //private readonly ICustomerActivityService _customerActivityService;
-        //private readonly IGenericAttributeService _genericAttributeService;
-        //private readonly ILocalizationService _localizationService;
-        //private readonly IManufacturerService _manufacturerService;
-        //private readonly IPermissionService _permissionService;
-        //private readonly IProductModelFactory _productModelFactory;
-        //private readonly IProductService _productService;
-        //private readonly IProductTagService _productTagService;
-        //private readonly IStoreContext _storeContext;
-        //private readonly IStoreMappingService _storeMappingService;
-        //private readonly IVendorService _vendorService;
-        //private readonly IWebHelper _webHelper;
-        //private readonly IWorkContext _workContext;
-        //private readonly MediaSettings _mediaSettings;
-        //private readonly VendorSettings _vendorSettings;
         private ICategoryRepository _categoryRepository = null;
-        private IProductRepository _productRepository = null;
+        //private IProductRepository _productRepository = null;
         public CategoryController(ICategoryRepository categoryRepo, IProductRepository productRepo)
         {
             this._categoryRepository = categoryRepo;
-            this._productRepository = productRepo;
+            //this._productRepository = productRepo;
         }
         [HttpGet]
         public IEnumerable<Category> Get()
@@ -55,10 +35,10 @@ namespace ECommerceService.Controllers
         {
             try
             {
-                if (category.Name.Contains("XYZ Widget"))
-                {
-                    return BadRequest();
-                }
+                //if (category.Name.Contains("XYZ Widget"))
+                //{
+                //    return BadRequest();
+                //}
                 _categoryRepository.Insert(category);
                 return CreatedAtAction(nameof(Category), new { id = category.Id }, category);
 
@@ -66,6 +46,21 @@ namespace ECommerceService.Controllers
             catch (Exception e)
             {
                 return ValidationProblem(e.Message);
+            }
+        }
+
+        [HttpDelete("{Id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task DeleteAsync(int Id)
+        {
+            try
+            {
+                await _categoryRepository.DeleteAsync(Id);
+            }
+            catch (Exception e)
+            {
+                //  _logger.LogWarning(e, "Unable to Delete product.");
             }
         }
 
