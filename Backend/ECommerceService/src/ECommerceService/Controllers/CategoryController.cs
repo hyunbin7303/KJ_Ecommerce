@@ -35,10 +35,10 @@ namespace ECommerceService.Controllers
         {
             try
             {
-                if (category.Name.Contains("XYZ Widget"))
-                {
-                    return BadRequest();
-                }
+                //if (category.Name.Contains("XYZ Widget"))
+                //{
+                //    return BadRequest();
+                //}
                 _categoryRepository.Insert(category);
                 return CreatedAtAction(nameof(Category), new { id = category.Id }, category);
 
@@ -49,14 +49,14 @@ namespace ECommerceService.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task DeleteAsync(Category category)
+        public async Task DeleteAsync(int Id)
         {
             try
             {
-                await _categoryRepository.DeleteAsync(category.Id);
+                await _categoryRepository.DeleteAsync(Id);
             }
             catch (Exception e)
             {
