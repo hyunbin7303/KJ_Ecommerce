@@ -10,7 +10,7 @@ namespace ECommerceService.Controllers
     public class ImageController : BaseController
     {
         [HttpPost("UploadFile")]
-        public async Task<string> UploadFile([FromForm]IFormFile file)
+        public Task<string> UploadFile([FromForm]IFormFile file)
         {
             string fName = file.FileName;
             //string path = Path.Combine(hostingEnvironment.ContentRootPath, "Images/" + file.FileName);
@@ -18,7 +18,7 @@ namespace ECommerceService.Controllers
             //{
             //    await file.CopyToAsync(stream);
             //}
-            return file.FileName;
+            return Task.FromResult(file.FileName);
         }
     }
 }

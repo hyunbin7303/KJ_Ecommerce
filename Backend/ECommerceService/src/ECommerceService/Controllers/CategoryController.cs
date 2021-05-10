@@ -39,7 +39,7 @@ namespace ECommerceService.Controllers
                 //{
                 //    return BadRequest();
                 //}
-                _categoryRepository.Insert(category);
+                _categoryRepository.InsertAsync(category);
                 return CreatedAtAction(nameof(Category), new { id = category.Id }, category);
 
             }
@@ -52,15 +52,17 @@ namespace ECommerceService.Controllers
         [HttpDelete("{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task DeleteAsync(int Id)
+        public async Task<ActionResult> DeleteAsync(int Id)
         {
             try
             {
                 await _categoryRepository.DeleteAsync(Id);
+                return Ok();
             }
             catch (Exception e)
             {
                 //  _logger.LogWarning(e, "Unable to Delete product.");
+                return ValidationProblem(e.Message);
             }
         }
 

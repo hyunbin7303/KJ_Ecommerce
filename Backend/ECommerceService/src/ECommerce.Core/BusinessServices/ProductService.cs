@@ -21,7 +21,7 @@ namespace ECommerce.Infrastructure.Services
         public Task CreateProduct(Product product)
         {
             // Mapping from Create DTO to Prodcut DTO.
-            _productRepository.Insert(product);
+            _productRepository.InsertAsync(product);
             return Task.CompletedTask;
         }
         public Task<Product> GetProductById(int productId)
@@ -52,7 +52,7 @@ namespace ECommerce.Infrastructure.Services
             var _product = _productRepository.GetProductById(product.Id);
             if(_product!= null)
             {
-                _productRepository.Update(product);
+                _productRepository.UpdateAsync(product);
                 return Task.CompletedTask;
             }
             return null;

@@ -77,7 +77,7 @@ namespace ECommerceService.Controllers
                 Guid tmpId = Guid.NewGuid();
                 //product.Id = tmpId.ToString();
                 
-                _productRepository.Insert(product);
+                _productRepository.InsertAsync(product);
                 return CreatedAtAction(nameof(ProductDetails), new { id = product.Id }, product);
 
             }
@@ -96,7 +96,7 @@ namespace ECommerceService.Controllers
         {
             try
             {
-                _productRepository.Update(product);
+                _productRepository.UpdateAsync(product);
                 return Ok(product);
             }
             catch (Exception e)
@@ -110,15 +110,17 @@ namespace ECommerceService.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task DeleteAsync(Product product)
+        public async Task<ActionResult> DeleteAsync(Product product)
         {
             try
             {
                 await _productRepository.DeleteAsync(product.Id);
+                return Ok();
             }
             catch (Exception e)
             {
                 //  _logger.LogWarning(e, "Unable to Delete product.");
+                return ValidationProblem(e.Message);
             }
         }
     }

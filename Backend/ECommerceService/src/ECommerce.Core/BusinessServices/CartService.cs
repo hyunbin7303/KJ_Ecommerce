@@ -26,7 +26,7 @@ namespace ECommerce.Core.BusinessServices
                 Id = Guid.NewGuid().ToString(),
                 VendorId = vendorId
             };
-            _cartRepository.Insert(cart);
+            _cartRepository.InsertAsync(cart);
             return cart;
         }
 
@@ -34,14 +34,14 @@ namespace ECommerce.Core.BusinessServices
         {
             var cart = await _cartRepository.GetByIdAsync(cartId);
             cart.AddCartItem(productId, quantity);
-            _cartRepository.Update(cart);
+            _cartRepository.UpdateAsync(cart);
         }
 
         public async Task RemoveItemFromCart(string cartId, string itemId)
         {
             var cart = await _cartRepository.GetByIdAsync(cartId);
             cart.RemoveCartItem(itemId);
-            _cartRepository.Update(cart);
+            _cartRepository.UpdateAsync(cart);
         }
     }
 }

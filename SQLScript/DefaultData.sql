@@ -59,10 +59,10 @@ INSERT INTO [dbo].Cart VALUES
 ('CE79A63C-20CC-427C-B632-E05E19A45895','kevin7303',GETDATE()-3),
 ('F6EBA2CB-2FE0-4EE8-95B4-EF268B7503FE','julio1927',GETDATE()-4),
 ('0C1A3BC8-17F4-4DC6-85A7-042E509560C2','julio1927',GETDATE()-5),
-('0B3EEB90-87D3-4093-832F-E122B3DA778E','Evan1234',GETDATE()-6),
-('C0E48D99-4C13-44F8-B8AE-1DBE0ABBE4F5','',GETDATE()-7),
-('72F75054-669A-44A6-88BC-144E4A3F72B3','',GETDATE()-8),
-('B79D641B-A39E-4B43-8FA2-81BB6D1D733E','',GETDATE()-9)
+('0B3EEB90-87D3-4093-832F-E122B3DA778E','Evan1234',	GETDATE()-6),
+('C0E48D99-4C13-44F8-B8AE-1DBE0ABBE4F5','',			GETDATE()-7),
+('72F75054-669A-44A6-88BC-144E4A3F72B3','',			GETDATE()-8),
+('B79D641B-A39E-4B43-8FA2-81BB6D1D733E','',			GETDATE()-9)
 
 INSERT INTO [dbo].CartItem VALUES
 ('4D30F537-CA8C-43D9-ADE3-AE8421A4E920','981D835A-A255-4CF5-B868-FCB054326A97',1,2,170.10,GETDATE()),
@@ -72,10 +72,14 @@ INSERT INTO [dbo].CartItem VALUES
 ('AEDF19D8-6FFC-4CA1-883F-5E1837107C04','F6EBA2CB-2FE0-4EE8-95B4-EF268B7503FE',1,2,170.10,GETDATE())
 
 INSERT INTO [dbo].[Image] VALUES
-(1,1,'wifi installation','www.google.com'),
-(2,1,'wifi installation2','www.google.com/12354'),
-(3,1,'wifi installation2-1','www.google.com/12357774'),
-(4,1,'wifi installation3-1K','www.google.com/12354666')
+(1,1,'wifi installation',			'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image1.jpg'),
+(2,1,'wifi installation2',			'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image2.jpg'),
+(3,1,'wifi installation2-1',		'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image3.jpg'),
+(4,1,'wifi installation3-1K',		'www.google.com/12354666'),
+(5,11,'Nike Shoes#01',				'https://hpecommerce.blob.core.windows.net/kp-container/client10-product11-Image5.jpg'),
+(6,11,'Nike Shoes#02',				'https://hpecommerce.blob.core.windows.net/kp-container/client10-product11-Image6.jpg'),
+(7,2,'Kevin''s Pokemon#1',				'https://hpecommerce.blob.core.windows.net/kp-container/client2-Image7.jpg'),
+
 
 INSERT INTO [dbo].[Order] VALUES
 ('320B0B38-8344-454E-AE6E-CF3511C817A2','habib0303',1,'981D835A-A255-4CF5-B868-FCB054326A97','R','COMMENT',CAST('2021-04-21 08:35:00.0000' AS datetimeoffset(7)),CAST('2021-04-21 08:35:00.0000' AS datetimeoffset(7)),CAST('2021-04-22 12:35:00.0000' AS datetimeoffset(7))),
@@ -91,8 +95,13 @@ INSERT INTO [dbo].OrderItem VALUES
 ('09A74D43-EE03-48B1-8B10-EFCADCEA45D3','320B0B38-8344-454E-AE6E-CF3511C817A2'),
 ('FD8A7F26-36B5-40A3-BD81-43460EED7283','83065B6C-0DF1-4B29-9993-0F91034C71ED')
 
+INSERT INTO [dbo].[Vendor] VALUES(1,'IT Discuss',		7,'123-4567-5555',	'hyunbin7303@hb.com',	'hyunbin7303@gmail.com',		'IT Consaltant company')
+INSERT INTO [dbo].[Vendor] VALUES(2,'kevin''s store',	8,'123-4567-1234',	'asdf@hb.com',			'h12321321@gmail.com',			'kevins vendor store')
+INSERT INTO [dbo].[Vendor] VALUES(3,'Julio Restaurant',	9,'555-6666-1234',	'bbbbbaaa@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
+INSERT INTO [dbo].[Vendor] VALUES(4,'Shoes shop',		12,'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
+INSERT INTO [dbo].[Vendor] VALUES(5,'Shoes shop#2',		12,'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
+INSERT INTO [dbo].[Vendor] VALUES(6,'Shoes shop#3',		12,'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
+INSERT INTO [dbo].[Vendor] VALUES(7,'Book Store',		12,'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Book Store.')
 
-INSERT INTO [dbo].[Vendor] VALUES(1,'Vendor01',7,'123-4567-1234','hyunbin7303@hb.com','hyunbin7303@gmail.com','Hyunbin Clinet vendor')
-INSERT INTO [dbo].[Vendor] VALUES(2,'kevin''s store',8,'123-4567-1234','asdf@hb.com','h12321321@gmail.com','kevins vendor store')
-INSERT INTO [dbo].[Vendor] VALUES(3,'Julio Restaurant',9,'555-6666-1234','bbbbbaaa@hb.com','hasdfdsafsda303@gmail.com','Haaaa')
+
 

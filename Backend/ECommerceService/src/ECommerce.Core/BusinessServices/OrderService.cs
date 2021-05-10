@@ -63,7 +63,7 @@ namespace ECommerce.Core.BusinessServices
             order.CartId = cart.Id;
             order.VendorId = cart.VendorId;
 
-            _orderRepository.Insert(order);
+            _orderRepository.InsertAsync(order);
             
             
             return order;
