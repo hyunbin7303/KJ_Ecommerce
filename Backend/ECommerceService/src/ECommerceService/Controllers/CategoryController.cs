@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {
-    [Route("api/[controller]")]
     public class CategoryController : BaseController
     {
         private ICategoryRepository _categoryRepository = null;
@@ -35,13 +34,8 @@ namespace ECommerceService.Controllers
         {
             try
             {
-                //if (category.Name.Contains("XYZ Widget"))
-                //{
-                //    return BadRequest();
-                //}
                 _categoryRepository.InsertAsync(category);
                 return CreatedAtAction(nameof(Category), new { id = category.Id }, category);
-
             }
             catch (Exception e)
             {
@@ -61,7 +55,6 @@ namespace ECommerceService.Controllers
             }
             catch (Exception e)
             {
-                //  _logger.LogWarning(e, "Unable to Delete product.");
                 return ValidationProblem(e.Message);
             }
         }

@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CartController : Controller
+    public class CartController : BaseController
     {
         private readonly CartService _cartService;
 
@@ -19,7 +17,6 @@ namespace ECommerceService.Controllers
         {
             _cartService = new CartService(cartRepository);
         }
-
         [HttpPost("NewShoppingCart")]
         public async Task<Cart> NewShoppingCart()
         {
@@ -27,5 +24,12 @@ namespace ECommerceService.Controllers
             var cart = await _cartService.NewShoppingCart(1);
             return cart;
         }
+        [HttpGet]
+        public IEnumerable<Cart> GetCarts()
+        {
+            var carts = _cartService.GetAll();
+            return carts;
+        }
+
     }
 }

@@ -24,7 +24,7 @@ namespace ECommerce.Core.Models
         [Required]
         [RegularExpression(@"^\d{5}(?:[-\s]\d{4})?$", ErrorMessage= "Enter a valid zip code.")]
         public string ZipCode { get; private set; }
-        public string? PhoneNumber { get; private set; } = null;
+        public string? PhoneNumber { get; private set; }
         public string? Description { get; set; } = null;
         public DateTimeOffset LatestUpdateTime { get; set; }
         public virtual List<Invoice> Invoices { get; set; }

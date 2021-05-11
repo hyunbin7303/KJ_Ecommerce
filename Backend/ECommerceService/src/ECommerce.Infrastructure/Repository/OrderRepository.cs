@@ -20,7 +20,7 @@ namespace ECommerce.Infrastructure.Repository
         {
             throw new NotImplementedException();
         }
-        public override IEnumerable<Order> Get(Expression<Func<Order, bool>> filter = null, Func<IQueryable<Order>, IOrderedQueryable<Order>> orderBy = null, string includeProperties = "", CancellationToken cancellationToken)
+        public override IEnumerable<Order> Get(Expression<Func<Order, bool>> filter = null, Func<IQueryable<Order>, IOrderedQueryable<Order>> orderBy = null, string includeProperties = "", CancellationToken cancellationToken=default)
         {
             return base.Get(filter, orderBy, includeProperties);
         }
@@ -28,7 +28,7 @@ namespace ECommerce.Infrastructure.Repository
         {
             throw new NotImplementedException();
         }
-        public Task<IEnumerable<OrderItem>> GetllOrderItemsByOrderId(string orderId)
+        public Task<IEnumerable<OrderItem>> GetAllOrderItemsByOrderId(string orderId)
         {
             throw new NotImplementedException();
         }
