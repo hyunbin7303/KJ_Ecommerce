@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ListItemContainer,
   ListItemWrapper,
@@ -17,6 +17,8 @@ import TmpPic from "../../Assets/Images/TmpPic.png";
 const ListItem = (props) => {
   const [showModal, setShowModal] = useState(false);
 
+  let prodDetails = null;
+
   const productDetailModel = {
     id: 0,
     Name: "",
@@ -31,9 +33,15 @@ const ListItem = (props) => {
   );
 
   const showDetails = (prodId) => {
-    console.log("PRODID : " + prodId);
     getProductDetails(prodId);
     setShowModal((prev) => !prev);
+    prodDetails = (
+      <ProductDetail
+        {...productInfomartion}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
+    );
   };
 
   const getProductDetails = async (prodId) => {
@@ -50,9 +58,6 @@ const ListItem = (props) => {
           UnitPrice: response.data.unitPrice,
           UnitsInStock: response.data.unitsInStock,
         });
-        console.log("Response Data: " + response);
-        console.log("Response Data Name: " + response.data.name);
-        console.log("Prod: " + productInfomartion.name);
       })
       .catch((error) => {
         console.log("ERROR getting response: " + error);
@@ -72,14 +77,7 @@ const ListItem = (props) => {
             View Product
           </ListItemButton>
 
-          <ProductDetail
-            key={productDetailModel.id}
-            src={TmpPic}
-            title={productDetailModel.name}
-            description={productDetailModel.description}
-            showModal={showModal}
-            setShowModal={setShowModal}
-          />
+          {prodDetails}
         </ListItemWrapper>
       </ListItemContainer>
     </div>

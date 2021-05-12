@@ -10,7 +10,7 @@ import {
   ProductDetailCategory,
   ProductDetailDescription,
 } from "./ProductDetailElements";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 
 const CloseModalButton = styled(MdClose)`
@@ -25,28 +25,34 @@ const CloseModalButton = styled(MdClose)`
 `;
 
 const ProductDetail = ({
+  src,
+  title,
+  description,
   showModal,
   setShowModal,
-}, props) => {
+}) => {
   return (
     <>
       {showModal ? (
         <ProductDetailContainer>
           <ProductDetailCard>
             <ProductDetailImgWrapper>
-              <ProductDetailImg src={props.src} />
+              <ProductDetailImg src={src} />
             </ProductDetailImgWrapper>
             <ProductDetailInfo>
               <ProductDetailTitle>
-                {props.title}
+                {title}
                 <ProductDetailCategory>Technology</ProductDetailCategory>
                 <ProductDetailDescription>
-                  {props.description}
+                  {description}
                 </ProductDetailDescription>
               </ProductDetailTitle>
             </ProductDetailInfo>
           </ProductDetailCard>
-          <CloseModalButton aria-label="Close Modal" onClick={() => setShowModal(prev => !prev)}/>
+          <CloseModalButton
+            aria-label="Close Modal"
+            onClick={() => setShowModal((prev) => !prev)}
+          />
         </ProductDetailContainer>
       ) : null}
     </>
