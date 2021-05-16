@@ -10,6 +10,7 @@ namespace ECommerce.Core.Models.CartAggregate
         public Cart()
         {
             _cartitems = new List<CartItem>();
+            CreatedDate = DateTimeOffset.UtcNow;
         }
         public int VendorId { get; set; }
         public string CustomerId { get; set; }

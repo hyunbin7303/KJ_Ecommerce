@@ -31,8 +31,6 @@ namespace ECommerceService.Controllers
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<ProductDetailsDTO>>(allProducts);
             return mapped;
         }
-
-
         [HttpGet("Details")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -45,8 +43,6 @@ namespace ECommerceService.Controllers
             }
             return Ok(product);
         }
-
-
         [HttpGet("Category")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -60,6 +56,22 @@ namespace ECommerceService.Controllers
             return Ok(products);
         }
 
+        //[HttpGet("getsale")]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public async IAsyncEnumerable<Product> ProductsGetSaleAsync()
+        //{
+        //    var products = _productRepository.GetProductsAsync().Result;
+        //    await foreach(var product in products)
+        //    {
+        //        if (product.)
+        //        {
+        //            return NotFound();
+        //        }
+        //        return Ok(products);
+        //    }
+
+        //}
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]

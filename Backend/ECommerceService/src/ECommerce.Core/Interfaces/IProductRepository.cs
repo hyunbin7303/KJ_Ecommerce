@@ -11,7 +11,6 @@ namespace ECommerce.Core.Interfaces
         Task<IEnumerable<Product>> GetProductsAsync();
         Task<Product> GetProductById(int productId);
         Task<IEnumerable<Product>> GetProductsByNameAsync(string productName);
-        //Task<Product> GetProductByIdWithCategoryAsync(string productId);
         Task<IEnumerable<Product>> GetProductByCategoryAsync(int categoryId);
     }
 }

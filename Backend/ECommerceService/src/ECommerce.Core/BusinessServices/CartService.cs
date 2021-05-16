@@ -26,7 +26,7 @@ namespace ECommerce.Core.BusinessServices
             var cart = new Cart()
             {
                 Id = Guid.NewGuid().ToString(),
-                VendorId = vendorId
+                VendorId = vendorId,
             };
             _cartRepository.InsertAsync(cart);
             return cart;
@@ -34,6 +34,8 @@ namespace ECommerce.Core.BusinessServices
         public async Task AddItemToCart(string cartId, int productId, decimal quantity)
         {
             var cart = await _cartRepository.GetByIdAsync(cartId);
+            // check 
+
             cart.AddCartItem(productId, quantity);
             _cartRepository.UpdateAsync(cart);
         }

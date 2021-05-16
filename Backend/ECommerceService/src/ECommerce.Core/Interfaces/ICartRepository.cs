@@ -12,5 +12,6 @@ namespace ECommerce.Core.Interfaces
     {
         Task<IEnumerable<CartItem>> GetllCartItemsByCartId(string cartId);
         Task<bool> RemoveCartitems(string cartitemId);
+        Task AddItemToCart(string cartId, int productId, decimal quantity);
     }
 }
