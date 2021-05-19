@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ECommerce.Core.Interfaces
@@ -12,11 +13,11 @@ namespace ECommerce.Core.Interfaces
         IEnumerable<T> GetAll();
         Task<T> GetByIdAsync(object id);
         bool TryGetObject(object id, out object obj);
-        IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "");
+        IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "", CancellationToken cancellationToken = default);
         IEnumerable<T> GetWithSql(string query, params object[] paras);
-        void Insert(T obj);
-        void Update(T obj);
-        Task DeleteAsync(object id);
+        void InsertAsync(T obj, CancellationToken cancellationToken = default);
+        void UpdateAsync(T obj, CancellationToken cancellationToken = default);
+        Task DeleteAsync(object id, CancellationToken cancellationToken = default);
         void Delete(T entity);
     }
 }

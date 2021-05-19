@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace ECommerce.AzureStorage
         // https://www.wintellect.com/azure-bits-2-saving-the-image-to-azure-blob-storage/
         //https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-container-create?tabs=dotnet
         private readonly string _imageRootPath;
-        private static readonly string _container = "kp-container-";
+        private static readonly string _container = "kp-container";
         private readonly string _blobStorageConn;
         private BlobServiceClient blobServiceClient = null;
         public AzureBlobStorageService(string connectionString = null, string imageRootPath = null)
@@ -31,9 +32,8 @@ namespace ECommerce.AzureStorage
         {
             throw new NotImplementedException();
         }
-        public async Task BlobDownloadInfoTestAsync(BlobClient blobClient, string filePath)
+        public async Task BlobDownloadInfoAsync(BlobClient blobClient, string filePath)
         {
-            // Download the blob to a local file
             // Append the string "DOWNLOADED" before the .txt extension 
             // so you can compare the files in the data directory
             string downloadFilePath = filePath.Replace(".txt", "DOWNLOADED.txt");
@@ -46,29 +46,25 @@ namespace ECommerce.AzureStorage
                 downloadFileStream.Close();
             }
         }
-        public static Task<BlobContainerClient> CreateContainerAsync(BlobServiceClient blobServiceClient, string containerName)
-        {
-            var newContainerName = _container + containerName;
-            try
-            {
-                BlobContainerClient container = blobServiceClient.CreateBlobContainer(containerName);
-                if (container.Exists())
-                {
-                    return Task.FromResult(container);
-                }
-            }
-            catch (RequestFailedException e)
-            {
-                // TODO: Logging in here.
-                Console.WriteLine("HTTP error code {0}: {1}", e.Status, e.ErrorCode);
-                Console.WriteLine(e.Message);
-            }
-            return null;
-        }
+        //public static List<V> ListAllBlobs<T, V>(Expression<Func<T, V>> expression, string containerName, string prefix)
+        //{
+        //    CloudStorageAccount storageAccount = CloudStorageAccount.Parse("YourConnectionString;");
+           
+        //    BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_container);
+        //    CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
+        //    CloudBlobContainer container = cloudBlobClient.GetContainerReference(containerName);
+        //    container.CreateIfNotExists();
+        //    var list = container.ListBlobs(prefix: prefix, useFlatBlobListing: true);
+        //    List<V> data = list.OfType<T>().Select(expression.Compile()).ToList();
+        //    return data;
+        //}
+       
+
+
         public void DeleteContainer(string containerName)
         {
             // Try to delete a container  and avoid any potential race conditions that might arise by checking if the container is already deleted or is in the process of being deleted.
-            BlobContainerClient container = AzureBlobManager.GetBlobContainerClient(containerName);
+            BlobContainerClient container = blobServiceClient.GetBlobContainerClient(containerName);
             try
             {
                 container.Delete();
@@ -80,23 +76,18 @@ namespace ECommerce.AzureStorage
                 // Ignore any errors if the container being deleted or if it has already been deleted
             }
         }
-        public Task<BlobItem> GetBlobAsync(GetBlobRequestDTO input)
+        public Task<BlobItem> GetBlobItemByFileName(string fileName)
         {
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_container);
             var blobs = containerClient.GetBlobs();
             foreach (BlobItem b in blobs)
             {
-                if (b.Name == input.Name)
+                if (b.Name == fileName)
                 {
                     return Task.FromResult(b);
                 }
             }
             return null;
-        }
-        public IEnumerator<BlobItem> GetBlobItemsFromContainer(string containerName)
-        {
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-            return containerClient.GetBlobs().GetEnumerator();
         }
         public async Task<Entity> GetEntityBlobAsync<Entity>(BlobClient blobJson) where Entity : class, new()
         {
@@ -120,6 +111,14 @@ namespace ECommerce.AzureStorage
             {
                 return null;
             }
+        }
+        public IList<string> GetBlobItemsFromContainer(string containerName)
+        {
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            List<string> fileNames = new List<string>();
+            foreach (BlobItem blobItem in containerClient.GetBlobs())
+                fileNames.Add(blobItem.Name);
+            return fileNames;
         }
         public string GetFileUrl(string iamgeName)
         {

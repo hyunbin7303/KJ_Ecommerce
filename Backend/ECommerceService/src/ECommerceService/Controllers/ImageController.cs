@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,11 +7,10 @@ using System.Threading.Tasks;
 namespace ECommerceService.Controllers
 {
 
-    [Route("api/[controller]")]
     public class ImageController : BaseController
     {
         [HttpPost("UploadFile")]
-        public async Task<string> UploadFile([FromForm]IFormFile file)
+        public Task<string> UploadFile([FromForm]IFormFile file)
         {
             string fName = file.FileName;
             //string path = Path.Combine(hostingEnvironment.ContentRootPath, "Images/" + file.FileName);
@@ -21,9 +18,7 @@ namespace ECommerceService.Controllers
             //{
             //    await file.CopyToAsync(stream);
             //}
-            return file.FileName;
+            return Task.FromResult(file.FileName);
         }
-
-
     }
 }

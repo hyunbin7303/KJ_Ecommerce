@@ -11,7 +11,9 @@ namespace ECommerce.AzureStorage
 
         static public async System.Threading.Tasks.Task Main(string[] args)
         {
-            //    GetFilesFromAzureBlob("kp-container");
+
         }
+
     }
+
 }

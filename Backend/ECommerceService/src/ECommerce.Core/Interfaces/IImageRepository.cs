@@ -10,7 +10,7 @@ namespace ECommerce.Core.Interfaces
 {
     public interface IImageRepository
     {
-        IEnumerable<Image> GetImageFileUrl(string productId, string productName, string vendorId);
+        IEnumerable<Image> GetProductImageUrl(string productId, string productName, string vendorId);
         void InsertImage(IFormFile file);
         void DeleteImage(int imageId);
         Task<bool> SaveImage(string pictureName, string pictureBase64, CancellationToken cancellationToken);
