@@ -1,36 +1,31 @@
 import React from "react";
 import {
-  GridArea,
-  GridContainer,
-  Content,
   ProductsContainer,
   ProductsList,
   Product,
   ProductName,
   ProductDescription,
   ProductPrice,
+  ProductImg,
 } from "./ProductsElements/ProductsElements";
 
 // this component will display products in a horizontal grid
 
 const Products = (props) => {
   return (
-    <GridArea>
-      <GridContainer>
-        <Content>
-          <ProductsContainer>
-            <ProductsList>
-              <Product>
-                {/* img element */}
-                <ProductName>{/* a href */}{props.ProductName}</ProductName>
-                <ProductDescription>{props.ProductDescription}</ProductDescription>
-                <ProductPrice>{props.ProductPrice}</ProductPrice>
-              </Product>
-            </ProductsList>
-          </ProductsContainer>
-        </Content>
-      </GridContainer>
-    </GridArea>
+    <ProductsContainer>
+      <ProductsList>
+        <Product>
+          <ProductName>
+            {/* a href */}
+            {props.ProductName}
+          </ProductName>
+          <ProductImg src="https://hpecommerce.blob.core.windows.net/kp-container/lord_of_the_ring_TheFellowshipOfTheRing.jpg" />
+          <ProductDescription>{props.ProductDescription}</ProductDescription>
+          <ProductPrice>{props.ProductPrice}</ProductPrice>
+        </Product>
+      </ProductsList>
+    </ProductsContainer>
   );
 };
 

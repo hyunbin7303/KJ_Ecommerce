@@ -1,18 +1,5 @@
 import styled from 'styled-components'
 
-export const GridArea = styled.main`
-    grid-area: GridArea;
-`;
-
-export const GridContainer = styled.div`
-
-`;
-
-
-export const Content = styled.div`
-
-`;
-
 export const ProductsContainer = styled.ul`
     max-width: 100%;
     display: flex;
