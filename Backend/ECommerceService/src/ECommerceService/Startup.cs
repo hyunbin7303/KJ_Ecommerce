@@ -57,6 +57,7 @@ namespace ECommerceService
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICartService, CartService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
