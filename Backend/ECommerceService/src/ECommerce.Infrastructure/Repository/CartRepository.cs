@@ -18,7 +18,7 @@ namespace ECommerce.Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<CartItem>> GetllCartItemsByCartId(string cartId)
+        public Task<IEnumerable<CartItem>> GetAllCartItemsByCartId(string cartId)
         {
             throw new NotImplementedException();
         }

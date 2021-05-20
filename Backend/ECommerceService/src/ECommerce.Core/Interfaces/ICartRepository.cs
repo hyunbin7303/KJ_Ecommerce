@@ -10,7 +10,7 @@ namespace ECommerce.Core.Interfaces
 {
     public interface ICartRepository : IGenericRepository<Cart>
     {
-        Task<IEnumerable<CartItem>> GetllCartItemsByCartId(string cartId);
+        Task<IEnumerable<CartItem>> GetAllCartItemsByCartId(string cartId);
         Task<bool> RemoveCartitems(string cartitemId);
         Task AddItemToCart(string cartId, int productId, decimal quantity);
     }

@@ -12,6 +12,8 @@ namespace ECommerce.Infrastructure.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly IImageRepository _imageRepository;
+
+
         public ProductService(IProductRepository orderRepository, IImageRepository imageRepository)
         {
             _productRepository = orderRepository;

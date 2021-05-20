@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Core.BusinessServices
 {
-    public class CartService : ICartRepository
+    public class CartService : ICartService
     {
         private readonly ICartRepository _cartRepository;
 
@@ -47,57 +47,22 @@ namespace ECommerce.Core.BusinessServices
             _cartRepository.UpdateAsync(cart);
         }
 
-        public Task<IEnumerable<CartItem>> GetllCartItemsByCartId(string cartId)
+        public Task TransferBasket(string cartId, string userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> RemoveCartitems(string cartitemId)
+        public Task AddItemToCart(string cartId, int productId, int quantity = 1)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Cart> GetAll()
-        {
-            var carts = _cartRepository.GetAll();
-            return carts;
-        }
-
-        public Task<Cart> GetByIdAsync(object id)
+        public Task SetQuantities(string cartId, Dictionary<string, int> quantities)
         {
             throw new NotImplementedException();
         }
 
-        public bool TryGetObject(object id, out object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Cart> Get(Expression<Func<Cart, bool>> filter = null, Func<IQueryable<Cart>, IOrderedQueryable<Cart>> orderBy = null, string includeProperties = "", CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Cart> GetWithSql(string query, params object[] paras)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertAsync(Cart obj, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateAsync(Cart obj, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteAsync(object id, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-        public void Delete(Cart entity)
+        public Task DeleteCart(string cartId)
         {
             throw new NotImplementedException();
         }

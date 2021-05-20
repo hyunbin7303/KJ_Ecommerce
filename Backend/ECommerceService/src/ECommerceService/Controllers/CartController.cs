@@ -1,6 +1,7 @@
 ﻿using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.CartAggregate;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,15 +29,31 @@ namespace ECommerceService.Controllers
             return null;
         }
         [HttpGet]
-        public IEnumerable<Cart> GetCarts()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Cart))]
+        public IEnumerable<Cart> Get()
         {
-            var carts = _cartRepository.GetAll();
-            return carts;
+           return _cartRepository.GetAll();
         }
+        [HttpGet("GetCart")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Cart))]
+        public async Task<Cart> GetCartAsync(string cartId)
+        {
+            return await _cartRepository.GetByIdAsync(cartId);
+        }
+        //[HttpGet("GetAllCart")]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Cart))]
+        //public async Task<Cart> GetCartAsync(string cartId)
+        //{
+        //    return await _cartRepository.GetByIdAsync(cartId);
+        //}
+
+
 
         [HttpPost("AddCartItem")]
         public async Task<ActionResult> AddCartItem(string cartId, int productId, int quantity)
         {
+            //TODO Get User information.
+
             // Get Item Data from Product Service.
             var product = await _productService.GetProductById(productId);
             if(product == null)
@@ -46,5 +63,9 @@ namespace ECommerceService.Controllers
             await _cartService.AddItemToCart(cartId, product.Id, quantity);
             return Ok();
         }
+
+        //[HttpPut("UpdateCart")]
+
+
     }
 }
