@@ -1,17 +1,18 @@
 import React from "react";
 import { HomePageContainer } from "./HomePageElements/HomePageElements";
-import ProductsView from "../../../Container/ProductsView/ProductView";
+import ProductsView from "../../../Container/ProductsView/ProductsView";
+import ReactAux from "../../../Hoc/ReactAux/ReactAux";
 
 const HomePage = () => {
   return (
-    <div>
+    <ReactAux>
       <HomePageContainer>
+        <div className="h1">KJ Ecommerce</div>
         {/*<List />
         <Product /> */}
         <ProductsView />
-
       </HomePageContainer>
-    </div>
+    </ReactAux>
   );
 };
 

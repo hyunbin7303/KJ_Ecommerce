@@ -10,7 +10,7 @@ export const MainContent = styled.main`
 class Layout extends Component {
   state = {};
 
-  // SideDrawerClosedHandler
+  //SideDrawerClosedHandler
 
   //SideDrawerToggle
 
@@ -19,7 +19,6 @@ class Layout extends Component {
       <ReactAux>
         {/* NavBar */}
         {/* SideDrawer */}
-        {/* main */}
         <MainContent>
             {this.props.children}
         </MainContent>
