@@ -3,6 +3,7 @@ using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,23 +28,20 @@ namespace ECommerce.Infrastructure.Services
             return Task.CompletedTask;
         }
         public Task<Product> GetProductById(int productId)
-        {
-            var product = _productRepository.GetProductById(productId).Result;
-            return product != null ? Task.FromResult<Product>(product) : null;
+        { 
+            var product = _productRepository.GetByIdAsync(productId).Result;
+            return product != null ? Task.FromResult(product) : null;
         }
-        public Task<IList<Product>> GetProducts()
-        {
-            throw new NotImplementedException();
-        }
-        public Task<IList<Product>> GetProductsByCategoryId(int categoryId)
+        public Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId)
         {
             throw new NotImplementedException();
         }
-        public Task<IList<Product>> GetProductsByNameContains(string name)
+        public Task<IEnumerable<Product>> GetProductsByDisplayNameContains(string categoryName)
         {
-            throw new NotImplementedException();
+            Expression<Func<Product, bool>> exprProd = x => x.DisplayName.Contains(categoryName);
+            var products = _productRepository.Get(exprProd);
+            return Task.FromResult(products);
         }
-
         // Geting to accept SearchDTO.
         public Task<Product> SearchProduct(/*SearchProductDTO*/)
         {
@@ -51,22 +49,26 @@ namespace ECommerce.Infrastructure.Services
         }
         public Task UpdateProduct(Product product)
         {
-            var _product = _productRepository.GetProductById(product.Id);
+            var _product = _productRepository.GetByIdAsync(product.Id);
             if(_product!= null)
             {
                 _productRepository.UpdateAsync(product);
                 return Task.CompletedTask;
             }
-            return null;
-
+            return Task.FromResult(false);
         }
         public Task<bool> DeleteProduct(int productId)
         {
-            var check = _productRepository.DeleteAsync(productId); // need to define a way to return properly.
-            return Task.FromResult(true);
+            var product = _productRepository.DeleteAsync(productId);
+            if(product!= null)
+            {
+                var check = _productRepository.DeleteAsync(productId);
+                return Task.FromResult(true);
+            }
+            return Task.FromResult(false);
         }
 
-        Task<Product> IProductService.GetProducts()
+        public Task<IEnumerable<Product>> GetProductsOnSale()
         {
             throw new NotImplementedException();
         }
