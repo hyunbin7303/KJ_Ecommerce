@@ -1,4 +1,5 @@
-﻿using ECommerce.Core.Models.OrderAggregate;
+﻿using ECommerce.Core.Models;
+using ECommerce.Core.Models.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace ECommerce.Core.Interfaces
         Task<IEnumerable<OrderItem>> GetAllOrderItemsByOrderId(string orderId);
         Task RemoveOrderItem(string orderId, string orderItem);
         Task ChangeQuantity(string orderItem, decimal quantity);
+        IEnumerable<Order> GetActiveOrdersAssignedToCustomer(Customer id);
     }
 }

@@ -15,14 +15,15 @@ namespace ECommerce.Core.BusinessServices
     public class CartService : ICartService
     {
         private readonly ICartRepository _cartRepository;
-
+        private readonly ICartItemRepository cartItemRepository;
         public CartService(ICartRepository cartRepository)
         {
             _cartRepository = cartRepository;
         }      
 
-        public async Task<Cart> NewShoppingCart(int vendorId)
+        public Cart newShoppingCart(string userId, int vendorId)
         {
+
             var cart = new Cart()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -31,11 +32,13 @@ namespace ECommerce.Core.BusinessServices
             _cartRepository.InsertAsync(cart);
             return cart;
         }
-        public async Task AddItemToCart(string cartId, int productId, decimal quantity)
+        public async Task AddItemToCart(string cartId, int productId, int quantity = 1)
         {
             var cart = await _cartRepository.GetByIdAsync(cartId);
-            // check 
-
+            if(cart == null)
+            {
+                // return something bad return.
+            }
             cart.AddCartItem(productId, quantity);
             _cartRepository.UpdateAsync(cart);
         }
@@ -47,24 +50,27 @@ namespace ECommerce.Core.BusinessServices
             _cartRepository.UpdateAsync(cart);
         }
 
+        // Sending Cart information to other service(external).
         public Task TransferBasket(string cartId, string userId)
         {
             throw new NotImplementedException();
         }
-
-        public Task AddItemToCart(string cartId, int productId, int quantity = 1)
+        public async Task<IList<CartItem>> GetCartItemByCartId(string cartId)
         {
-            throw new NotImplementedException();
+            List<CartItem> cartItems = new List<CartItem>();
+            var cart = await _cartRepository.GetByIdAsync(cartId);
+            if(cart == null)
+            {
+                return null;
+            }
+            cartItems = cart.CartItems.ToList();
+            return cartItems;
         }
-
         public Task SetQuantities(string cartId, Dictionary<string, int> quantities)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteCart(string cartId)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
