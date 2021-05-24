@@ -14,11 +14,6 @@ namespace ECommerce.Infrastructure.Repository
         public ProductRepository(MainEcommerceDBContext context) : base(context)
         {
         }
-        public async Task<Product> GetProductById(int productId)
-        {
-            var product = await GetByIdAsync(productId);
-            return product;
-        }
         public Task<IEnumerable<Product>> GetProductsAsync()
         {
             var products = GetAll();
@@ -30,7 +25,7 @@ namespace ECommerce.Infrastructure.Repository
             var check = Get(expressionProduct);
             return Task.FromResult(check);
         }
-        public Task<IEnumerable<Product>> GetProductByCategoryAsync(int categoryId)
+        public Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId)
         {
             Expression<Func<Product, bool>> expressionCategory = x => x.CategoryId == categoryId;
             var check = Get(expressionCategory);
