@@ -1,4 +1,5 @@
 ﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models;
 using ECommerce.Core.Models.OrderAggregate;
 using ECommerce.Infrastructure.Repository.Base;
 using System;
@@ -61,6 +62,14 @@ namespace ECommerce.Infrastructure.Repository
         public Task<IEnumerable<OrderItem>> GetOrderItems(string orderId)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Order> GetActiveOrdersAssignedToCustomer(Customer id)
+        {
+            return base.GetAll()
+                    .Where(order => order.CustomerId == id.Id)
+                    .Where(order => order.Status != OrderStatus.Closed)
+                    .ToArray();
         }
     }
 }

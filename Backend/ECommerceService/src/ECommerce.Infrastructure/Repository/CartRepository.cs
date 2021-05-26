@@ -13,19 +13,5 @@ namespace ECommerce.Infrastructure.Repository
         public CartRepository(MainEcommerceDBContext context) : base(context)
         {
         }
-        public Task AddItemToCart(string cartId, int productId, decimal quantity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<CartItem>> GetAllCartItemsByCartId(string cartId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> RemoveCartitems(string cartitemId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
