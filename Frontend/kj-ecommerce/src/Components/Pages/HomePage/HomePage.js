@@ -1,5 +1,5 @@
 import React from "react";
-import { HomePageContainer } from "./HomePageElements/HomePageElements";
+import { HomePageContainer, HomePageProductGrid } from "./HomePageElements/HomePageElements";
 import ProductsView from "../../../Container/ProductsView/ProductsView";
 import ReactAux from "../../../Hoc/ReactAux/ReactAux";
 

@@ -10,7 +10,7 @@ export const ProductsContainer = styled.ul`
   flex-wrap: wrap;
   background-color: #fff;
   z-index: 30;
-  padding: 2.4rem;
+  padding: 2.5rem;
 `;
 
 export const ProductsList = styled.li`
@@ -42,6 +42,9 @@ export const ProductImgContainer = styled.div`
 export const ProductImg = styled.img`
   max-height: 34rem;
   max-width: 34rem;
+  height: 25rem;
+  width: 25rem;
+  object-fit: contain;
 `;
 
 export const ProductName = styled.h4`
@@ -50,16 +53,34 @@ export const ProductName = styled.h4`
   margin-bottom: 0.75rem;
 `;
 
-export const ProductDescription = styled.div`
+export const ProductDescription = styled.p`
   font-size: 1rem;
   line-height: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 `;
 
-export const ProductPrice = styled.div`
+export const ProductPrice = styled.p`
   font-size: 2.5rem;
   font-weight: bold;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 `;
 
-export const AddToCart = styled.button``;
+export const AddToCart = styled.button`
+  cursor: pointer;
+  padding: 14px 168px;
+  margin-top: auto;
+  font-size: 1rem;
+  line-height: 1rem;
+  background: #232a34;
+  color: #FFF;
+  outline: none;
+  border: none;
+  border-radius: 30px;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #3772FF;
+`;

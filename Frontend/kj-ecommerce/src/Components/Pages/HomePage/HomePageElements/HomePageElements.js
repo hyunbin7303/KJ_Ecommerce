@@ -8,3 +8,9 @@ export const HomePageContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
 `;
+
+export const HomePageProductGrid = styled.div`
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+`;
