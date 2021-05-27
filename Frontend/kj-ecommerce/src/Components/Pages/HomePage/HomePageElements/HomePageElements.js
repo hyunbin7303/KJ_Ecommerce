@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const HomePageContainer = styled.div`
-  display: flex;
-  flex-direction: row;
+  background-color: rgba(243, 244, 246);
   justify-content: center;
-  max-width: 1500px;
+  align-items: center;
+  max-width: 1536px;
+  margin-left: auto;
+  margin-right: auto;
 `;
