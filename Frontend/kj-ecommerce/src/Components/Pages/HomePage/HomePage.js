@@ -7,9 +7,7 @@ const HomePage = () => {
   return (
     <ReactAux>
       <HomePageContainer>
-        <div className="h1">KJ Ecommerce</div>
-        {/*<List />
-        <Product /> */}
+        {/* <Product /> */}
         <ProductsView />
       </HomePageContainer>
     </ReactAux>
