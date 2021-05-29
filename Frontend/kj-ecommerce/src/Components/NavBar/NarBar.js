@@ -1,11 +1,16 @@
 import React from "react";
-import ReactAux from '../../Hoc/ReactAux/ReactAux';
+import {NavBarContainer, NavBarHeader, NavBarLogoContainer, NavBarLogoImg} from './NavBarElements/NavBarElements';
+import Logo from '../../Assets/Images/KJ Ecommerce.png';
 
 const NarBar = () => {
     return (
-        <div>
-            
-        </div>
+        <NavBarHeader>
+            <NavBarContainer>
+                <NavBarLogoContainer>
+                    <NavBarLogoImg src={Logo}/>
+                </NavBarLogoContainer>
+            </NavBarContainer>
+        </NavBarHeader>
     )
 }
 
