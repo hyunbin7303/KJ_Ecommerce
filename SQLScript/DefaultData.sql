@@ -5,17 +5,17 @@ INSERT INTO [dbo].[Category]([Name]) VALUES
 ('Desktop Computers'),('Monitors'),('Printers'),('Keyboard'),('Mouse'),('Networking'),('Smart Security'),('Cables'),('Headsets'),('Speakers'),('Adapter & Chargers'),('Security & Surveillance'),('Laptop & Tablet Accessories'),('Home & Office Furnitures'),('Bundle Gift Items'),('Batteries'),('Bags & Cases')
 
 
-INSERT INTO [dbo].[Vendor] VALUES('IT Discuss',		7,'123-4567-5555',	'hyunbin7303@hb.com',	'hyunbin7303@gmail.com',		'IT Consaltant company')
-INSERT INTO [dbo].[Vendor] VALUES('kevin''s store',	8,'123-4567-1234',	'asdf@hb.com',			'h12321321@gmail.com',			'kevins vendor store')
-INSERT INTO [dbo].[Vendor] VALUES('Julio Restaurant',	9,'555-6666-1234',	'bbbbbaaa@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
-INSERT INTO [dbo].[Vendor] VALUES('Shoes shop',		12,'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
-INSERT INTO [dbo].[Vendor] VALUES('Shoes shop#2',		12,'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
-INSERT INTO [dbo].[Vendor] VALUES('Shoes shop#3',		12,'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
-INSERT INTO [dbo].[Vendor] VALUES('Book Store',		12,'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Book Store.')
+INSERT INTO [dbo].[Vendor] VALUES('IT Discuss',			7,	'123-4567-5555',	'hyunbin7303@hb.com',	'hyunbin7303@gmail.com',		'IT Consaltant company')
+INSERT INTO [dbo].[Vendor] VALUES('kevin''s store',		8,	'123-4567-1234',	'asdf@hb.com',			'h12321321@gmail.com',			'kevins vendor store')
+INSERT INTO [dbo].[Vendor] VALUES('Julio Restaurant',	9,	'555-6666-1234',	'bbbbbaaa@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
+INSERT INTO [dbo].[Vendor] VALUES('Shoes shop',			12,	'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
+INSERT INTO [dbo].[Vendor] VALUES('Shoes shop#2',		12,	'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
+INSERT INTO [dbo].[Vendor] VALUES('Shoes shop#3',		12,	'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Haaaa')
+INSERT INTO [dbo].[Vendor] VALUES('Book Store',			12,	'555-1234-1555',	'werwer@hb.com',		'hasdfdsafsda303@gmail.com',	'Book Store.')
 
 GO
 INSERT INTO [dbo].Product VALUES
-('Wifi Installation',				'Wifi Installation',					'Installing wifi at location',						1, null, 'Basic',1,100,'True',0.10, 1, 1, 1,NULL,NULL),
+('Wifi Installation',				'Wifi Installation',					'Installing wifi at location',						1, null, 'Basic',			1,100,			'True',		0.10, 1, 1, 1,	NULL,NULL),
 ('Wifi Installation',				'Wifi Installation',					'Installing wifi at location',						1, null, 'Normal',			1,	115,		'True',		null, 1, 1, 0,	NULL,NULL),
 ('Wifi Installation',				'Wifi Installation',					'Installing wifi at location',						1, null, 'Full',			1,	130,		'True',		null, 1, 1, 0,	NULL,NULL),
 ('Fiber optic cable Installation',	'Cable Installation',					'Installing Fiber Optic Cable',						1, null, 'Basic',			1,	120,		'True',		null, 1, 1, 0,	NULL,NULL),
@@ -30,45 +30,55 @@ INSERT INTO [dbo].Product VALUES
 GO
 
 INSERT INTO [dbo].[Address] VALUES
-('Habib Shakibanejad',	'222-123-1234', '534 Main St.',			'','Kitchener',		'Ontario',	'Canada',NULL),
-('Julio Rivas',			'456-123-1253', '534 Main St.',			'','Kitchener',		'Ontario',	'Canada',NULL),
-('Kevin Park',			'234-754-4234', '4 Old Mill Rd.',		'','Waterloo',		'Ontario',	'Canada',NULL),
-('Evan',					'867-456-3472', '6412 Westrood Rd.',	'','Guelph',		'Ontario',	'Canada',NULL),
-('Michael Jackson',		'876-786-7375', '2355 Cresthaven St.',	'','Toronto',		'Ontario',	'Canada',NULL),
-('Roosie McDonald',		'769-456-4565', '87 Orchard Mill Rd.',	'','Ottawa',		'Ontario',	'Canada',NULL),
-('Client Eastwood',		'656-456-4554', '48 Booth St.',			'','Kitchener',		'Ontario',	'Canada',NULL),
-('hyunbin park Vendor01', '519-721-5349',	'258 haha my name',		'','Waterloo',		'Ontario',	'Canada',NULL),
-('Habib Vendor store',	'656-456-4554', '48 Booth St.',			'','Kitchener',		'Ontario',	'Canada',NULL)
+('Habib Shakibanejad',		'222-123-1234', '534 Main St.',				'','Kitchener',		'Ontario',	'Canada',NULL),
+('Julio Rivas',				'456-123-1253', '534 Main St.',				'','Kitchener',		'Ontario',	'Canada',NULL),
+('Kevin Park',				'234-754-4234', '4 Old Mill Rd.',			'','Waterloo',		'Ontario',	'Canada',NULL),
+('Evan',					'867-456-3472', '6412 Westrood Rd.',		'','Guelph',		'Ontario',	'Canada',NULL),
+('Michael Jackson',			'876-786-7375', '2355 Cresthaven St.',		'','Toronto',		'Ontario',	'Canada',NULL),
+('Roosie McDonald',			'769-456-4565', '87 Orchard Mill Rd.',		'','Ottawa',		'Ontario',	'Canada',NULL),
+('Client Eastwood',			'656-456-4554', '48 Booth St.',				'','Kitchener',		'Ontario',	'Canada',NULL),
+('hyunbin park Vendor01',	'519-721-5349',	'258 haha my name',			'','Waterloo',		'Ontario',	'Canada',NULL),
+('Habib Vendor store',		'656-456-4554', '48 Booth St.',				'','Kitchener',		'Ontario',	'Canada',NULL)
 GO
-select * from Customer
+
 INSERT INTO [dbo].[Customer] VALUES 
-('habib0303',1,1,'Habib Shakibanejad',null),
-('julio1927',2,2,'Julio Rivas',null),
-('kevin7303',3,3,'Kevin Park',null),
-('4',4,4,'Evan',null),
-('5',5,5,'Michael Jackson',null),
-('Evan1234',6,6,'Chris Tucker',null)
+('habib0303',							1,1,'Habib Shakibanejad',	'Customer Description'),
+('julio1927',							2,2,'Julio Rivas',			'Customer Description'),
+('kevin7303',							3,3,'Kevin Park',			'Customer Description'),
+('4',									4,4,'Evan',					'Customer Description'),
+('5',									5,5,'Michael Jackson',		'Customer Description'),
+('Evan1234',							6,6,'QWERTTY',				'Customer Description'),
+('CustomerID01',						7,6,'AZZZZZZa',				'Customer Description'),
+('CustomerID02',						7,6,'AZZZZZZab',				''),
+('CustomerID03',						7,6,'AZZZZZZac',				''),
+('CustomerID04',						7,6,'AZZZZZZad',				''),
+('CustomerID05',						7,6,'AZZZZZZae',				'')
 GO
-
 select * from Cart
-
+select 
 INSERT INTO [dbo].Cart VALUES
-('981D835A-A255-4CF5-B868-FCB054326A97',1,'habib0303',GETDATE()-1),
-('F42508CB-BCEB-4E2F-B8EC-E9F8C71A805A',1,'habib0303',CAST('2021-04-23 13:55:29.1234' AS datetimeoffset(7))),
-('CE79A63C-20CC-427C-B632-E05E19A45895',1,'kevin7303',GETDATE()-3),
-('F6EBA2CB-2FE0-4EE8-95B4-EF268B7503FE',1,'julio1927',GETDATE()-4),
-('0C1A3BC8-17F4-4DC6-85A7-042E509560C2',1,'julio1927',GETDATE()-5),
-('0B3EEB90-87D3-4093-832F-E122B3DA778E',1,'Evan1234',	GETDATE()-6),
-('C0E48D99-4C13-44F8-B8AE-1DBE0ABBE4F5',1,'',			GETDATE()-7),
-('72F75054-669A-44A6-88BC-144E4A3F72B3',1,'',			GETDATE()-8),
-('B79D641B-A39E-4B43-8FA2-81BB6D1D733E',1,'',			GETDATE()-9)
+('981D835A-A255-4CF5-B868-FCB054326A97',1,'habib0303',		1,0,	'Normal','',0,	GETDATE()-1												,GetDate()-1			),
+('F42508CB-BCEB-4E2F-B8EC-E9F8C71A805A',2,'habib0303',		1,0,	'Normal','',0,	CAST('2021-04-23 13:55:29.1234' AS datetimeoffset(7))	,GetDate()-2			),
+('CE79A63C-20CC-427C-B632-E05E19A45895',1,'kevin7303',		1,0,	'Normal','',0,	GETDATE()-3												,GetDate()-3		),
+('F6EBA2CB-2FE0-4EE8-95B4-EF268B7503FE',1,'julio1927',		1,0,	'Normal','',0,	GETDATE()-4												,GetDate()-4			),
+('741E0767-162F-4BB5-9A05-58EC847032E3',2,'julio1927',		1,0,	'Normal','',0,	GETDATE()-5												,GetDate()-5			),
+('0C1A3BC8-17F4-4DC6-85A7-042E509560C2',3,'julio1927',		1,0,	'Normal','',0,	GETDATE()-5												,GetDate()-6			),
+('0B3EEB90-87D3-4093-832F-E122B3DA778E',4,'Evan1234',		1,0,	'Normal','',0,	GETDATE()-6												,GetDate()-7		),
+('C0E48D99-4C13-44F8-B8AE-1DBE0ABBE4F5',5,'CustomerID01',	1,0,	'Normal','',0,	GETDATE()-7												,GetDate()-8		),
+('72F75054-669A-44A6-88BC-144E4A3F72B3',6,'CustomerID01',	1,0,	'Normal','',0,	GETDATE()-8												,GetDate()-9		),
+('B79D641B-A39E-4B43-8FA2-81BB6D1D733E',1,'CustomerID01',	1,0,	'Normal','',0,	GETDATE()-9												,GetDate()-10		)
 
+INSERT INTO [dbo].[CartItem] VALUES('C6EF3B57-1BC0-4A71-938F-2544C5C9A33A','0B3EEB90-87D3-4093-832F-E122B3DA778E',1,'',1,100,	GETDATE(),GETDATE())
+INSERT INTO [dbo].[CartItem] VALUES('29624DEC-D988-4A83-B95C-481D9F4E03C8','0B3EEB90-87D3-4093-832F-E122B3DA778E',2,'',1,100,	GETDATE(),GETDATE())
+INSERT INTO [dbo].[CartItem] VALUES('4F5738D5-16DF-4C3A-8644-738EC3B4B1F8','0B3EEB90-87D3-4093-832F-E122B3DA778E',3,'',1,115,	GETDATE(),GETDATE())
+INSERT INTO [dbo].[CartItem] VALUES('34EA9A86-2DA4-4C3E-A3EF-314D6C9358C1','0C1A3BC8-17F4-4DC6-85A7-042E509560C2',17,'',1,120,	GETDATE(),GETDATE())
+INSERT INTO [dbo].[CartItem] VALUES('845454DC-4C53-4EC9-BBD3-9F6209328C7E','0C1A3BC8-17F4-4DC6-85A7-042E509560C2',18,'',1,150,	GETDATE(),GETDATE())
 INSERT INTO [dbo].CartItem VALUES
-('4D30F537-CA8C-43D9-ADE3-AE8421A4E920','981D835A-A255-4CF5-B868-FCB054326A97',1,2,170.10,GETDATE()),
-('B1AAFACC-0A5C-4090-B0E5-36446F861627','981D835A-A255-4CF5-B868-FCB054326A97',1,2,170.10,GETDATE()),
-('F5588E00-62BA-4A50-9EC0-36E55A6EF76A','981D835A-A255-4CF5-B868-FCB054326A97',1,2,170.10,GETDATE()),
-('AE0A0E8D-7548-49F3-81BB-8E2C1F5885EF','CE79A63C-20CC-427C-B632-E05E19A45895',1,2,170.10,GETDATE()),
-('AEDF19D8-6FFC-4CA1-883F-5E1837107C04','F6EBA2CB-2FE0-4EE8-95B4-EF268B7503FE',1,2,170.10,GETDATE())
+('4D30F537-CA8C-43D9-ADE3-AE8421A4E920','981D835A-A255-4CF5-B868-FCB054326A97',1,'',2,170.10,GETDATE(),GETDATE()),
+('B1AAFACC-0A5C-4090-B0E5-36446F861627','981D835A-A255-4CF5-B868-FCB054326A97',1,'',2,170.10,GETDATE(),GETDATE()),
+('F5588E00-62BA-4A50-9EC0-36E55A6EF76A','981D835A-A255-4CF5-B868-FCB054326A97',1,'',2,170.10,GETDATE(),GETDATE()),
+('AE0A0E8D-7548-49F3-81BB-8E2C1F5885EF','CE79A63C-20CC-427C-B632-E05E19A45895',1,'',2,170.10,GETDATE(),GETDATE()),
+('AEDF19D8-6FFC-4CA1-883F-5E1837107C04','F6EBA2CB-2FE0-4EE8-95B4-EF268B7503FE',1,'',2,170.10,GETDATE(),GETDATE())
 
 INSERT INTO [dbo].[Image] VALUES
 (1,'wifi installation',			'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image1.jpg'),

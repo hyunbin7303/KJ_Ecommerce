@@ -103,8 +103,6 @@ CREATE TABLE [dbo].[Attribute](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
-GO
 DROP TABLE IF EXISTS [dbo].OrderItem;
 CREATE TABLE OrderItem (
     [id][nvarchar](100) NOT NULL, 
@@ -139,13 +137,19 @@ CREATE TABLE [dbo].[Order] (
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
 DROP TABLE IF EXISTS [dbo].[Cart];
 CREATE TABLE [dbo].[Cart](
 	[Id] [nvarchar](100) NOT NULL,
 	[VendorId][int] NOT NULL,
 	[CustomerId] [nvarchar](100) NOT NULL,
+	[CartActive] [bit],
+	[CartLocked] [bit],
+	[CartStatus] [NVarchar] (50),
+	[CartType] [NVARCHAR](50),
+	[TotalPrice] decimal(2, 2),
 	[CreatedDate] datetimeoffset(7) NOT NULL,
-	CONSTRAINT Cart_CreatedDate CHECK (CreatedDate > '1 April 2021'),
+	[UpdatedDate] datetimeoffset(7),
 	CONSTRAINT PK_Cart PRIMARY KEY(Id)
 );
 GO
@@ -154,10 +158,11 @@ CREATE TABLE [dbo].[CartItem](
 	[Id] [nvarchar](100) NOT NULL,
 	[CartId] [nvarchar](100) NULL,
 	[ProductId] [int],
+	[CouponCode] [nvarchar](20),
 	[Quantity] decimal(8, 2),
 	[UnitPrice] decimal(8, 2),
 	[CreatedDate] datetimeoffset(7),
-	CONSTRAINT CartItem_CreatedDate CHECK (CreatedDate > '1 April 2021'),
+	[UpdatedDate] datetimeoffset(7),
 	CONSTRAINT PK_CartItem PRIMARY KEY(Id),
 );
 GO
@@ -169,10 +174,10 @@ CREATE TABLE [dbo].[Invoice](
 	[ShipmentId] [nvarchar](100) NOT NULL,
 	[PaymentId] [nvarchar](100) NOT NULL,
 	[Date] datetimeoffset(7) NOT NULL,
-        [SubTotal] [decimal](18,2) NOT NULL,
+    [SubTotal] [decimal](18,2) NOT NULL,
 	[ShippingTotal] [decimal](18,2) NULL, 
 	[VAT][decimal](18,2) NULL, -- Value-Added Tax. 
-        [Total] [decimal](18,2) NULL,
+    [Total] [decimal](18,2) NULL,
 	[CustomerNote] [nvarchar](1000) NULL,
 
  CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED 
