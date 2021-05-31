@@ -1,17 +1,30 @@
 import React from "react";
-import {NavBarContainer, NavBarHeader, NavBarLogoContainer, NavBarLogoImg} from './NavBarElements/NavBarElements';
-import Logo from '../../Assets/Images/KJ Ecommerce.png';
+import {
+  NavBarContainer,
+  NavBarHeader,
+  NavBarLogoContainer,
+  NavBarLogoImg,
+  SearchBarContainer,
+  SearchBarInput,
+} from "./NavBarElements/NavBarElements";
+import Logo from "../../Assets/Images/KJ Ecommerce.png";
 
 const NarBar = () => {
-    return (
-        <NavBarHeader>
-            <NavBarContainer>
-                <NavBarLogoContainer>
-                    <NavBarLogoImg src={Logo}/>
-                </NavBarLogoContainer>
-            </NavBarContainer>
-        </NavBarHeader>
-    )
-}
+  return (
+    <NavBarHeader>
+      <NavBarContainer>
+          {/* Nav Bar Logo */}
+        <NavBarLogoContainer>
+          <NavBarLogoImg src={Logo} />
+        </NavBarLogoContainer>
 
-export default NarBar
+        {/* Search Bar */}
+        <SearchBarContainer>
+          <SearchBarInput />
+        </SearchBarContainer>
+      </NavBarContainer>
+    </NavBarHeader>
+  );
+};
+
+export default NarBar;
