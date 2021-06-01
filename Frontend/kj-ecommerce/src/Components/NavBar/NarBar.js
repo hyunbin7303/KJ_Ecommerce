@@ -10,10 +10,13 @@ import {
   SearchBarIconContainer,
   SearchBarInput,
   UserAccountDiv,
+  UserAccountP,
   UserInfoContainer,
   UserInfoWrapper,
+  OrdersP,
+  CartP,
 } from "./NavBarElements/NavBarElements";
-import { MenuIcon, SearchIcon, CartIcon } from "@heroicons/react/outline";
+import { MenuIcon, SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import classes from "./NavBar.module.css";
 import Logo from "../../Assets/Images/KJ Ecommerce.png";
 
@@ -40,17 +43,20 @@ const NarBar = () => {
           <UserInfoWrapper>
             {/* User Account Div */}
             <UserAccountDiv>
-
+              <p>Hello Julio </p>
+              <UserAccountP>Account & list</UserAccountP>
             </UserAccountDiv>
 
             {/* Orders Div */}
             <OrdersDiv>
+              <OrdersP>Orders</OrdersP>
 
             </OrdersDiv>
 
             {/* Cart Div */}
             <CartDiv>
-              
+              <ShoppingCartIcon className={classes.Cart} />
+              <CartP>Cart</CartP>
             </CartDiv>
           </UserInfoWrapper>
         </UserInfoContainer>

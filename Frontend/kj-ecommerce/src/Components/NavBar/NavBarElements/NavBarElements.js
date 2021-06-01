@@ -60,24 +60,82 @@ export const SearchBarInput = styled.input`
   }
 `;
 
-
 export const UserInfoContainer = styled.div`
-  
+  display: flex;
+  color: #fff;
+  align-items: center;
 `;
 
 export const UserInfoWrapper = styled.div`
-  
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+
+  --space-x-reverse: 0;
+
+  margin-right: calc(1.5rem * var(--space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--space-x-reverse)));
+
+  margin-left: 1.5rem /* 24px */;
+  margin-right: 1.5rem /* 24px */;
 `;
 
-
 export const UserAccountDiv = styled.div`
-  
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const UserAccountP = styled.p`
+  font-weight: 800;
+
+  @media (min-width: 768px) {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 `;
 
 export const OrdersDiv = styled.div`
-  
+  cursor: pointer;
+  --space-x-reverse: 0;
+
+  margin-right: calc(1.5rem * var(--space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--space-x-reverse)));
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const OrdersP = styled.p`
+  font-weight: 800;
+
+  @media (min-width: 768px) {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 `;
 
 export const CartDiv = styled.div`
-  
+  cursor: pointer;
+  --space-x-reverse: 0;
+
+  margin-right: calc(1.5rem * var(--space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--space-x-reverse)));
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const CartP = styled.p`
+  margin-left: 0.5rem;
+  font-weight: 800;
+  @media (min-width: 768px) {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 `;
