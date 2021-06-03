@@ -15,8 +15,13 @@ import {
   UserInfoWrapper,
   OrdersP,
   CartP,
+  CartItemsContainer,
 } from "./NavBarElements/NavBarElements";
-import { MenuIcon, SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
+import {
+  MenuIcon,
+  SearchIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/outline";
 import classes from "./NavBar.module.css";
 import Logo from "../../Assets/Images/KJ Ecommerce.png";
 
@@ -50,11 +55,11 @@ const NarBar = () => {
             {/* Orders Div */}
             <OrdersDiv>
               <OrdersP>Orders</OrdersP>
-
             </OrdersDiv>
 
             {/* Cart Div */}
             <CartDiv>
+              <CartItemsContainer>0</CartItemsContainer>
               <ShoppingCartIcon className={classes.Cart} />
               <CartP>Cart</CartP>
             </CartDiv>

@@ -120,6 +120,9 @@ export const OrdersP = styled.p`
 `;
 
 export const CartDiv = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
   cursor: pointer;
   --space-x-reverse: 0;
 
@@ -132,10 +135,31 @@ export const CartDiv = styled.div`
 `;
 
 export const CartP = styled.p`
-  margin-left: 0.5rem;
+  display: none;
+  margin-left: 0.2rem;
   font-weight: 800;
+  margin-top: 0.5rem;
+
   @media (min-width: 768px) {
+    display: inline;
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+`;
+
+export const CartItemsContainer = styled.span`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 1rem;
+  width: 1rem;
+  background: #3772FF;
+  text-align: center;
+  border-radius: 9999px;
+  color: #000;
+  font-weight: 700;
+
+  @media (min-width: 768px) {
+    right: 1.5rem;
   }
 `;
