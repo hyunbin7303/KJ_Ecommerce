@@ -18,7 +18,6 @@ import {
   CartItemsContainer,
 } from "./NavBarElements/NavBarElements";
 import {
-  MenuIcon,
   SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
