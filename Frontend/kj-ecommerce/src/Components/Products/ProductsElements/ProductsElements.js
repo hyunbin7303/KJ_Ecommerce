@@ -45,6 +45,10 @@ export const ProductImg = styled.img`
   height: 25rem;
   width: 25rem;
   object-fit: contain;
+
+  @media (max-width: 640px) {
+    max-width: 100%;
+  }
 `;
 
 export const ProductName = styled.h4`
@@ -83,4 +87,9 @@ export const AddToCart = styled.button`
   &:hover {
     transition: all 0.2s ease-in-out;
     background: #3772FF;
+  }
+
+  @media (max-width: 640px) {
+    padding: 12px 128px;
+  }
 `;

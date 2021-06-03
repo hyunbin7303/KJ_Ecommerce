@@ -65,6 +65,8 @@ const NarBar = () => {
             </CartDiv>
           </UserInfoWrapper>
         </UserInfoContainer>
+
+        {/* Maybe add categories underneath navbar like amazon */}
       </NavBarContainer>
     </NavBarHeader>
   );
