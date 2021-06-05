@@ -45,12 +45,28 @@ export const ProductImg = styled.img`
   height: 25rem;
   width: 25rem;
   object-fit: contain;
+
+  @media (max-width: 640px) {
+    max-width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 100%;
+  }
+
+  @media (min-width: 1280px) {
+    max-width: 100%;
+  }
 `;
 
 export const ProductName = styled.h4`
   font-size: 1.5rem;
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
+
+  @media (min-width: 1280px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const ProductDescription = styled.p`
@@ -83,4 +99,29 @@ export const AddToCart = styled.button`
   &:hover {
     transition: all 0.2s ease-in-out;
     background: #3772FF;
+  }
+
+  @media (max-width: 640px) {
+    padding: 12px 128px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 12px 140px;
+  }
+
+  @media (min-width: 980px) {
+    padding: 12px 140px;
+  }
+
+  @media (max-width: 990px) {
+    padding: 12px 130px;
+  }
+
+  @media (min-width: 1020px) {
+    padding: 12px 150px;
+  }
+
+  @media (min-width: 1280px) {
+    padding: 12px 70px;
+  }
 `;
