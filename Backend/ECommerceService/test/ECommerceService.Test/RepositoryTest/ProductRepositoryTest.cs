@@ -41,9 +41,9 @@ namespace ECommerceService.Test.RepositoryTest
 
         // Test Get Product Details
         [Test]
-        public void ProductGetProductDetails_NormalTest()
+        public void ProductGetByIdAsync_NormalTest()
         {
-            var test = _productRepository.GetByIdAsync(12);
+            var test = _productRepository.GetByIdAsync(1).Result;
             Assert.IsNotNull(test);
         }
 
