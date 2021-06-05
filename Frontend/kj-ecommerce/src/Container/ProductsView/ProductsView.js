@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Products from "../../Components/Products/Products";
+import ReactAux from '../../Hoc/ReactAux/ReactAux';
 
 import {
-  GridArea,
-  GridContainer,
   Content,
 } from "./ProductViewElements/ProductsViewElements";
 
@@ -38,24 +37,22 @@ class ProductsView extends Component {
 
   render() {
     return (
-      <GridArea>
-        <GridContainer>
-          <Content>
-            {this.state.loading || !this.state.Items ? (
-              <div>Loading ... </div>
-            ) : (
-              this.state.Items.map((Product) => (
-                <Products
-                  key={Product.id}
-                  ProductName={Product.name}
-                  ProductDescription={Product.description}
-                  ProductPrice={'$'+ Product.unitPrice}
-                />
-              ))
-            )}
-          </Content>
-        </GridContainer>
-      </GridArea>
+      <ReactAux>
+        <Content>
+          {this.state.loading || !this.state.Items ? (
+            <div>Loading ... </div>
+          ) : (
+            this.state.Items.map((Product) => (
+              <Products
+                key={Product.id}
+                ProductName={Product.name}
+                ProductDescription={Product.description}
+                ProductPrice={"$" + Product.unitPrice}
+              />
+            ))
+          )}
+        </Content>
+      </ReactAux>
     );
   }
 }

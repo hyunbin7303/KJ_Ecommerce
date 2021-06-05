@@ -17,7 +17,7 @@ import Currency from "react-currency-formatter-v2";
 // this component will display products in a horizontal grid
 
 const Products = (props) => {
-  let intPrice = parseFloat(props.ProductPrice);
+  //let intPrice = parseFloat(props.ProductPrice);
 
   return (
     <ProductsContainer>
