@@ -3,6 +3,7 @@ using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,19 +28,19 @@ namespace ECommerce.Infrastructure.Services
             _productRepository.InsertAsync(product);
             return Task.CompletedTask;
         }
-        public Task<Product> GetProductById(int productId)
-        { 
-            var product = _productRepository.GetByIdAsync(productId).Result;
-            return product != null ? Task.FromResult(product) : null;
-        }
         public Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId)
         {
-            throw new NotImplementedException();
+            var products = _productRepository.GetProductsByCategoryAsync(categoryId);
+            return products;
         }
-        public Task<IEnumerable<Product>> GetProductsByDisplayNameContains(string categoryName)
+        private IOrderedQueryable<Product> OrderingMethod(IQueryable<Product> query)
         {
-            Expression<Func<Product, bool>> exprProd = x => x.DisplayName.Contains(categoryName);
-            var products = _productRepository.Get(exprProd);
+            return query.OrderBy(student => student.Name);
+        }
+        public Task<IEnumerable<Product>> GetProductsByDisplayNameContains(string productDisplayName)
+        {
+            Expression<Func<Product, bool>> exprProd = x => x.DisplayName.Contains(productDisplayName);
+            var products = _productRepository.Get(exprProd, OrderingMethod);
             return Task.FromResult(products);
         }
         // Geting to accept SearchDTO.
