@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS [dbo].[Category];
 CREATE TABLE [dbo].[Category](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](max) NULL,
+	[Type] [nvarchar](100) NULL,
+	[parentId] [int],
 	[Description] [nvarchar](max) NULL,
 	[Active] [bit] NOT NULL
  CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
@@ -147,7 +149,7 @@ CREATE TABLE [dbo].[Cart](
 	[CartLocked] [bit],
 	[CartStatus] [NVarchar] (50),
 	[CartType] [NVARCHAR](50),
-	[TotalPrice] decimal(2, 2),
+	[TotalPrice] [float],
 	[CreatedDate] datetimeoffset(7) NOT NULL,
 	[UpdatedDate] datetimeoffset(7),
 	CONSTRAINT PK_Cart PRIMARY KEY(Id)
@@ -316,6 +318,5 @@ ALTER TABLE [CartItem] ADD CONSTRAINT FK_CartId FOREIGN KEY (CartId) REFERENCES 
 ALTER TABLE [Payment] ADD CONSTRAINT FK_PaymentMethodId FOREIGN KEY (PaymentMethodId) REFERENCES [PaymentMethod](id);
 ALTER TABLE [ProductAttribute] ADD CONSTRAINT FK_ProductAttribute_ProudctId FOREIGN KEY (ProductId) REFERENCES [Product](id);
 ALTER TABLE [ProductAttribute] ADD CONSTRAINT FK_ProductAttribute_AttributeId FOREIGN KEY (AttributeId) REFERENCES [Attribute](id);
-
-ALTER TABLE [dbo].[Category]  ADD CONSTRAINT [DF_Categoryg_Active]  DEFAULT ((1)) FOR [Active]
+ALTER TABLE [dbo].[Category]  ADD CONSTRAINT [DF_Category_Active]  DEFAULT ((1)) FOR [Active]
 
