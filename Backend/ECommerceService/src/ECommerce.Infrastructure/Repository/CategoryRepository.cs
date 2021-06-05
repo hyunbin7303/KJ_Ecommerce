@@ -14,16 +14,6 @@ namespace ECommerce.Infrastructure.Repository
         public CategoryRepository(MainEcommerceDBContext context) : base(context)
         {
         }
-        public async Task<Category> GetCategoryById(int categoryId)
-        {
-            var category = await GetByIdAsync(categoryId);
-            return category;
-        }
-        public Task<IEnumerable<Category>> GetCategoryAsync()
-        {
-            var categories = GetAll();
-            return Task.FromResult(categories);
-        }
         public Task<IEnumerable<Category>> GetCategoryByNameAsync(string categoryName)
         {
             Expression<Func<Category, bool>> expressionCategory = x => x.Name == categoryName;

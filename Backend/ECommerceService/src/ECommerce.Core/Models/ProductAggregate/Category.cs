@@ -15,6 +15,6 @@ namespace ECommerce.Core.Models.ProductAggregate
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Active { get; set; }
-
+        //TODO Needs to update Category class (Check the table please). 
     }
 }

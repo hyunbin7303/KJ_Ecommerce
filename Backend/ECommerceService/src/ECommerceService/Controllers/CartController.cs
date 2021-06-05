@@ -14,10 +14,12 @@ namespace ECommerceService.Controllers
     {
         private readonly ICartService _cartService;
         private readonly ICartRepository _cartRepository;
+        private readonly ICartItemRepository _cartItemRepository;
         private readonly IProductService _productService;
-        public CartController(ICartRepository cartRepository,IProductService productService, ICartService cartService)
+        public CartController(ICartRepository cartRepository, ICartItemRepository cartItemRepository, IProductService productService, ICartService cartService)
         {
             _cartRepository = cartRepository;
+            _cartItemRepository = cartItemRepository;
             _cartService = cartService;
             _productService = productService;
         }
@@ -28,7 +30,12 @@ namespace ECommerceService.Controllers
         {
            return _cartRepository.GetAll();
         }
-
+        [HttpGet("CartItemsAll")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CartItem))]
+        public IEnumerable<CartItem> GetCartItems()
+        {
+            return _cartItemRepository.GetAll();
+        }
         [HttpGet("GetCart")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Cart))]
         public async Task<Cart> GetCartAsync(string cartId)
@@ -39,7 +46,7 @@ namespace ECommerceService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Cart))]
         public async Task<ActionResult> GetCartItemsByCartId(string cartId)
         {
-            var cartItems =  _cartService.GetCartItemByCartId(cartId).Result;
+            var cartItems =  _cartService.GetCartItemsByCartId(cartId).Result;
             return Ok(cartItems);
         }
         [HttpPost("NewShoppingCart")]

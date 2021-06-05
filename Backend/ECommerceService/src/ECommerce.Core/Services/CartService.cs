@@ -15,10 +15,11 @@ namespace ECommerce.Core.BusinessServices
     public class CartService : ICartService
     {
         private readonly ICartRepository _cartRepository;
-        private readonly ICartItemRepository cartItemRepository;
-        public CartService(ICartRepository cartRepository)
+        private readonly ICartItemRepository _cartItemRepository;
+        public CartService(ICartRepository cartRepository, ICartItemRepository cartItemRepository)
         {
             _cartRepository = cartRepository;
+            _cartItemRepository = cartItemRepository;
         }      
 
         public Cart newShoppingCart(string userId, int vendorId)
@@ -55,7 +56,7 @@ namespace ECommerce.Core.BusinessServices
         {
             throw new NotImplementedException();
         }
-        public async Task<IList<CartItem>> GetCartItemByCartId(string cartId)
+        public async Task<IList<CartItem>> GetCartItemsByCartId(string cartId)
         {
             List<CartItem> cartItems = new List<CartItem>();
             var cart = await _cartRepository.GetByIdAsync(cartId);
