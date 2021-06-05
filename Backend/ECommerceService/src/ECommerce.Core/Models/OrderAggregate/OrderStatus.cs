@@ -8,6 +8,7 @@
         Pending = 30,
         PendingSubmitted = 40,
         Filled = 50,
-        Cancelled = 60
+        Closed = 60,// is it same with Fill?
+        Cancelled = 70
     }
 }

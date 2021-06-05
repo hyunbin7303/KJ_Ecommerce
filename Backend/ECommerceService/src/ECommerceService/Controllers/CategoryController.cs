@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {
-    [Route("api/[controller]")]
     public class CategoryController : BaseController
     {
         private ICategoryRepository _categoryRepository = null;
@@ -35,13 +34,8 @@ namespace ECommerceService.Controllers
         {
             try
             {
-                //if (category.Name.Contains("XYZ Widget"))
-                //{
-                //    return BadRequest();
-                //}
-                _categoryRepository.Insert(category);
+                _categoryRepository.InsertAsync(category);
                 return CreatedAtAction(nameof(Category), new { id = category.Id }, category);
-
             }
             catch (Exception e)
             {
@@ -52,15 +46,16 @@ namespace ECommerceService.Controllers
         [HttpDelete("{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task DeleteAsync(int Id)
+        public async Task<ActionResult> DeleteAsync(int Id)
         {
             try
             {
                 await _categoryRepository.DeleteAsync(Id);
+                return Ok();
             }
             catch (Exception e)
             {
-                //  _logger.LogWarning(e, "Unable to Delete product.");
+                return ValidationProblem(e.Message);
             }
         }
 

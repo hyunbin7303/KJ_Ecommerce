@@ -10,10 +10,18 @@ namespace ECommerce.Core.Models.CartAggregate
         public Cart()
         {
             _cartitems = new List<CartItem>();
+            CreatedDate = DateTimeOffset.UtcNow;
+            UpdatedDate = DateTimeOffset.UtcNow;
         }
         public int VendorId { get; set; }
         public string CustomerId { get; set; }
+        public bool CartActive { get; set; }
+        public bool CartLocked { get; set; }
+        public string CartStatus { get; set; }
+        public string CartType { get; set; }
+        public double? TotalPrice { get; set; }
         public DateTimeOffset CreatedDate { get; private set; }
+        public DateTimeOffset UpdatedDate { get;  set; }
         public IEnumerable<CartItem> CartItems => _cartitems.ToList();
         private ICollection<CartItem> _cartitems;
         public void AddCartItem(int productId, decimal quantity)

@@ -19,13 +19,13 @@ namespace ECommerce.Core.Models
         public string Email { get; private set; }
         public bool EmailVerified { get; private set; }
         public string Address { get; private set; }
-        public string? Address2 { get; private set; }
+        public string Address2 { get; private set; }
         public string Country { get; private set; }
         [Required]
         [RegularExpression(@"^\d{5}(?:[-\s]\d{4})?$", ErrorMessage= "Enter a valid zip code.")]
         public string ZipCode { get; private set; }
         public string? PhoneNumber { get; private set; }
-        public string? Description { get; set; }
+        public string? Description { get; set; } = null;
         public DateTimeOffset LatestUpdateTime { get; set; }
         public virtual List<Invoice> Invoices { get; set; }
         public int VendorId { get; set; }

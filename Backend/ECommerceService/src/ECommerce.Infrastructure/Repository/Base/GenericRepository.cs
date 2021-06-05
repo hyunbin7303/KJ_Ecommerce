@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using System.Threading;
 
 namespace ECommerce.Infrastructure.Repository.Base
 {
@@ -23,7 +24,7 @@ namespace ECommerce.Infrastructure.Repository.Base
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.dbSet = context.Set<T>();
         }
-        public async Task DeleteAsync(object id)
+        public async Task DeleteAsync(object id,CancellationToken cancellationToken = default)
         {
             try
             {
@@ -43,13 +44,12 @@ namespace ECommerce.Infrastructure.Repository.Base
             }
 
         }
-
         public virtual void Delete(T entity)
         {
             dbSet.Remove(entity);
         }
 
-        public virtual IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        public virtual IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "", CancellationToken cancellationToken = default)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
@@ -82,13 +82,13 @@ namespace ECommerce.Infrastructure.Repository.Base
             return dbSet.FromSqlRaw<T>(query, paras);
         }
 
-        public virtual void Insert(T obj)
+        public virtual void InsertAsync(T obj, CancellationToken cancellationToken = default)
         {
             if (obj == null)
             {
                 throw new ArgumentException("entity");
             }
-            dbSet.Add(obj);
+            dbSet.AddAsync(obj, cancellationToken);
             Save();
         }
 
@@ -97,7 +97,7 @@ namespace ECommerce.Infrastructure.Repository.Base
             context.SaveChanges();
         }
 
-        public virtual void Update(T obj)
+        public virtual void UpdateAsync(T obj, CancellationToken cancellationToken = default)
         {
             if (obj == null)
             {

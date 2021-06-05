@@ -27,6 +27,7 @@ namespace ECommerce.Infrastructure.Repository
         }
         public IEnumerable<Image> GetProductImageUrl(string productId, string productName, string vendorId)
         {
+            AzureBlobStorageService service = new AzureBlobStorageService();
             throw new NotImplementedException();
         }
         public void InsertImage(IFormFile file)

@@ -1,16 +1,16 @@
 import React from "react";
-import List from "../../List/List";
-import { HomePageContainer } from "./HomePageElements/HomePageElements";
-import Product from "../../Product/Product";
+import { HomePageContainer, HomePageProductGrid } from "./HomePageElements/HomePageElements";
+import ProductsView from "../../../Container/ProductsView/ProductsView";
+import ReactAux from "../../../Hoc/ReactAux/ReactAux";
 
 const HomePage = () => {
   return (
-    <div>
+    <ReactAux>
       <HomePageContainer>
-        <List />
-        <Product />
+        {/* <Product /> */}
+        <ProductsView />
       </HomePageContainer>
-    </div>
+    </ReactAux>
   );
 };
 
