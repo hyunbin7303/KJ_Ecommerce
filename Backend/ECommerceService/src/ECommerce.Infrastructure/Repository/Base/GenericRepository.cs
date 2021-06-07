@@ -117,5 +117,9 @@ namespace ECommerce.Infrastructure.Repository.Base
         {
             return await dbSet.FindAsync(id);
         }
+        public IQueryable<T> Query()
+        {
+            return dbSet.AsQueryable();
+        }
     }
 }

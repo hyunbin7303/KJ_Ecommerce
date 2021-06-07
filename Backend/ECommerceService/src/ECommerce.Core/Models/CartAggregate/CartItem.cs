@@ -1,6 +1,8 @@
 ﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.ProductAggregate;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -15,5 +17,6 @@ namespace ECommerce.Core.Models.CartAggregate
         public decimal? UnitPrice { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public DateTimeOffset? UpdatedDate { get; set; }
+        public virtual Cart Cart { get; set; }
     }
 }

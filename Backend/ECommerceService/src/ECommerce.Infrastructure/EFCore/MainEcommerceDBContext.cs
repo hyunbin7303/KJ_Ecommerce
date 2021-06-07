@@ -46,36 +46,25 @@ namespace ECommerce.Infrastructure
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MainEcommerceDB;User ID=sa;Password=Cc7594435;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MainEcommerceDB;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
             modelBuilder.ApplyConfiguration(new ApplicationSettingConfiguration());
-
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.HasNoKey();
-
                 entity.ToTable("Address");
-
                 entity.Property(e => e.Address1).HasMaxLength(100);
-
                 entity.Property(e => e.Address2).HasMaxLength(100);
-
                 entity.Property(e => e.City).HasMaxLength(50);
-
                 entity.Property(e => e.ContactName).HasMaxLength(100);
-
                 entity.Property(e => e.Country).HasMaxLength(50);
-
                 entity.Property(e => e.Description).HasMaxLength(200);
-
                 entity.Property(e => e.Id).HasColumnName("id");
-
                 entity.Property(e => e.Phone).HasMaxLength(100);
-
                 entity.Property(e => e.Province).HasMaxLength(50);
             });
             modelBuilder.Entity<AppMenu>(entity =>
@@ -100,7 +89,6 @@ namespace ECommerce.Infrastructure
 
                 entity.Property(e => e.Visibility).HasMaxLength(20);
             });
-
             modelBuilder.Entity<Core.Models.ProductAggregate.Attribute>(entity =>
             {
                 entity.ToTable("Attribute");
@@ -124,32 +112,31 @@ namespace ECommerce.Infrastructure
             modelBuilder.Entity<Cart>(entity =>
             {
                 entity.ToTable("Cart");
-
                 entity.Property(e => e.Id).HasMaxLength(100);
-              
+                entity.Property(e => e.CartStatus).HasMaxLength(50);
+                entity.Property(e => e.CartType).HasMaxLength(50);
                 entity.Property(e => e.CustomerId)
                     .IsRequired()
                     .HasMaxLength(100);
-
             });
             modelBuilder.Entity<CartItem>(entity =>
             {
                 entity.ToTable("CartItem");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
+                entity.Property(e => e.Id).HasMaxLength(100);
                 entity.Property(e => e.CartId).HasMaxLength(100);
-
+                entity.Property(e => e.CouponCode).HasMaxLength(20);
                 entity.Property(e => e.Quantity).HasColumnType("decimal(8, 2)");
-
-                //entity.HasOne(d => d.Cart)
-                //    .WithMany(p => p.CartItems) FIX THIS
-                //    .HasForeignKey(d => d.CartId)
-                //    .HasConstraintName("FK_CartId");
+                entity.Property(e => e.UnitPrice).HasColumnType("decimal(8, 2)");
+                entity.HasOne(d => d.Cart)
+                    .WithMany(p => p.CartItems)
+                    .HasForeignKey(d => d.CartId)
+                    .HasConstraintName("FK_CartId");
             });
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
+                entity.Property(e => e.ParentId).HasColumnName("parentId");
+                entity.Property(e => e.Type).HasMaxLength(100);
             });
             modelBuilder.Entity<Customer>(entity =>
             {
@@ -223,32 +210,23 @@ namespace ECommerce.Infrastructure
             modelBuilder.Entity<OrderItem>(entity =>
             {
                 entity.ToTable("OrderItem");
-
                 entity.Property(e => e.Id)
                     .HasMaxLength(100)
                     .HasColumnName("id");
-
                 entity.Property(e => e.Discount).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.OrderId)
                     .IsRequired()
                     .HasMaxLength(100);
-
                 entity.Property(e => e.Quantity).HasColumnType("decimal(8, 2)");
-
                 entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
-
-                // I dont think we need these, if system doesn't break, then delete
-                //entity.HasOne(d => d.Order)
-                //    .WithMany(p => p.OrderItems)
-                //    .HasForeignKey(d => d.OrderId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_OrderId");
-
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.OrderItems)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OrderId");
                 //entity.HasOne(d => d.Product)
-                //    .WithMany(p => p.OrderItems) // FIX THIS 
+                //    .WithMany(p => p.OrderItems)
                 //    .HasForeignKey(d => d.ProductId)
                 //    .OnDelete(DeleteBehavior.ClientSetNull)
                 //    .HasConstraintName("FK_ProductId");
@@ -395,6 +373,8 @@ namespace ECommerce.Infrastructure
 
                 entity.Property(e => e.Name).HasMaxLength(100);
             });
+
+
 
             OnModelCreatingPartial(modelBuilder);
         }

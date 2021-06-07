@@ -2,6 +2,7 @@
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.CartAggregate;
 using ECommerce.Core.Models.OrderAggregate;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace ECommerce.Core.BusinessServices
 {
     public class CartService : ICartService
@@ -51,10 +51,9 @@ namespace ECommerce.Core.BusinessServices
             _cartRepository.UpdateAsync(cart);
         }
 
-        // Sending Cart information to other service(external).
-        public Task TransferBasket(string cartId, string userId)
+        public async Task<Cart> GetActiveCart(string customerId)
         {
-            throw new NotImplementedException();
+            return await _cartRepository.Query().Include(x => x.CartItems).Where(x => x.CustomerId == customerId && x.CartActive).FirstOrDefaultAsync();
         }
         public async Task<IList<CartItem>> GetCartItemsByCartId(string cartId)
         {
@@ -71,7 +70,10 @@ namespace ECommerce.Core.BusinessServices
         {
             throw new NotImplementedException();
         }
-
-
+        // Sending Cart information to other service(external).
+        public Task TransferBasket(string cartId, string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

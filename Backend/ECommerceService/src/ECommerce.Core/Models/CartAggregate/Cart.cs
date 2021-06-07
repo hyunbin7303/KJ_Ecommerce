@@ -9,7 +9,6 @@ namespace ECommerce.Core.Models.CartAggregate
     {
         public Cart()
         {
-            _cartitems = new List<CartItem>();
             CreatedDate = DateTimeOffset.UtcNow;
             UpdatedDate = DateTimeOffset.UtcNow;
         }
@@ -17,16 +16,16 @@ namespace ECommerce.Core.Models.CartAggregate
         public string CustomerId { get; set; }
         public bool CartActive { get; set; }
         public bool CartLocked { get; set; }
-        public string CartStatus { get; set; }
-        public string CartType { get; set; }
+        public string? CartStatus { get; set; }
+        public string? CartType { get; set; }
         public double? TotalPrice { get; set; }
         public DateTimeOffset CreatedDate { get; private set; }
         public DateTimeOffset UpdatedDate { get;  set; }
-        public IEnumerable<CartItem> CartItems => _cartitems.ToList();
-        private ICollection<CartItem> _cartitems;
+        public virtual ICollection<CartItem> CartItems { get; set; }
+        //public virtual ICollection<CartItem> _cartitems;
         public void AddCartItem(int productId, decimal quantity)
         {
-            _cartitems.Add(new CartItem { Id = Guid.NewGuid().ToString(), CartId = Id, ProductId = productId, Quantity = quantity, CreatedDate = DateTimeOffset.UtcNow }); ;
+            CartItems.Add(new CartItem { Id = Guid.NewGuid().ToString(), CartId = Id, ProductId = productId, Quantity = quantity, CreatedDate = DateTimeOffset.UtcNow }); ;
         }
         public void UpdateQauntityCartItem(string cartItemId, decimal quantity)
         {
@@ -34,7 +33,7 @@ namespace ECommerce.Core.Models.CartAggregate
         public bool RemoveCartItem(string itemId)
         {
             var item = CartItems.FirstOrDefault(e => e.Id == itemId);
-            return _cartitems.Remove(item);
+            return CartItems.Remove(item);
         }
 
 
