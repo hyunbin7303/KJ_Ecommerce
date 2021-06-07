@@ -1,6 +1,7 @@
 ﻿using ECommerce.AzureStorage;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
+using ECommerce.Infrastructure.Repository.Base;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,11 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Infrastructure.Repository
 {
-    public class ImageRepository : IImageRepository
+    public class ImageRepository : GenericRepository<Image>, IImageRepository
     {
+        public ImageRepository(MainEcommerceDBContext context) : base(context)
+        {
+        }
         private static readonly string _azure_root = "https://hpecommerce.blob.core.windows.net/";
         public void DeleteImage(int imageId)
         {

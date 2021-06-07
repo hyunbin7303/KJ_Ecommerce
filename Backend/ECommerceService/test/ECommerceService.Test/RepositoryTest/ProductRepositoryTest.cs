@@ -47,9 +47,15 @@ namespace ECommerceService.Test.RepositoryTest
             Assert.IsNotNull(test);
         }
 
-        // Integration Testing
-        //Integration testing checks integration between software modules
+        // Test Get Product Details
+        [Test]
+        public void ProductGetByIdAsync_CheckingVendorInfo()
+        {
+            var test = _productRepository.GetByIdAsync(1).Result;
+            Assert.AreEqual("VendorCheck", test.Vendor.VendorName);
+        }
 
+        //Integration testing checks integration between software modules
         /* Test Post Method*/
         [Test]
         public void ProductPostProduct_NormalTest()

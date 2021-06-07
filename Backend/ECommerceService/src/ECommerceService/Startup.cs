@@ -50,6 +50,7 @@ namespace ECommerceService
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
             services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
+            services.AddScoped(typeof(ICustomerRepository), typeof(CustomerRepository));
             services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
             services.AddScoped(typeof(ICartItemRepository), typeof(CartItemRepository));
             services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
