@@ -48,6 +48,8 @@ class ProductsView extends Component {
                 ProductName={Product.name}
                 ProductDescription={Product.description}
                 ProductPrice={"$" + Product.unitPrice}
+                UnitsInStock={Product.UnitsInStock}
+                ProductQuantity={Product.quantityPerUnit}
               />
             ))
           )}

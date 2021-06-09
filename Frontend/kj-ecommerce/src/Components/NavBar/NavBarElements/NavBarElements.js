@@ -1,3 +1,4 @@
+import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const NavBarHeader = styled.header``;
@@ -20,6 +21,10 @@ export const NavBarLogoContainer = styled.div`
   @media (min-width: 640px) {
     flex-grow: 0;
   }
+`;
+
+export const NavLink = styled(Link)`
+  color: #fff;
 `;
 
 export const NavBarLogoImg = styled.img`
@@ -153,7 +158,7 @@ export const CartItemsContainer = styled.span`
   right: 0px;
   height: 1rem;
   width: 1rem;
-  background: #3772FF;
+  background: #3772ff;
   text-align: center;
   border-radius: 9999px;
   color: #000;

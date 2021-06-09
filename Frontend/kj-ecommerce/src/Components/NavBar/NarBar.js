@@ -4,6 +4,7 @@ import {
   NavBarContainer,
   NavBarHeader,
   NavBarLogoContainer,
+  NavLink,
   NavBarLogoImg,
   OrdersDiv,
   SearchBarContainer,
@@ -17,10 +18,7 @@ import {
   CartP,
   CartItemsContainer,
 } from "./NavBarElements/NavBarElements";
-import {
-  SearchIcon,
-  ShoppingCartIcon,
-} from "@heroicons/react/outline";
+import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import classes from "./NavBar.module.css";
 import Logo from "../../Assets/Images/KJ Ecommerce.png";
 
@@ -30,7 +28,9 @@ const NarBar = () => {
       <NavBarContainer>
         {/* Nav Bar Logo Section*/}
         <NavBarLogoContainer>
-          <NavBarLogoImg src={Logo} />
+          <NavLink to="/">
+            <NavBarLogoImg src={Logo} />
+          </NavLink>
         </NavBarLogoContainer>
 
         {/* Search Bar Section*/}
@@ -58,9 +58,11 @@ const NarBar = () => {
 
             {/* Cart Div */}
             <CartDiv>
-              <CartItemsContainer>0</CartItemsContainer>
-              <ShoppingCartIcon className={classes.Cart} />
-              <CartP>Cart</CartP>
+              <NavLink to="/checkout">
+                <CartItemsContainer>0</CartItemsContainer>
+                <ShoppingCartIcon className={classes.Cart} />
+                <CartP>Cart</CartP>
+              </NavLink>
             </CartDiv>
           </UserInfoWrapper>
         </UserInfoContainer>

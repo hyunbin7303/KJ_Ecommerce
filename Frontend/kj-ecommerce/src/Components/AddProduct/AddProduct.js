@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-class Product extends Component {
+class AddProduct extends Component {
   sendPostReq = () => {
     axios
       .post("/api/Product", {
@@ -35,4 +35,4 @@ class Product extends Component {
   }
 }
 
-export default Product;
+export default AddProduct;

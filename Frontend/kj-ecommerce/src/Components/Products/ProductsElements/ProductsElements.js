@@ -125,3 +125,11 @@ export const AddToCart = styled.button`
     padding: 12px 70px;
   }
 `;
+
+export const ProductQuantity = styled.select`
+  cursor: pointer;
+  padding: 8px 14px;
+  width: 65%;
+  margin-top: 5px;
+  border-radius: 20px;
+`;

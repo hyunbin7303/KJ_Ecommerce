@@ -13,6 +13,7 @@ namespace ECommerce.Query
         public string Description { get; set; }
         public double? UnitPrice { get; set; }
         public string UnitsInStock { get; set; }
+        public int QuantityPerUnit { get; set; }
         //Got source from here: https://mentormate.com/blog/service-and-repository-layer-interaction-in-c/
         //public static Expression<Func<Product, ProductDetailsDTO>> ProductSelector
         //{
