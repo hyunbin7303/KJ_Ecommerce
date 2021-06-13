@@ -58,7 +58,7 @@ namespace UserIdentity
                {
                    ValidateIssuer = false, 
                    ValidateAudience = false,
-                   ValidateIssuerSigningKey = false,
+                   ValidateIssuerSigningKey = true,
                    IssuerSigningKey = new SymmetricSecurityKey(key),
                 }; 
            });

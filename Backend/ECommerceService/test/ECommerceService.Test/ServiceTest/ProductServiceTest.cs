@@ -1,5 +1,6 @@
 ﻿using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.ProductAggregate;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Repository;
 using ECommerce.Infrastructure.Services;
@@ -32,10 +33,25 @@ namespace ECommerceService.Test.ServiceTest
             cartRepository = new CartRepository(dbContext);
         }
         [Test]
-        public void GetProductsByCategoryAsync_NromalTest()
+        public void GetProductsByCategoryAsync_ReturnProducts()
         {
             var products = _productService.GetProductsByCategoryId(1).Result;
             Assert.IsNotNull(products);
+        }
+
+        [Test]
+        public void GetProductsByDisplayNameContains_ShouldReturn()
+        {
+            var products = _productService.GetProductsByDisplayNameContains("Cross").Result;
+            Assert.NotNull(products);
+        }
+        [Test]
+        public void CreateProduct_NormalTest()
+        {
+            Product product = new Product()
+            {
+            };
+            _productService.UpdateProduct(product);
         }
     }
 }
