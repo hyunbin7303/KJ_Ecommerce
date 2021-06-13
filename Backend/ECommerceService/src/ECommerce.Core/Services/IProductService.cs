@@ -8,7 +8,6 @@ namespace ECommerce.Core.BusinessServices
     public interface IProductService
     {
         Task<Product> SearchProduct(); // change this code later(To get more paras)
-        Task<Product> GetProductById(int productId);
         Task<IEnumerable<Product>> GetProductsByDisplayNameContains(string name);
         Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId);
         Task<IEnumerable<Product>> GetProductsOnSale();

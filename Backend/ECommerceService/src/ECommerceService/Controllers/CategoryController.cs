@@ -25,7 +25,12 @@ namespace ECommerceService.Controllers
             var allCategories = _categoryRepository.GetAll();
             return allCategories;
         }
-
+        [HttpGet("CategoryId")]
+        public async Task<ActionResult> Get(int categoryId)
+        {
+            var category =  await _categoryRepository.GetByIdAsync(categoryId);
+            return Ok(category);
+        }
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]

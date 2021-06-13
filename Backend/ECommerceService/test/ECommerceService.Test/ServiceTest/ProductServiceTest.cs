@@ -1,4 +1,12 @@
-﻿using System;
+﻿using ECommerce.Core.BusinessServices;
+using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.ProductAggregate;
+using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Repository;
+using ECommerce.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +16,42 @@ namespace ECommerceService.Test.ServiceTest
 {
     class ProductServiceTest
     {
+        private  IProductService _productService;
+        private  IProductRepository _productRepository;
+        private  IImageRepository _imageRepository;
+        private ICartRepository cartRepository;
+        [SetUp]
+        public void Setup()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<MainEcommerceDBContext>()
+                .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MainEcommerceDB;Integrated Security=True");
 
-        // testing ProductService Layer
+            MainEcommerceDBContext dbContext = new MainEcommerceDBContext(optionsBuilder.Options);
+            _productRepository = new ProductRepository(dbContext);
+            _imageRepository = new ImageRepository(dbContext);
+            _productService = new ProductService(_productRepository, _imageRepository);
+            cartRepository = new CartRepository(dbContext);
+        }
+        [Test]
+        public void GetProductsByCategoryAsync_ReturnProducts()
+        {
+            var products = _productService.GetProductsByCategoryId(1).Result;
+            Assert.IsNotNull(products);
+        }
+
+        [Test]
+        public void GetProductsByDisplayNameContains_ShouldReturn()
+        {
+            var products = _productService.GetProductsByDisplayNameContains("Cross").Result;
+            Assert.NotNull(products);
+        }
+        [Test]
+        public void CreateProduct_NormalTest()
+        {
+            Product product = new Product()
+            {
+            };
+            _productService.UpdateProduct(product);
+        }
     }
 }

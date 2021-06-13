@@ -46,7 +46,6 @@ namespace ECommerceService.Test.RepositoryTest
             Assert.IsNotNull(test);
         }
 
-
         [Test]
         public void GetByIdAsyncTest_FindExistingOne_CustomerIdCheck()
         {
@@ -58,6 +57,13 @@ namespace ECommerceService.Test.RepositoryTest
         {
             var test = _cartRepository.GetByIdAsync("Invalid").Result;
             Assert.AreEqual("Evan1234", test.CustomerId);
+        }
+
+        [Test]
+        public void DeleteCart()
+        {
+            var test = _cartitemRepository.GetByIdAsync("");
+
         }
     }
 }

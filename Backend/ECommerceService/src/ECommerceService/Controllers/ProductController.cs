@@ -74,7 +74,7 @@ namespace ECommerceService.Controllers
         [HttpGet("ByNames")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ProductsGetProductsByNameContains(string productName)
+        public async Task<IActionResult> ProductsByNameContains(string productName)
         {
             var products = await _productService.GetProductsByDisplayNameContains(productName);
             if (products == null)
