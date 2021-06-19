@@ -45,7 +45,7 @@ CREATE TABLE [dbo].[Product](
 	[DisplayName][nvarchar](450) NULL,
 	[Description] [nvarchar](450) NULL,
 	[VendorId] [int] NOT NULL,
-	[CategoryId] [int] NULL,
+	[CategoryId] [nvarchar](20) NULL,
 	[ProductFormat] [nvarchar](max) NULL,
 	[QuantityPerUnit] [int] NULL,
 	[UnitPrice] [float] NULL,
@@ -64,10 +64,10 @@ CREATE TABLE [dbo].[Product](
 GO
 DROP TABLE IF EXISTS [dbo].[Category];
 CREATE TABLE [dbo].[Category](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [nvarchar](20) NOT NULL,
 	[Name] [nvarchar](max) NULL,
 	[Type] [nvarchar](100) NULL,
-	[parentId] [int],
+	[parentId] [nvarchar](20) NULL,
 	[Description] [nvarchar](max) NULL,
 	[Active] [bit] NOT NULL
  CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
