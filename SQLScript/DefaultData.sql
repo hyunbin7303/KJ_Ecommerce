@@ -121,8 +121,7 @@ INSERT INTO [dbo].[Customer] VALUES
 ('CustomerID04',						7,6,'AZZZZZZad',				''),
 ('CustomerID05',						7,6,'AZZZZZZae',				'')
 GO
-select * from Cart
-select 
+
 INSERT INTO [dbo].Cart VALUES
 ('981D835A-A255-4CF5-B868-FCB054326A97',1,'habib0303',		1,0,	'Normal','',0,	GETDATE()-1												,GetDate()-1			),
 ('F42508CB-BCEB-4E2F-B8EC-E9F8C71A805A',2,'habib0303',		1,0,	'Normal','',0,	CAST('2021-04-23 13:55:29.1234' AS datetimeoffset(7))	,GetDate()-2			),
@@ -135,12 +134,12 @@ INSERT INTO [dbo].Cart VALUES
 ('72F75054-669A-44A6-88BC-144E4A3F72B3',6,'CustomerID01',	1,0,	'Normal','',0,	GETDATE()-8												,GetDate()-9		),
 ('B79D641B-A39E-4B43-8FA2-81BB6D1D733E',1,'CustomerID01',	1,0,	'Normal','',0,	GETDATE()-9												,GetDate()-10		)
 
-INSERT INTO [dbo].[CartItem] VALUES('C6EF3B57-1BC0-4A71-938F-2544C5C9A33A','0B3EEB90-87D3-4093-832F-E122B3DA778E',1,'',1,100,	GETDATE(),GETDATE())
-INSERT INTO [dbo].[CartItem] VALUES('29624DEC-D988-4A83-B95C-481D9F4E03C8','0B3EEB90-87D3-4093-832F-E122B3DA778E',2,'',1,100,	GETDATE(),GETDATE())
-INSERT INTO [dbo].[CartItem] VALUES('4F5738D5-16DF-4C3A-8644-738EC3B4B1F8','0B3EEB90-87D3-4093-832F-E122B3DA778E',3,'',1,115,	GETDATE(),GETDATE())
-INSERT INTO [dbo].[CartItem] VALUES('34EA9A86-2DA4-4C3E-A3EF-314D6C9358C1','0C1A3BC8-17F4-4DC6-85A7-042E509560C2',17,'',1,120,	GETDATE(),GETDATE())
-INSERT INTO [dbo].[CartItem] VALUES('845454DC-4C53-4EC9-BBD3-9F6209328C7E','0C1A3BC8-17F4-4DC6-85A7-042E509560C2',18,'',1,150,	GETDATE(),GETDATE())
-INSERT INTO [dbo].CartItem VALUES
+INSERT INTO [dbo].[CartItem] VALUES
+('C6EF3B57-1BC0-4A71-938F-2544C5C9A33A','0B3EEB90-87D3-4093-832F-E122B3DA778E',1,'',1,100,	GETDATE(),GETDATE()),
+('29624DEC-D988-4A83-B95C-481D9F4E03C8','0B3EEB90-87D3-4093-832F-E122B3DA778E',2,'',1,100,	GETDATE(),GETDATE()),
+('4F5738D5-16DF-4C3A-8644-738EC3B4B1F8','0B3EEB90-87D3-4093-832F-E122B3DA778E',3,'',1,115,	GETDATE(),GETDATE()),
+('34EA9A86-2DA4-4C3E-A3EF-314D6C9358C1','0C1A3BC8-17F4-4DC6-85A7-042E509560C2',17,'',1,120,	GETDATE(),GETDATE()),
+('845454DC-4C53-4EC9-BBD3-9F6209328C7E','0C1A3BC8-17F4-4DC6-85A7-042E509560C2',18,'',1,150,	GETDATE(),GETDATE()),
 ('4D30F537-CA8C-43D9-ADE3-AE8421A4E920','981D835A-A255-4CF5-B868-FCB054326A97',1,'',2,170.10,GETDATE(),GETDATE()),
 ('B1AAFACC-0A5C-4090-B0E5-36446F861627','981D835A-A255-4CF5-B868-FCB054326A97',1,'',2,170.10,GETDATE(),GETDATE()),
 ('F5588E00-62BA-4A50-9EC0-36E55A6EF76A','981D835A-A255-4CF5-B868-FCB054326A97',1,'',2,170.10,GETDATE(),GETDATE()),
@@ -148,13 +147,13 @@ INSERT INTO [dbo].CartItem VALUES
 ('AEDF19D8-6FFC-4CA1-883F-5E1837107C04','F6EBA2CB-2FE0-4EE8-95B4-EF268B7503FE',1,'',2,170.10,GETDATE(),GETDATE())
 
 INSERT INTO [dbo].[Image] VALUES
-(1,'wifi installation',			'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image1.jpg'),
-(1,'wifi installation2',			'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image2.jpg'),
-(1,'wifi installation2-1',		'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image3.jpg'),
-(1,'wifi installation3-1K',		'www.google.com/12354666'),
-(11,'Nike Shoes#01',				'https://hpecommerce.blob.core.windows.net/kp-container/client10-product11-Image5.jpg'),
-(11,'Nike Shoes#02',				'https://hpecommerce.blob.core.windows.net/kp-container/client10-product11-Image6.jpg'),
-(2,'Kevin''s Pokemon#1',				'https://hpecommerce.blob.core.windows.net/kp-container/client2-Image7.jpg')
+(1,'wifi installation', 'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image1.jpg'),
+(1,'wifi installation2', 'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image2.jpg'),
+(1,'wifi installation2-1', 'https://hpecommerce.blob.core.windows.net/kp-container/client1-product1-image3.jpg'),
+(11,'Nike Shoes#01', 'https://hpecommerce.blob.core.windows.net/kp-container/client10-product11-Image5.jpg'),
+(11,'Nike Shoes#02', 'https://hpecommerce.blob.core.windows.net/kp-container/client10-product11-Image6.jpg'),
+(2,'Kevin''s Pokemon#1', 'https://hpecommerce.blob.core.windows.net/kp-container/client2-Image7.jpg')
+(1,'wifi installation3-1K','www.google.com/12354666')
 
 
 INSERT INTO [dbo].[Order] VALUES
@@ -182,7 +181,6 @@ INSERT INTO [MainEcommerceDB].[dbo].[OrderItem]
 ('FA403181-A1FE-4AB3-8172-43CBDE66E703','981D835A-8344-454E-AE6E-CF3511C81703',6,6,170,1020,0,GETDATE()),
 ('FA403181-A1FE-4AB3-8172-43CBDE66E704','981D835A-8344-454E-AE6E-CF3511C81704',9,4,7.50,30,0,GETDATE())
 
-
 INSERT INTO [MainEcommerceDB].[dbo].[Address] VALUES
 ('Habib Shakibanejad',		'222-123-1234', '534 Main St.',			'','Kitchener',		'Ontario',	'Canada',NULL),
 ('Julio Rivas',				'456-123-1253', '534 Main St.',			'','Kitchener',		'Ontario',	'Canada',NULL),
@@ -195,8 +193,3 @@ INSERT INTO [MainEcommerceDB].[dbo].[Address] VALUES
 ('Habib Vendor store',		'656-456-4554', '48 Booth St.',			'','Kitchener',		'Ontario',	'Canada',NULL)
 
 
-INSERT INTO [MainEcommerceDB].[dbo].[Image] VALUES
-(1,'wifi installation','www.google.com'),
-(1,'wifi installation2','www.google.com/12354'),
-(1,'wifi installation2-1','www.google.com/12357774'),
-(1,'wifi installation3-1K','www.google.com/12354666')
