@@ -28,25 +28,18 @@ namespace ECommerceService.Test.RepositoryTest
             MainEcommerceDBContext dbContext = new MainEcommerceDBContext(optionsBuilder.Options);
             _productRepository = new ProductRepository(dbContext);
         }
-        // Unit Testing
-        // Unit testing is a testing method by which individual units of source code are tested to determine if they are ready to use
-
-        // Test Get All Products
         [Test]
         public void ProductGetAll_NormalTest()
         {
             var test = _productRepository.GetAll();
             Assert.IsNotNull(test);
         }
-
-        // Test Get Product Details
         [Test]
         public void ProductGetByIdAsync_NormalTest()
         {
             var test = _productRepository.GetByIdAsync(1).Result;
             Assert.IsNotNull(test);
         }
-
         // Test Get Product Details
         [Test]
         public void ProductGetByIdAsync_CheckingVendorInfo()
@@ -54,21 +47,10 @@ namespace ECommerceService.Test.RepositoryTest
             var test = _productRepository.GetByIdAsync(1).Result;
             Assert.AreEqual("VendorCheck", test.Vendor.VendorName);
         }
-
-        //Integration testing checks integration between software modules
-        /* Test Post Method*/
         [Test]
         public void ProductPostProduct_NormalTest()
         {
-            //
         }
 
-        // Test Get Products by Category (*ServiceTest*)
-        //[Test]
-        //public void ProductGetByCategory_NormalTest()
-        //{
-        //    var test = _productRepository.GetProductsByCategoryAsync();
-        //    Assert.IsNotNull(test);
-        //}
     }
 }

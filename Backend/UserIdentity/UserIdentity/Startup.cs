@@ -37,7 +37,9 @@ namespace UserIdentity
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequiredLength = 5;
-            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            })
+               .AddRoles<EcUserRole>() //Line that can help you
+               .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 
 
@@ -53,15 +55,17 @@ namespace UserIdentity
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
-           {
-               options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                {
                    ValidateIssuer = false, 
                    ValidateAudience = false,
-                   ValidateIssuerSigningKey = false,
+                   ValidateIssuerSigningKey = true,
                    IssuerSigningKey = new SymmetricSecurityKey(key),
                 }; 
-           });
+            });
 
 
             services.AddControllers();

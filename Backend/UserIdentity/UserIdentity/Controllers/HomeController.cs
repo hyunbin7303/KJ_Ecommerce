@@ -18,14 +18,11 @@ namespace UserIdentity
         {
             _logger = logger;
         }
-
-
         [Authorize]
         public ActionResult Get()
         { 
             return Ok("Works");
         }
-
 
 
     } 

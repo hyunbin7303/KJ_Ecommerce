@@ -9,6 +9,7 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using ECommerce.Infrastructure.Mapping;
 using ECommerce.Query;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerceService.Controllers
 {
@@ -24,6 +25,8 @@ namespace ECommerceService.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        //[Authorize(Roles = "Grandpa")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         public IEnumerable<ProductDetailsDTO> Get()
         {

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -19,11 +21,16 @@ namespace UserIdentity.Controllers
     public class IdentityController : ApiController
     {
         private readonly UserManager<EcUser> userManager;
+        //private readonly RoleManager<EcRole> rolemanager;
+        private readonly IConfiguration _configuration;
+
         private readonly ApplicationSettings appSettings;
-        public IdentityController(UserManager<EcUser> userManager, IOptions<ApplicationSettings> appSettings)
+        public IdentityController(UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings)
         {
             this.userManager = userManager;
+            //this.rolemanager = roleManager;
             this.appSettings = appSettings.Value;
+            this._configuration = configuration;
         }
 
         [Route(nameof(Register))]
@@ -42,8 +49,43 @@ namespace UserIdentity.Controllers
             return BadRequest(result.Errors);
         }
 
+        [Route(nameof(RegisterAdmin))]
+        public async Task<ActionResult> RegisterAdmin([FromBody]RegisterUserRequestModel model)
+        {
+            var userExists = await userManager.FindByNameAsync(model.Username);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+
+
+            EcUser user = new EcUser()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Username
+            };
+            var result = await userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+
+            //if (!await rolemanager.RoleExistsAsync(.Admin))
+            //    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+            //if (!await roleManager.RoleExistsAsync(UserRoles.User))
+            //    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+            //if (await roleManager.RoleExistsAsync(UserRoles.Admin))
+            //{
+            //    await userManager.AddToRoleAsync(user, UserRoles.Admin);
+            //}
+
+            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+
+
+        }
+
+
+
         [Route(nameof(Login))]
-        public async Task<ActionResult<string>> Login(LoginRequestModel loginModel)
+        public async Task<ActionResult<string>> Login([FromBody]LoginRequestModel loginModel)
         {
             var user = await this.userManager.FindByNameAsync(loginModel.Username);
             if(user == null)
@@ -55,6 +97,23 @@ namespace UserIdentity.Controllers
             {
                 return this.Unauthorized();
             }
+
+            //var userRoles = await userManager.GetRolesAsync(user);
+            //var authClaims = new List<Claim>
+            //{
+            //    new Claim(ClaimTypes.Name, user.UserName),
+            //    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            //};
+            //foreach (var userRole in userRoles)
+            //{
+            //    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+            //}
+
+
+
+
+
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
