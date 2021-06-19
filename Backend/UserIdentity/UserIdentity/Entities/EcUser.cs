@@ -15,6 +15,10 @@ namespace UserIdentity
             EcUserRoles = new HashSet<EcUserRole>();
             EcUserTokens = new HashSet<EcUserToken>();
         }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
         public virtual ICollection<EcUserClaim> EcUserClaims { get; set; }
         public virtual ICollection<EcUserLogin> EcUserLogins { get; set; }
         public virtual ICollection<EcUserRole> EcUserRoles { get; set; }
