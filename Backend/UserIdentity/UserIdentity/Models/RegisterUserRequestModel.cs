@@ -8,9 +8,8 @@ namespace UserIdentity.Models
         public string Email { get; set; }
         [Required]
         public string Username { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Password is required.")]
         public string Password { get; set; }
-
 
     }
 }
