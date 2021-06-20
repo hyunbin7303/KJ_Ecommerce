@@ -51,7 +51,7 @@ namespace ECommerce.Core.BusinessServices
             _cartRepository.UpdateAsync(cart);
         }
 
-        public async Task<Cart> GetActiveCart(string customerId)
+        public async Task<Cart> GetActiveCarts(string customerId)
         {
             return await _cartRepository.Query().Include(x => x.CartItems).Where(x => x.CustomerId == customerId && x.CartActive).FirstOrDefaultAsync();
         }
@@ -72,6 +72,16 @@ namespace ECommerce.Core.BusinessServices
         }
         // Sending Cart information to other service(external).
         public Task TransferBasket(string cartId, string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IList<Cart>> ICartService.GetActiveCarts(string customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ActivateCart(string cartId)
         {
             throw new NotImplementedException();
         }

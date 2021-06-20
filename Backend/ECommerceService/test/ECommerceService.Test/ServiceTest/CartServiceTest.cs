@@ -29,12 +29,30 @@ namespace ECommerceService.Test.ServiceTest
             cartItemRepository = new CartItemRepository(dbContext);
             cartService = new CartService(cartRepository, cartItemRepository);
         }
-
         [Test]
-        public void GetCartServoceActiveCart()
+        public void GetActiveCarts_NotNull()
         {
-            var carts = cartService.GetActiveCart("Evan1234").Result;
+            var carts = cartService.GetActiveCarts("Evan1234").Result;
             Assert.IsNotNull(carts);
+        }
+        [Test]
+        public void AddItemToCart_AddProduct_Success()
+        {
+            string cartId = "0B3EEB90-87D3-4093-832F-E122B3DA778E";
+            int productId = 1;
+            cartService.AddItemToCart(cartId, productId, 1);
+        }
+        
+        [Test] 
+        public void GetCartItemsByCartId_ReturnManycartItems()
+        {
+            var cartItems = cartService.GetCartItemsByCartId("0B3EEB90-87D3-4093-832F-E122B3DA778E").Result;        
+            Assert.IsNotNull(cartItems);
+        }
+        [Test]
+        public void newShoppingCart_CreateNewShoppingCart()
+        {
+            cartService.newShoppingCart("", 1);
         }
     }
 }
