@@ -60,7 +60,7 @@ namespace ECommerce.Infrastructure.Services
         }
         public Task<bool> DeleteProduct(int productId)
         {
-            var product = _productRepository.DeleteAsync(productId);
+            var product = _productRepository.GetByIdAsync(productId);
             if(product!= null)
             {
                 var check = _productRepository.DeleteAsync(productId);
