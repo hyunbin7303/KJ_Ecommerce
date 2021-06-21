@@ -55,8 +55,8 @@ namespace UserIdentity
                 entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
                 entity.Property(e => e.UserName).HasMaxLength(256);
-                entity.Property(e => e.FirstName).HasMaxLength(256);
-                entity.Property(e => e.LastName).HasMaxLength(256);
+                //entity.Property(e => e.FirstName).HasMaxLength(256);
+                //entity.Property(e => e.LastName).HasMaxLength(256);
 
             });
             modelBuilder.Entity<EcUserClaim>(entity =>
