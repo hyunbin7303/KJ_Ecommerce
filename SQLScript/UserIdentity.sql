@@ -112,6 +112,8 @@ GO
 CREATE TABLE [dbo].[EC_Users](
 	[Id] [nvarchar](450) NOT NULL,
 	[UserName] [nvarchar](256) NULL,
+	[FirstName] [nvarchar](256) NULL,
+	[LastName] [nvarchar](256) NULL,
 	[NormalizedUserName] [nvarchar](256) NULL,
 	[Email] [nvarchar](256) NULL,
 	[NormalizedEmail] [nvarchar](256) NULL,

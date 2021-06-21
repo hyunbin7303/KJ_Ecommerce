@@ -7,13 +7,22 @@
                   <label for="exampleInputEmail1" class="form-label">User name</label>
                   <input type="text" class="form-control" formControlName="username">
                 </div>
+                <div *ngIf="username.touched && username.errors?.required" class="alert alert-danger">
+                  This field is required!
+                </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email</label>
                     <input type="email" class="form-control" formControlName="email">
                   </div>
+                  <div *ngIf="email.touched && email.errors?.required" class="alert alert-danger">
+                    This field is required!
+                  </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Password</label>
                   <input type="password" class="form-control" formControlName= "password">
+                </div>
+                <div *ngIf="password.touched && password.errors?.required" class="alert alert-danger">
+                  This field is required!
                 </div>
                 <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1">
