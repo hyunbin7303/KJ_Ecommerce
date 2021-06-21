@@ -13,7 +13,7 @@ function App() {
         <Switch>
           <Route path="/checkout" component={CheckoutPage} />
           <Route path="/orders" component={OrderPage} />
-          <Route path="/" exact component={HomePage} />
+          <Route path="/home" exact component={HomePage} />
         </Switch>
       </Layout>
     </ReactAux>
