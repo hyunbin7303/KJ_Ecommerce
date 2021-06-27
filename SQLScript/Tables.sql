@@ -65,10 +65,10 @@ GO
 DROP TABLE IF EXISTS [dbo].[Category];
 CREATE TABLE [dbo].[Category](
 	[Id] [nvarchar](20) NOT NULL,
-	[Name] [nvarchar](max) NULL,
+	[Name] [nvarchar](50) NULL,
 	[Type] [nvarchar](100) NULL,
 	[parentId] [nvarchar](20) NULL,
-	[Description] [nvarchar](max) NULL,
+	[Description] [nvarchar](200) NULL,
 	[Active] [bit] NOT NULL
  CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
 (
