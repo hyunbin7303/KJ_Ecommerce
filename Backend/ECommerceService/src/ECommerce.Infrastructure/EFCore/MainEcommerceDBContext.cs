@@ -135,8 +135,13 @@ namespace ECommerce.Infrastructure
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
-                entity.Property(e => e.ParentId).HasColumnName("parentId");
+                entity.Property(e => e.Id).HasMaxLength(20);
+                entity.Property(e => e.Name).HasMaxLength(50);
                 entity.Property(e => e.Type).HasMaxLength(100);
+                entity.Property(e => e.Description).HasMaxLength(200);
+                entity.Property(e => e.Active)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
             });
             modelBuilder.Entity<Customer>(entity =>
             {
