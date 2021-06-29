@@ -2,33 +2,42 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-DROP TABLE IF EXISTS [dbo].[Category];
-CREATE TABLE [dbo].[Category](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](max) NULL,
-	[Type] [nvarchar](100) NULL,
-	[parentId] [int],
-	[Description] [nvarchar](max) NULL,
-	[Active] [bit] NOT NULL
- CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] 
-GO
-DROP TABLE IF EXISTS [dbo].[Customer];
-CREATE TABLE [dbo].[Customer](
-	[Id] [nvarchar](100) NOT NULL,
-	[UserId][int] NOT NULL,
-	[AddressId] [int]NOT NULL,
-	[customer_name] [nvarchar](100) NOT NULL,
-	[Description] [nvarchar](max) NULL,
- CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
-(
-	[id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+DROP TABLE IF EXISTS [dbo].OrderItem;
+CREATE TABLE OrderItem (
+    [id][nvarchar](100) NOT NULL, 
+    [OrderId][nvarchar](100) NOT NULL,
+    [ProductId][int] NOT NULL,
+    [Quantity] decimal(8, 2),
+    UnitPrice [decimal](18,2) NULL,
+    TotalPrice  [decimal](18,2) NULL,
+    Discount [decimal](18,2) NULL,
+    CreatedDate datetimeoffset(7),
+    UpdatedDate datetimeoffset(7),
+    CONSTRAINT [PK_OrderItem] PRIMARY KEY CLUSTERED 
+	(
+		[id] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+DROP TABLE IF EXISTS [dbo].[Order];
+CREATE TABLE [dbo].[Order] (
+    [Id] [nvarchar](100) NOT NULL,
+    [CustomerId] [nvarchar](100) NOT NULL,
+    [VendorId][int] NULL,
+    [CartId][nvarchar](100) NULL,
+    [Status] nvarchar(2),
+    Comment nvarchar(200),
+    RequiredDate datetimeoffset(7),
+    CreatedDate datetimeoffset(7),
+    UpdatedDate datetimeoffset(7),
+	CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
+	(
+		[Id] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 DROP TABLE IF EXISTS [dbo].[Product];
 CREATE TABLE [dbo].[Product](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
@@ -36,7 +45,7 @@ CREATE TABLE [dbo].[Product](
 	[DisplayName][nvarchar](450) NULL,
 	[Description] [nvarchar](450) NULL,
 	[VendorId] [int] NOT NULL,
-	[CategoryId] [int] NULL,
+	[CategoryId] [nvarchar](20) NULL,
 	[ProductFormat] [nvarchar](max) NULL,
 	[QuantityPerUnit] [int] NULL,
 	[UnitPrice] [float] NULL,
@@ -53,6 +62,20 @@ CREATE TABLE [dbo].[Product](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] 
 GO
+DROP TABLE IF EXISTS [dbo].[Category];
+CREATE TABLE [dbo].[Category](
+	[Id] [nvarchar](20) NOT NULL,
+	[Name] [nvarchar](max) NULL,
+	[Type] [nvarchar](100) NULL,
+	[parentId] [nvarchar](20) NULL,
+	[Description] [nvarchar](max) NULL,
+	[Active] [bit] NOT NULL
+ CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] 
+GO
 DROP TABLE IF EXISTS [dbo].[Vendor];
 CREATE TABLE [dbo].[Vendor](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
@@ -63,6 +86,20 @@ CREATE TABLE [dbo].[Vendor](
 	[email] [varchar](100) NULL,
 	[note] [varchar](500) NULL,
  CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+DROP TABLE IF EXISTS [dbo].[Customer];
+CREATE TABLE [dbo].[Customer](
+	[Id] [nvarchar](100) NOT NULL,
+	[UserId][int] NOT NULL,
+	[AddressId] [int]NOT NULL,
+	[customer_name] [nvarchar](100) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -104,40 +141,7 @@ CREATE TABLE [dbo].[Attribute](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-DROP TABLE IF EXISTS [dbo].OrderItem;
-CREATE TABLE OrderItem (
-    [id][nvarchar](100) NOT NULL, 
-    [OrderId][nvarchar](100) NOT NULL,
-    [ProductId][int] NOT NULL,
-    [Quantity] decimal(8, 2),
-    UnitPrice [decimal](18,2) NULL,
-    TotalPrice  [decimal](18,2) NULL,
-    Discount [decimal](18,2) NULL,
-    CreatedDate datetimeoffset(7),
-    UpdatedDate datetimeoffset(7),
-    CONSTRAINT [PK_OrderItem] PRIMARY KEY CLUSTERED 
-	(
-		[id] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-DROP TABLE IF EXISTS [dbo].[Order];
-CREATE TABLE [dbo].[Order] (
-    [Id] [nvarchar](100) NOT NULL,
-    [CustomerId] [nvarchar](100) NOT NULL,
-    [VendorId][int] NULL,
-    [CartId][nvarchar](100) NULL,
-    [Status] nvarchar(2),
-    Comment nvarchar(200),
-    RequiredDate datetimeoffset(7),
-    CreatedDate datetimeoffset(7),
-    UpdatedDate datetimeoffset(7),
-	CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
-	(
-		[Id] ASC
-	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+
 
 DROP TABLE IF EXISTS [dbo].[Cart];
 CREATE TABLE [dbo].[Cart](
