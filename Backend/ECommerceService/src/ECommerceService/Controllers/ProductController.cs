@@ -79,7 +79,7 @@ namespace ECommerceService.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ProductsByNameContains(string productName)
         {
-            var products = await _productService.GetProductsByDisplayNameContains(productName);
+            var products =  _productService.GetProductsByDisplayNameContains(productName);
             if (products == null)
             {
                 return NotFound();

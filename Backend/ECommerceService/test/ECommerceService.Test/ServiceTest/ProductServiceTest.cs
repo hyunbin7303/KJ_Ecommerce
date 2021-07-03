@@ -35,14 +35,14 @@ namespace ECommerceService.Test.ServiceTest
         [Test]
         public void GetProductsByCategoryAsync_ReturnProducts()
         {
-            var products = _productService.GetProductsByCategoryId(1).Result;
+            var products = _productService.GetProductsByCategoryId(1);
             Assert.IsNotNull(products);
         }
 
         [Test]
         public void GetProductsByDisplayNameContains_ShouldReturn()
         {
-            var products = _productService.GetProductsByDisplayNameContains("Cross").Result;
+            var products = _productService.GetProductsByDisplayNameContains("Cross");
             Assert.NotNull(products);
         }
         [Test]
