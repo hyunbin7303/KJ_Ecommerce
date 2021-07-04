@@ -38,7 +38,12 @@ namespace ECommerceService.Test.ServiceTest
             var products = _productService.GetProductsByCategoryId(1);
             Assert.IsNotNull(products);
         }
-
+        [Test]
+        public void GetProductsOnSale_ReturnSalesProducts()
+        {
+            var products = _productService.GetProductsOnSale();
+            Assert.IsNotNull(products);
+        }
         [Test]
         public void GetProductsByDisplayNameContains_ShouldReturn()
         {

@@ -70,7 +70,12 @@ namespace ECommerce.Infrastructure.Services
         }
         public Task<IList<Product>> GetProductsOnSale()
         {
-            throw new NotImplementedException();
+            var products = _productRepository.GetAll();
+            if(products == null)
+                return null;
+
+            var saleProducts = products.Where(p => p.ProductAvailable && p.DiscountAvailable).ToList();
+            return Task.FromResult<IList<Product>>(saleProducts);
         }
     }
 }
