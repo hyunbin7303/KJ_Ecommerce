@@ -12,10 +12,10 @@ namespace ECommerceService.Controllers
 {
     public class CategoryController : BaseController
     {
-        private readonly ICategoryService _cartegoryService;
+        //private readonly ICategoryService _cartegoryService;
         private readonly ICartRepository _cartRepository;
         private readonly ICartItemRepository _cartItemRepository;
-        private readonly IProductService _productService;
+        //private readonly IProductService _productService;
 
 
 
