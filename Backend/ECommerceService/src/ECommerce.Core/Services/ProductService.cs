@@ -28,20 +28,20 @@ namespace ECommerce.Infrastructure.Services
             _productRepository.InsertAsync(product);
             return Task.CompletedTask;
         }
-        public Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId)
+        public IList<Product> GetProductsByCategoryId(int categoryId)
         {
-            var products = _productRepository.GetProductsByCategoryAsync(categoryId);
+            var products = _productRepository.GetProductsByCategoryAsync(categoryId).Result.ToList();
             return products;
         }
         private IOrderedQueryable<Product> OrderingMethod(IQueryable<Product> query)
         {
             return query.OrderBy(student => student.Name);
         }
-        public Task<IEnumerable<Product>> GetProductsByDisplayNameContains(string productDisplayName)
+        public IList<Product> GetProductsByDisplayNameContains(string productDisplayName)
         {
             Expression<Func<Product, bool>> exprProd = x => x.DisplayName.Contains(productDisplayName);
-            var products = _productRepository.Get(exprProd, OrderingMethod);
-            return Task.FromResult(products);
+            var products = _productRepository.Get(exprProd, OrderingMethod).ToList();
+            return products;
         }
         // Geting to accept SearchDTO.
         public Task<Product> SearchProduct(/*SearchProductDTO*/)
@@ -68,10 +68,14 @@ namespace ECommerce.Infrastructure.Services
             }
             return Task.FromResult(false);
         }
-
-        public Task<IEnumerable<Product>> GetProductsOnSale()
+        public Task<IList<Product>> GetProductsOnSale()
         {
-            throw new NotImplementedException();
+            var products = _productRepository.GetAll();
+            if(products == null)
+                return null;
+
+            var saleProducts = products.Where(p => p.ProductAvailable && p.DiscountAvailable).ToList();
+            return Task.FromResult<IList<Product>>(saleProducts);
         }
     }
 }

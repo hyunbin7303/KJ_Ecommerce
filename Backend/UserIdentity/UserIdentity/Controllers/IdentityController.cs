@@ -39,6 +39,8 @@ namespace UserIdentity.Controllers
             var user = new EcUser
             {
                 Email = model.Email,
+                FirstName = "a",
+                LastName = "b",
                 UserName = model.Username,
             };
             var result = await this.userManager.CreateAsync(user, model.Password);
@@ -86,7 +88,7 @@ namespace UserIdentity.Controllers
 
         [Route(nameof(Login))]
         public async Task<ActionResult<string>> Login([FromBody]LoginRequestModel loginModel)
-        {
+         {
             var user = await this.userManager.FindByNameAsync(loginModel.Username);
             if(user == null)
             {
@@ -127,7 +129,7 @@ namespace UserIdentity.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var encryptedToken = tokenHandler.WriteToken(token);
-            return encryptedToken;
+            return Ok(encryptedToken);
         }
     }
 }
