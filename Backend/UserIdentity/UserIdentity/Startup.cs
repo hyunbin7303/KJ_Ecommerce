@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserIdentity.Services;
 
 namespace UserIdentity
 {
@@ -46,6 +47,7 @@ namespace UserIdentity
             var appSettingConfig = Configuration.GetSection("ApplicationSettings");
             services.Configure<ApplicationSettings>(appSettingConfig);
 
+            services.AddScoped<IUserService, UserService>();
 
             var appSettings = appSettingConfig.Get<ApplicationSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);

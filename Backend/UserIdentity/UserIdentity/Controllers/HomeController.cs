@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserIdentity.Controllers;
+using UserIdentity.Models;
+using UserIdentity.Services;
 
 namespace UserIdentity
 {
@@ -13,10 +15,12 @@ namespace UserIdentity
     [Route("[controller]")]
     public class HomeController : ApiController
     {
+        private IUserService _userService;
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserService userService)
         {
             _logger = logger;
+            _userService = userService;
         }
         [Authorize]
         public ActionResult Get()
@@ -24,6 +28,24 @@ namespace UserIdentity
             return Ok("Works");
         }
 
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(LoginRequestModel model)
+        {
+            var response = _userService.Authenticate(model);
 
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
+        }
+
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var users = _userService.GetAll();
+            return Ok(users);
+        }
     } 
 }

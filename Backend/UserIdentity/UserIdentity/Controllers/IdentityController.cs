@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using UserIdentity.Models;
+using UserIdentity.Services;
 
 namespace UserIdentity.Controllers
 {
@@ -23,14 +24,15 @@ namespace UserIdentity.Controllers
         private readonly UserManager<EcUser> userManager;
         //private readonly RoleManager<EcRole> rolemanager;
         private readonly IConfiguration _configuration;
-
+        private readonly IUserService _userService;
         private readonly ApplicationSettings appSettings;
-        public IdentityController(UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings)
+        public IdentityController(IUserService userService, UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings)
         {
             this.userManager = userManager;
             //this.rolemanager = roleManager;
             this.appSettings = appSettings.Value;
             this._configuration = configuration;
+            this._userService = userService;
         }
 
         [Route(nameof(Register))]
@@ -113,8 +115,7 @@ namespace UserIdentity.Controllers
 
 
 
-
-
+            var authenCheck = _userService.Authenticate(loginModel);
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
@@ -131,5 +132,8 @@ namespace UserIdentity.Controllers
             var encryptedToken = tokenHandler.WriteToken(token);
             return Ok(encryptedToken);
         }
+
+
+
     }
 }
