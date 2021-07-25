@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using UserIdentity.Models;
+using UserIdentity.Services;
 
 namespace UserIdentity.Controllers
 {
@@ -23,14 +24,15 @@ namespace UserIdentity.Controllers
         private readonly UserManager<EcUser> userManager;
         //private readonly RoleManager<EcRole> rolemanager;
         private readonly IConfiguration _configuration;
-
+        private readonly IUserService _userService;
         private readonly ApplicationSettings appSettings;
-        public IdentityController(UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings)
+        public IdentityController(IUserService userService, UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings)
         {
             this.userManager = userManager;
             //this.rolemanager = roleManager;
             this.appSettings = appSettings.Value;
             this._configuration = configuration;
+            this._userService = userService;
         }
 
         [Route(nameof(Register))]
@@ -90,46 +92,20 @@ namespace UserIdentity.Controllers
         public async Task<ActionResult<string>> Login([FromBody]LoginRequestModel loginModel)
          {
             var user = await this.userManager.FindByNameAsync(loginModel.Username);
-            if(user == null)
+            if (user == null)
             {
                 return this.Unauthorized();
             }
             var passwordValid = await this.userManager.CheckPasswordAsync(user, loginModel.Password);
-            if(!passwordValid)
+            if (!passwordValid)
             {
                 return this.Unauthorized();
             }
-
-            //var userRoles = await userManager.GetRolesAsync(user);
-            //var authClaims = new List<Claim>
-            //{
-            //    new Claim(ClaimTypes.Name, user.UserName),
-            //    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //};
-            //foreach (var userRole in userRoles)
-            //{
-            //    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            //}
-
-
-
-
-
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var encryptedToken = tokenHandler.WriteToken(token);
-            return Ok(encryptedToken);
+            var authenCheck = _userService.Authenticate(loginModel);
+            return Ok(authenCheck);
         }
+
+
+
     }
 }

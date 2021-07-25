@@ -1,5 +1,4 @@
-﻿
-namespace UserIdentity.Models
+﻿namespace UserIdentity.Models
 {
     using System.ComponentModel.DataAnnotations;
     public class RegisterUserRequestModel
