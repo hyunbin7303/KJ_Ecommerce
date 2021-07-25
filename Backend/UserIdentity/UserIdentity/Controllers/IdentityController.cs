@@ -12,6 +12,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using UserIdentity.Infrastructure;
 using UserIdentity.Models;
 using UserIdentity.Services;
 
@@ -26,13 +27,15 @@ namespace UserIdentity.Controllers
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
         private readonly ApplicationSettings appSettings;
-        public IdentityController(IUserService userService, UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings)
+        private readonly MyUserClaimsPrincipalFactory _factory;
+        public IdentityController(IUserService userService, UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings, MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory)
         {
             this.userManager = userManager;
             //this.rolemanager = roleManager;
             this.appSettings = appSettings.Value;
             this._configuration = configuration;
             this._userService = userService;
+            this._factory = myUserClaimsPrincipalFactory;
         }
 
         [Route(nameof(Register))]
@@ -41,12 +44,15 @@ namespace UserIdentity.Controllers
             var user = new EcUser
             {
                 Email = model.Email,
-                FirstName = "a",
-                LastName = "b",
+                FirstName = model.Firstname,
+                LastName = model.Lastname,
                 UserName = model.Username,
             };
             var result = await this.userManager.CreateAsync(user, model.Password);
-            if(result.Succeeded)
+
+            //_factory.GenerateClaimsAsync
+
+            if (result.Succeeded)
             {
                 return Ok(); 
             }
