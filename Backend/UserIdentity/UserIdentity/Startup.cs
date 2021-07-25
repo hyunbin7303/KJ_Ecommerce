@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserIdentity.Infrastructure;
 using UserIdentity.Services;
 
 namespace UserIdentity
@@ -42,7 +43,7 @@ namespace UserIdentity
                .AddRoles<EcUserRole>() //Line that can help you
                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-
+            services.AddScoped<IUserClaimsPrincipalFactory<EcUser>, MyUserClaimsPrincipalFactory>();
 
             var appSettingConfig = Configuration.GetSection("ApplicationSettings");
             services.Configure<ApplicationSettings>(appSettingConfig);
@@ -56,7 +57,9 @@ namespace UserIdentity
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
+
+            })
+            .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;

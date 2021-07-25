@@ -92,45 +92,17 @@ namespace UserIdentity.Controllers
         public async Task<ActionResult<string>> Login([FromBody]LoginRequestModel loginModel)
          {
             var user = await this.userManager.FindByNameAsync(loginModel.Username);
-            if(user == null)
+            if (user == null)
             {
                 return this.Unauthorized();
             }
             var passwordValid = await this.userManager.CheckPasswordAsync(user, loginModel.Password);
-            if(!passwordValid)
+            if (!passwordValid)
             {
                 return this.Unauthorized();
             }
-
-            //var userRoles = await userManager.GetRolesAsync(user);
-            //var authClaims = new List<Claim>
-            //{
-            //    new Claim(ClaimTypes.Name, user.UserName),
-            //    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //};
-            //foreach (var userRole in userRoles)
-            //{
-            //    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            //}
-
-
-
             var authenCheck = _userService.Authenticate(loginModel);
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var encryptedToken = tokenHandler.WriteToken(token);
-            return Ok(encryptedToken);
+            return Ok(authenCheck);
         }
 
 

@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using UserIdentity.Controllers;
 using UserIdentity.Models;
@@ -24,10 +28,41 @@ namespace UserIdentity
         }
         [Authorize]
         public ActionResult Get()
-        { 
+        {
+
             return Ok("Works");
         }
+        [Authorize]
+        [HttpGet("GetUserId")]
+        public ActionResult GetUserId()
+        {
+            //var token = HttpContext.GetTokenAsync("Bearer", "access_token").Result;
+            //var handler = new JwtSecurityTokenHandler();
+            //var jwtSecurityToken = handler.ReadJwtToken(token);
+            //var key = Encoding.ASCII.GetBytes(token);
+            //var validations = new TokenValidationParameters
+            //{
+            //    ValidateIssuerSigningKey = true,
+            //    IssuerSigningKey = new SymmetricSecurityKey(key),
+            //    ValidateIssuer = false,
+            //    ValidateAudience = false
+            //};
+            //var claims = handler.ValidateToken(token, validations, out var tokenSecure);
+            //var test = jwtSecurityToken.Claims.First(claim => claim.Type == "jti").Value;
+            //var username = jwtSecurityToken.Claims.First(claim => claim.Type == "UserName").Value;
 
+
+            var principal = HttpContext.User;
+            if (principal?.Claims != null)
+            {
+                foreach (var claim in principal.Claims)
+                {
+                }
+
+            }
+            var check = principal?.Claims?.SingleOrDefault(p => p.Type == "username")?.Value;
+            return Ok(check);
+        }
         [HttpPost("authenticate")]
         public IActionResult Authenticate(LoginRequestModel model)
         {

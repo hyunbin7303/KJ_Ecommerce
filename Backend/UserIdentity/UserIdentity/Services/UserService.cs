@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using UserIdentity.Models;
 
 namespace UserIdentity.Services
-{
+{     
     public class UserService : IUserService
     {
         private readonly ApplicationSettings _appSettings;
@@ -27,15 +27,10 @@ namespace UserIdentity.Services
         };
         public AuthenticateResponse Authenticate(LoginRequestModel model)
         {
-
-            var user = _users.SingleOrDefault(x => x.UserName == model.Username && x.PasswordHash == model.Password);
-
-            // return null if user not found
+            var user = this.userManager.FindByNameAsync(model.Username).Result;
             if (user == null) return null;
-
             // authentication successful so generate jwt token
             var token = generateJwtToken(user);
-
             return new AuthenticateResponse(user, token);
         }
 
