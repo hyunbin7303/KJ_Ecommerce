@@ -3,7 +3,7 @@ import "./App.css";
 import HomePage from "./Components/Pages/HomePage/HomePage";
 import ReactAux from "./Hoc/ReactAux/ReactAux";
 import Layout from "./Hoc/Layout/Layout";
-import { Route, Switch } from "react-router-dom";
+import { useHistory, Route, Switch } from "react-router-dom";
 import CheckoutPage from './Components/Pages/CheckoutPage/CheckoutPage';
 import OrderPage from "./Components/Pages/OrderPage/OrderPage";
 import Login from './Components/Auth/Login/Login';
@@ -11,9 +11,13 @@ import Login from './Components/Auth/Login/Login';
 function App() {
 
   const [token, setToken] = useState();
+  let history = useHistory();
 
   if(!token) {
     return <Login setToken={setToken} />
+  }
+  if(token) {
+    history.push("/home");
   }
 
   return (
