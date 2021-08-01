@@ -34,16 +34,20 @@ namespace UserIdentity
         {
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<EcUser, EcUserRole>(options =>
+            services.AddIdentity<EcUser, IdentityRole<string>>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequiredLength = 5;
             })
-               .AddRoles<EcUserRole>() //Line that can help you
-               .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+               .AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
 
-            services.AddScoped<IUserClaimsPrincipalFactory<EcUser>, MyUserClaimsPrincipalFactory>();
+            //services.AddScoped<IUserClaimsPrincipalFactory<EcUser>, MyUserClaimsPrincipalFactory>();
+
+            //services.AddScoped<MyUserClaimsPrincipalFactory>();
+            services.AddScoped<UserInfoClaims>();
+
 
             var appSettingConfig = Configuration.GetSection("ApplicationSettings");
             services.Configure<ApplicationSettings>(appSettingConfig);

@@ -36,9 +36,9 @@ namespace UserIdentity
         [HttpGet("GetUserId")]
         public ActionResult GetUserId()
         {
-            //var token = HttpContext.GetTokenAsync("Bearer", "access_token").Result;
-            //var handler = new JwtSecurityTokenHandler();
-            //var jwtSecurityToken = handler.ReadJwtToken(token);
+            var token = HttpContext.GetTokenAsync("Bearer", "access_token").Result;
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
             //var key = Encoding.ASCII.GetBytes(token);
             //var validations = new TokenValidationParameters
             //{

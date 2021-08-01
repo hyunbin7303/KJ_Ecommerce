@@ -16,14 +16,16 @@ namespace UserIdentity.Services
     {
         private readonly ApplicationSettings _appSettings;
         private readonly UserManager<EcUser> userManager;
-        public UserService(IOptions<ApplicationSettings> appSettings, UserManager<EcUser> userManager)
+        private readonly SignInManager<EcUser> signInManager;
+        public UserService(IOptions<ApplicationSettings> appSettings, UserManager<EcUser> userManager, SignInManager<EcUser> signinManager)
         {
             this._appSettings = appSettings.Value;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
         private List<EcUser> _users = new List<EcUser>
         {
-            new EcUser { FirstName = "Test", LastName = "User", UserName = "test", PasswordHash = "test" }
+            new EcUser {  UserName = "test", PasswordHash = "test" }
         };
         public AuthenticateResponse Authenticate(LoginRequestModel model)
         {

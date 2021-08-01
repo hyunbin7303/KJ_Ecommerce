@@ -28,14 +28,25 @@ namespace UserIdentity.Controllers
         private readonly IUserService _userService;
         private readonly ApplicationSettings appSettings;
         private readonly MyUserClaimsPrincipalFactory _factory;
-        public IdentityController(IUserService userService, UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings, MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory)
+        private readonly UserInfoClaims _userInfoClaims;
+
+        public IdentityController(
+            IUserService userService, 
+            UserManager<EcUser> userManager, 
+            IConfiguration configuration, 
+            /*RoleManager<EcRole>  roleManager, */
+            IOptions<ApplicationSettings> appSettings, 
+            //MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory,
+            UserInfoClaims userInfoClaims
+            )
         {
             this.userManager = userManager;
             //this.rolemanager = roleManager;
             this.appSettings = appSettings.Value;
             this._configuration = configuration;
             this._userService = userService;
-            this._factory = myUserClaimsPrincipalFactory;
+            //this._factory = myUserClaimsPrincipalFactory;
+            this._userInfoClaims = userInfoClaims;
         }
 
         [Route(nameof(Register))]
@@ -44,22 +55,22 @@ namespace UserIdentity.Controllers
             var user = new EcUser
             {
                 Email = model.Email,
-                FirstName = model.Firstname,
-                LastName = model.Lastname,
                 UserName = model.Username,
             };
+            //user.Id = Guid.NewGuid().ToString();
             var result = await this.userManager.CreateAsync(user, model.Password);
-
-            //_factory.GenerateClaimsAsync
-
+                
+            await userManager.AddClaimAsync(user, new Claim("UserName",user.UserName));
+            //await _userInfoClaims.TransformAsync(claimsPrincipal);
             if (result.Succeeded)
             {
                 return Ok(); 
             }
             return BadRequest(result.Errors);
         }
+     
 
-        [Route(nameof(RegisterAdmin))]
+       [Route(nameof(RegisterAdmin))]
         public async Task<ActionResult> RegisterAdmin([FromBody]RegisterUserRequestModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
