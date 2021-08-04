@@ -45,10 +45,16 @@ namespace UserIdentity
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-            modelBuilder.Entity<EcUser>(entity => { entity.ToTable(name: "EC_Users"); });
+            modelBuilder.Entity<EcUser>(entity => { 
+                entity.ToTable(name: "EC_Users"); 
+            });
             modelBuilder.Entity<IdentityRole<string>>(entity => {entity.ToTable(name : "EC_Roles");});
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity => {entity.ToTable(name : "EC_RoleClaims");});
-            modelBuilder.Entity<IdentityUserClaim<string>>(entity =>{    entity.ToTable(name: "EC_UserClaims");});
+            modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
+            { 
+                entity.ToTable(name: "EC_UserClaims");
+                entity.Property(e => e.UserId).IsRequired().HasMaxLength(450);
+            });
             modelBuilder.Entity<IdentityUserLogin<string>>(entity =>{entity.ToTable(name: "EC_UserLogins");});
             modelBuilder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable(name: "EC_UserRoles");});
             modelBuilder.Entity<IdentityUserToken<string>>(entity =>{entity.ToTable(name: "EC_UserTokens");});

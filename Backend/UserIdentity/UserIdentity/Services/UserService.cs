@@ -45,8 +45,8 @@ namespace UserIdentity.Services
             return _users.FirstOrDefault(x => x.Id == id);
         }
 
-        // helper methods
 
+        // helper methods
         private string generateJwtToken(EcUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -61,10 +61,6 @@ namespace UserIdentity.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public EcUser GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
     //https://jasonwatmore.com/post/2021/04/30/net-5-jwt-authentication-tutorial-with-example-api#tools-required
 }

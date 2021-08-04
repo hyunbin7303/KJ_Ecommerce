@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UserIdentity.Migrations
 {
-    public partial class _0801migrationtest : Migration
+    public partial class _0803migrationtest : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,8 +14,7 @@ namespace UserIdentity.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,6 +26,8 @@ namespace UserIdentity.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -55,9 +56,7 @@ namespace UserIdentity.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,12 +67,6 @@ namespace UserIdentity.Migrations
                         principalTable: "EC_Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EC_RoleClaims_EC_Roles_RoleId1",
-                        column: x => x.RoleId1,
-                        principalTable: "EC_Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,11 +75,9 @@ namespace UserIdentity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -97,12 +88,6 @@ namespace UserIdentity.Migrations
                         principalTable: "EC_Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EC_UserClaims_EC_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "EC_Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,9 +97,7 @@ namespace UserIdentity.Migrations
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -125,12 +108,6 @@ namespace UserIdentity.Migrations
                         principalTable: "EC_Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EC_UserLogins_EC_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "EC_Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -138,10 +115,7 @@ namespace UserIdentity.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,23 +127,11 @@ namespace UserIdentity.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EC_UserRoles_EC_Roles_RoleId1",
-                        column: x => x.RoleId1,
-                        principalTable: "EC_Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_EC_UserRoles_EC_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "EC_Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EC_UserRoles_EC_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "EC_Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -179,9 +141,7 @@ namespace UserIdentity.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -192,23 +152,12 @@ namespace UserIdentity.Migrations
                         principalTable: "EC_Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EC_UserTokens_EC_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "EC_Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EC_RoleClaims_RoleId",
                 table: "EC_RoleClaims",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EC_RoleClaims_RoleId1",
-                table: "EC_RoleClaims",
-                column: "RoleId1");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -223,34 +172,14 @@ namespace UserIdentity.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EC_UserClaims_UserId1",
-                table: "EC_UserClaims",
-                column: "UserId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EC_UserLogins_UserId",
                 table: "EC_UserLogins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EC_UserLogins_UserId1",
-                table: "EC_UserLogins",
-                column: "UserId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EC_UserRoles_RoleId",
                 table: "EC_UserRoles",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EC_UserRoles_RoleId1",
-                table: "EC_UserRoles",
-                column: "RoleId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EC_UserRoles_UserId1",
-                table: "EC_UserRoles",
-                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -263,11 +192,6 @@ namespace UserIdentity.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EC_UserTokens_UserId1",
-                table: "EC_UserTokens",
-                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

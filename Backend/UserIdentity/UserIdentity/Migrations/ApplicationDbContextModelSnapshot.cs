@@ -29,10 +29,6 @@ namespace UserIdentity.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -49,8 +45,6 @@ namespace UserIdentity.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("EC_Roles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -66,10 +60,6 @@ namespace UserIdentity.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RoleId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -79,8 +69,6 @@ namespace UserIdentity.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("EC_RoleClaims");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRoleClaim<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -96,12 +84,9 @@ namespace UserIdentity.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UserId")
                         .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -109,8 +94,6 @@ namespace UserIdentity.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("EC_UserClaims");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserClaim<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -120,10 +103,6 @@ namespace UserIdentity.Migrations
 
                     b.Property<string>("ProviderKey")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -137,8 +116,6 @@ namespace UserIdentity.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("EC_UserLogins");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserLogin<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -149,17 +126,11 @@ namespace UserIdentity.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("EC_UserRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -173,18 +144,12 @@ namespace UserIdentity.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("EC_UserTokens");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserToken<string>");
                 });
 
             modelBuilder.Entity("UserIdentity.EcUser", b =>
@@ -206,6 +171,12 @@ namespace UserIdentity.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -253,78 +224,6 @@ namespace UserIdentity.Migrations
                     b.ToTable("EC_Users");
                 });
 
-            modelBuilder.Entity("UserIdentity.EcRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<string>");
-
-                    b.HasDiscriminator().HasValue("EcRole");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcRoleClaim", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>");
-
-                    b.Property<string>("RoleId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasDiscriminator().HasValue("EcRoleClaim");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUserClaim", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasIndex("UserId1");
-
-                    b.HasDiscriminator().HasValue("EcUserClaim");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUserLogin", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasIndex("UserId1");
-
-                    b.HasDiscriminator().HasValue("EcUserLogin");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUserRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
-
-                    b.Property<string>("RoleId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
-
-                    b.HasDiscriminator().HasValue("EcUserRole");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUserToken", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserToken<string>");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasIndex("UserId1");
-
-                    b.HasDiscriminator().HasValue("EcUserToken");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", null)
@@ -374,75 +273,6 @@ namespace UserIdentity.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("UserIdentity.EcRoleClaim", b =>
-                {
-                    b.HasOne("UserIdentity.EcRole", "Role")
-                        .WithMany("EcRoleClaims")
-                        .HasForeignKey("RoleId1");
-
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUserClaim", b =>
-                {
-                    b.HasOne("UserIdentity.EcUser", "User")
-                        .WithMany("EcUserClaims")
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUserLogin", b =>
-                {
-                    b.HasOne("UserIdentity.EcUser", "User")
-                        .WithMany("EcUserLogins")
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUserRole", b =>
-                {
-                    b.HasOne("UserIdentity.EcRole", "Role")
-                        .WithMany("EcUserRoles")
-                        .HasForeignKey("RoleId1");
-
-                    b.HasOne("UserIdentity.EcUser", "User")
-                        .WithMany("EcUserRoles")
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUserToken", b =>
-                {
-                    b.HasOne("UserIdentity.EcUser", "User")
-                        .WithMany("EcUserTokens")
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcUser", b =>
-                {
-                    b.Navigation("EcUserClaims");
-
-                    b.Navigation("EcUserLogins");
-
-                    b.Navigation("EcUserRoles");
-
-                    b.Navigation("EcUserTokens");
-                });
-
-            modelBuilder.Entity("UserIdentity.EcRole", b =>
-                {
-                    b.Navigation("EcRoleClaims");
-
-                    b.Navigation("EcUserRoles");
                 });
 #pragma warning restore 612, 618
         }

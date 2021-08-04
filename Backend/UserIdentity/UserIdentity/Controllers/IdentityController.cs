@@ -36,7 +36,7 @@ namespace UserIdentity.Controllers
             IConfiguration configuration, 
             /*RoleManager<EcRole>  roleManager, */
             IOptions<ApplicationSettings> appSettings, 
-            //MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory,
+            MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory,
             UserInfoClaims userInfoClaims
             )
         {
@@ -45,7 +45,7 @@ namespace UserIdentity.Controllers
             this.appSettings = appSettings.Value;
             this._configuration = configuration;
             this._userService = userService;
-            //this._factory = myUserClaimsPrincipalFactory;
+            this._factory = myUserClaimsPrincipalFactory;
             this._userInfoClaims = userInfoClaims;
         }
 
@@ -57,11 +57,9 @@ namespace UserIdentity.Controllers
                 Email = model.Email,
                 UserName = model.Username,
             };
-            //user.Id = Guid.NewGuid().ToString();
             var result = await this.userManager.CreateAsync(user, model.Password);
-                
             await userManager.AddClaimAsync(user, new Claim("UserName",user.UserName));
-            //await _userInfoClaims.TransformAsync(claimsPrincipal);
+            await _factory.CreateAsync(user);
             if (result.Succeeded)
             {
                 return Ok(); 

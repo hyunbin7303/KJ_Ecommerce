@@ -43,9 +43,8 @@ namespace UserIdentity
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
-            //services.AddScoped<IUserClaimsPrincipalFactory<EcUser>, MyUserClaimsPrincipalFactory>();
-
-            //services.AddScoped<MyUserClaimsPrincipalFactory>();
+            services.AddScoped<IUserClaimsPrincipalFactory<EcUser>, MyUserClaimsPrincipalFactory>();
+            services.AddScoped<MyUserClaimsPrincipalFactory>();
             services.AddScoped<UserInfoClaims>();
 
 
