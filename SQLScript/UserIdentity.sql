@@ -2,7 +2,7 @@
 
 
 
-USE [MainEcommerceDB]
+USE [Identity]
 GO
 SET QUOTED_IDENTIFIER ON
 GO

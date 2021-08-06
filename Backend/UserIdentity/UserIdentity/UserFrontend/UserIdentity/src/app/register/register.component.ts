@@ -20,7 +20,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   register() {
-    this.authService.register(this.registerForm.value)
+    this.authService.register(this.registerForm.value).subscribe(data => {
+      console.log(data)
+    })
   }
   get username() {
     return this.registerForm.get('username');
@@ -32,3 +34,4 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('password');
   }
 }
+//https://www.youtube.com/watch?v=snGElYBh7eg
