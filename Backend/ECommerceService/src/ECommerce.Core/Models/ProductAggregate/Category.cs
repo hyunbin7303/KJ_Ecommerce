@@ -11,7 +11,7 @@ namespace ECommerce.Core.Models.ProductAggregate
         public Category()
         {
         }
-        public string id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public string ParentId { get; set; }
