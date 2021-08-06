@@ -6,11 +6,8 @@ using System.Collections.Generic;
 
 namespace UserIdentity
 {
-    public partial class EcUserRole : IdentityRole
+    public partial class EcUserRole : IdentityUserRole<string>
     {
-        public string UserId { get; set; }
-        public string RoleId { get; set; }
-
         public virtual EcRole Role { get; set; }
         public virtual EcUser User { get; set; }
     }

@@ -11,7 +11,7 @@ export class AuthService {
   private registerPath = environment.apiUrl + '/identity/register'
   constructor(private http: HttpClient) { }
   login(data): Observable<any> {
-    return this.http.post(this.loginPath, data)
+    return this.http.post(this.loginPath, data,{responseType: 'text'})
   }
 
 

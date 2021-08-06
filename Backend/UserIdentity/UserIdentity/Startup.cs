@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserIdentity.Infrastructure;
+using UserIdentity.Services;
 
 namespace UserIdentity
 {
@@ -32,20 +34,24 @@ namespace UserIdentity
         {
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<EcUser, EcUserRole>(options =>
+            services.AddIdentity<EcUser, IdentityRole<string>>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequiredLength = 5;
             })
-               .AddRoles<EcUserRole>() //Line that can help you
-               .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+               .AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
 
+            services.AddScoped<IUserClaimsPrincipalFactory<EcUser>, MyUserClaimsPrincipalFactory>();
+            services.AddScoped<MyUserClaimsPrincipalFactory>();
+            services.AddScoped<UserInfoClaims>();
 
 
             var appSettingConfig = Configuration.GetSection("ApplicationSettings");
             services.Configure<ApplicationSettings>(appSettingConfig);
 
+            services.AddScoped<IUserService, UserService>();
 
             var appSettings = appSettingConfig.Get<ApplicationSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
@@ -54,7 +60,9 @@ namespace UserIdentity
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
+
+            })
+            .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;

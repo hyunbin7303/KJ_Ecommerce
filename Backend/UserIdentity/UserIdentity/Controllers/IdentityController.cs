@@ -12,7 +12,9 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using UserIdentity.Infrastructure;
 using UserIdentity.Models;
+using UserIdentity.Services;
 
 namespace UserIdentity.Controllers
 {
@@ -23,14 +25,28 @@ namespace UserIdentity.Controllers
         private readonly UserManager<EcUser> userManager;
         //private readonly RoleManager<EcRole> rolemanager;
         private readonly IConfiguration _configuration;
-
+        private readonly IUserService _userService;
         private readonly ApplicationSettings appSettings;
-        public IdentityController(UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings)
+        private readonly MyUserClaimsPrincipalFactory _factory;
+        private readonly UserInfoClaims _userInfoClaims;
+
+        public IdentityController(
+            IUserService userService, 
+            UserManager<EcUser> userManager, 
+            IConfiguration configuration, 
+            /*RoleManager<EcRole>  roleManager, */
+            IOptions<ApplicationSettings> appSettings, 
+            MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory,
+            UserInfoClaims userInfoClaims
+            )
         {
             this.userManager = userManager;
             //this.rolemanager = roleManager;
             this.appSettings = appSettings.Value;
             this._configuration = configuration;
+            this._userService = userService;
+            this._factory = myUserClaimsPrincipalFactory;
+            this._userInfoClaims = userInfoClaims;
         }
 
         [Route(nameof(Register))]
@@ -39,19 +55,20 @@ namespace UserIdentity.Controllers
             var user = new EcUser
             {
                 Email = model.Email,
-                FirstName = "a",
-                LastName = "b",
                 UserName = model.Username,
             };
             var result = await this.userManager.CreateAsync(user, model.Password);
-            if(result.Succeeded)
+            await userManager.AddClaimAsync(user, new Claim("UserName",user.UserName));
+            await _factory.CreateAsync(user);
+            if (result.Succeeded)
             {
                 return Ok(); 
             }
             return BadRequest(result.Errors);
         }
+     
 
-        [Route(nameof(RegisterAdmin))]
+       [Route(nameof(RegisterAdmin))]
         public async Task<ActionResult> RegisterAdmin([FromBody]RegisterUserRequestModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
@@ -90,46 +107,20 @@ namespace UserIdentity.Controllers
         public async Task<ActionResult<string>> Login([FromBody]LoginRequestModel loginModel)
          {
             var user = await this.userManager.FindByNameAsync(loginModel.Username);
-            if(user == null)
+            if (user == null)
             {
                 return this.Unauthorized();
             }
             var passwordValid = await this.userManager.CheckPasswordAsync(user, loginModel.Password);
-            if(!passwordValid)
+            if (!passwordValid)
             {
                 return this.Unauthorized();
             }
-
-            //var userRoles = await userManager.GetRolesAsync(user);
-            //var authClaims = new List<Claim>
-            //{
-            //    new Claim(ClaimTypes.Name, user.UserName),
-            //    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //};
-            //foreach (var userRole in userRoles)
-            //{
-            //    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            //}
-
-
-
-
-
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var encryptedToken = tokenHandler.WriteToken(token);
-            return Ok(encryptedToken);
+            var authenCheck = _userService.Authenticate(loginModel);
+            return Ok(authenCheck);
         }
+
+
+
     }
 }

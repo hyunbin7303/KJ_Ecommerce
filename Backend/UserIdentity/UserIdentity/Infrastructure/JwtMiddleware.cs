@@ -16,6 +16,10 @@ namespace WebApi.Helpers
         private readonly RequestDelegate _next;
         private readonly ApplicationSettings _appSettings;
 
+    //    Validate the token
+    //    Extract the user id from the token
+    //Attach the authenticated user to the current HttpContext.Items collection to make it accessible within the scope of the current request
+
         public JwtMiddleware(RequestDelegate next, IOptions<ApplicationSettings> appSettings)
         {
             _next = next;
@@ -48,8 +52,7 @@ namespace WebApi.Helpers
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
+                var userId = jwtToken.Claims.First(x => x.Type == "id").Value;
                 // attach user to context on successful jwt validation
                 context.Items["User"] = userService.GetById(userId);
             }
