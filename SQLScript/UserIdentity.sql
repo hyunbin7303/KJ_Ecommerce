@@ -59,6 +59,20 @@ CREATE TABLE [dbo].[EC_UserClaims](
 GO
 
 
+CREATE TABLE [dbo].[IdentityClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_IdentityClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+
 
 /****** Object:  Table [dbo].[EC_UserLogins]    Script Date: 2021-03-31 10:07:15 PM ******/
 SET ANSI_NULLS ON
