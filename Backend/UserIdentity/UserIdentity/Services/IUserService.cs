@@ -9,6 +9,6 @@ namespace UserIdentity.Services
     {
         AuthenticateResponse Authenticate(LoginRequestModel model);
         IEnumerable<EcUser> GetAll();
-        EcUser GetById(int id);
+        EcUser GetById(string id);
     }
 }

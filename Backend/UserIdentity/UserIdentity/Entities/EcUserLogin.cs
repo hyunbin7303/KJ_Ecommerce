@@ -1,16 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
-
 #nullable disable
 
 namespace UserIdentity
 {
-    public partial class EcUserLogin
+    public partial class EcUserLogin : IdentityUserLogin<string>
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string ProviderDisplayName { get; set; }
-        public string UserId { get; set; }
+
 
         public virtual EcUser User { get; set; }
     }

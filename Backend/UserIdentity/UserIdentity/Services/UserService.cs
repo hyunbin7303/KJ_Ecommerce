@@ -16,14 +16,16 @@ namespace UserIdentity.Services
     {
         private readonly ApplicationSettings _appSettings;
         private readonly UserManager<EcUser> userManager;
-        public UserService(IOptions<ApplicationSettings> appSettings, UserManager<EcUser> userManager)
+        private readonly SignInManager<EcUser> signInManager;
+        public UserService(IOptions<ApplicationSettings> appSettings, UserManager<EcUser> userManager, SignInManager<EcUser> signinManager)
         {
             this._appSettings = appSettings.Value;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
         private List<EcUser> _users = new List<EcUser>
         {
-            new EcUser { FirstName = "Test", LastName = "User", UserName = "test", PasswordHash = "test" }
+            new EcUser {  UserName = "test", PasswordHash = "test" }
         };
         public AuthenticateResponse Authenticate(LoginRequestModel model)
         {
@@ -43,8 +45,8 @@ namespace UserIdentity.Services
             return _users.FirstOrDefault(x => x.Id == id);
         }
 
-        // helper methods
 
+        // helper methods
         private string generateJwtToken(EcUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -59,10 +61,6 @@ namespace UserIdentity.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public EcUser GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
     //https://jasonwatmore.com/post/2021/04/30/net-5-jwt-authentication-tutorial-with-example-api#tools-required
 }

@@ -12,6 +12,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using UserIdentity.Infrastructure;
 using UserIdentity.Models;
 using UserIdentity.Services;
 
@@ -26,13 +27,26 @@ namespace UserIdentity.Controllers
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
         private readonly ApplicationSettings appSettings;
-        public IdentityController(IUserService userService, UserManager<EcUser> userManager, IConfiguration configuration, /*RoleManager<EcRole>  roleManager, */IOptions<ApplicationSettings> appSettings)
+        private readonly MyUserClaimsPrincipalFactory _factory;
+        private readonly UserInfoClaims _userInfoClaims;
+
+        public IdentityController(
+            IUserService userService, 
+            UserManager<EcUser> userManager, 
+            IConfiguration configuration, 
+            /*RoleManager<EcRole>  roleManager, */
+            IOptions<ApplicationSettings> appSettings, 
+            MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory,
+            UserInfoClaims userInfoClaims
+            )
         {
             this.userManager = userManager;
             //this.rolemanager = roleManager;
             this.appSettings = appSettings.Value;
             this._configuration = configuration;
             this._userService = userService;
+            this._factory = myUserClaimsPrincipalFactory;
+            this._userInfoClaims = userInfoClaims;
         }
 
         [Route(nameof(Register))]
@@ -41,19 +55,20 @@ namespace UserIdentity.Controllers
             var user = new EcUser
             {
                 Email = model.Email,
-                FirstName = "a",
-                LastName = "b",
                 UserName = model.Username,
             };
             var result = await this.userManager.CreateAsync(user, model.Password);
-            if(result.Succeeded)
+            await userManager.AddClaimAsync(user, new Claim("UserName",user.UserName));
+            await _factory.CreateAsync(user);
+            if (result.Succeeded)
             {
                 return Ok(); 
             }
             return BadRequest(result.Errors);
         }
+     
 
-        [Route(nameof(RegisterAdmin))]
+       [Route(nameof(RegisterAdmin))]
         public async Task<ActionResult> RegisterAdmin([FromBody]RegisterUserRequestModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
