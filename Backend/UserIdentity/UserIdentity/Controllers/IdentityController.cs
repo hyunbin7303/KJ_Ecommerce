@@ -54,6 +54,8 @@ namespace UserIdentity.Controllers
         {
             var user = new EcUser
             {
+                FirstName = model.Firstname,
+                LastName = model.Lastname,
                 Email = model.Email,
                 UserName = model.Username,
             };
@@ -75,7 +77,6 @@ namespace UserIdentity.Controllers
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-
             EcUser user = new EcUser()
             {
                 Email = model.Email,
@@ -90,12 +91,10 @@ namespace UserIdentity.Controllers
             //    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
             //if (!await roleManager.RoleExistsAsync(UserRoles.User))
             //    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
-
             //if (await roleManager.RoleExistsAsync(UserRoles.Admin))
             //{
             //    await userManager.AddToRoleAsync(user, UserRoles.Admin);
             //}
-
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
 
 
