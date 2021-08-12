@@ -45,7 +45,6 @@ namespace UserIdentity
 
             services.AddScoped<IUserClaimsPrincipalFactory<EcUser>, MyUserClaimsPrincipalFactory>();
             services.AddScoped<MyUserClaimsPrincipalFactory>();
-            services.AddScoped<UserInfoClaims>();
 
 
             var appSettingConfig = Configuration.GetSection("ApplicationSettings");

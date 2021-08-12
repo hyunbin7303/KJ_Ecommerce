@@ -1,31 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models;
+using ECommerce.Query;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace ECommerceService.Controllers
 {
-    public class CustomerController : Controller
+    [Authorize]
+    public class CustomerController : BaseController
     {
-        public IActionResult Index()
+        private ICustomerRepository _customerRepository = null;
+        public CustomerController(ICustomerRepository repo)
         {
-            return View();
+            _customerRepository = repo ?? null;
         }
-
-        //public ActionResult<Customer> GetCustomer(string customerId)
-        //{
-        //    var customer = _customerRepository.GetByCustomerAsync(customerId);
-        //    // Customer object will have cart Information.
-        //    // Cart property will  have all of products that user have chosen.
-
-
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(customer);
-        //}
+        public ActionResult<Customer> CreateCustomer(CreateCustomerDTO createCustomerDTO)
+        {
+            Customer customer = new Customer()
+            {
+            };
+            _customerRepository.InsertAsync(customer);
+            // Customer object will have cart Information.
+            // Cart property will  have all of products that user have chosen.
+            return Ok();
+        }
+        public ActionResult<Customer> GetCustomer(string userId)
+        {
+            var customer = _customerRepository.GetByIdAsync(userId);
+        }
     }
 }
-// 

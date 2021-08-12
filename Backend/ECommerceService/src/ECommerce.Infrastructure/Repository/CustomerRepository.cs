@@ -12,5 +12,10 @@ namespace ECommerce.Infrastructure.Repository
         public CustomerRepository(MainEcommerceDBContext context) : base(context)
         {
         }
+
+        public Customer FindByUserName(string UserName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

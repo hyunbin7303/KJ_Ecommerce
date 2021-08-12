@@ -95,10 +95,13 @@ GO
 DROP TABLE IF EXISTS [dbo].[Customer];
 CREATE TABLE [dbo].[Customer](
 	[Id] [nvarchar](100) NOT NULL,
-	[UserId][int] NOT NULL,
+	[UserId][nvarchar] NOT NULL,
+	[UserName] [nvarchar](100) NOT NULL,
 	[AddressId] [int]NOT NULL,
-	[customer_name] [nvarchar](100) NOT NULL,
+	[VendorId] [int] NULL,
+	[CustomerName] [nvarchar](100) NOT NULL,
 	[Description] [nvarchar](max) NULL,
+	[Active] [bit] NOT NULL,
  CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

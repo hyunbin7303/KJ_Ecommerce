@@ -28,7 +28,6 @@ namespace UserIdentity.Controllers
         private readonly IUserService _userService;
         private readonly ApplicationSettings appSettings;
         private readonly MyUserClaimsPrincipalFactory _factory;
-        private readonly UserInfoClaims _userInfoClaims;
 
         public IdentityController(
             IUserService userService, 
@@ -36,8 +35,7 @@ namespace UserIdentity.Controllers
             IConfiguration configuration, 
             /*RoleManager<EcRole>  roleManager, */
             IOptions<ApplicationSettings> appSettings, 
-            MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory,
-            UserInfoClaims userInfoClaims
+            MyUserClaimsPrincipalFactory myUserClaimsPrincipalFactory
             )
         {
             this.userManager = userManager;
@@ -46,7 +44,6 @@ namespace UserIdentity.Controllers
             this._configuration = configuration;
             this._userService = userService;
             this._factory = myUserClaimsPrincipalFactory;
-            this._userInfoClaims = userInfoClaims;
         }
 
         [Route(nameof(Register))]
