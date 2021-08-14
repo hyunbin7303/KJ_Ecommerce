@@ -11,8 +11,8 @@ namespace ECommerce.Core.BusinessServices
         IList<Category> GetCategoriesById(string categoryId);
         IList<Category> GetCategoriesByName(string categoryName);
         IList<Category> GetCategoriesByParentId(string categoryId);
-        Task<Category> CreateCategory(Category category);
-        Task<Category> UpdateCategory(Category category);
+        Task CreateCategory(Category category);
+        Task UpdateCategory(Category category);
         Task<bool> DeleteCategory(string categoryId);
     }
 }
