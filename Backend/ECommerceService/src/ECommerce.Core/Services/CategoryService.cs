@@ -14,24 +14,35 @@ namespace ECommerce.Infrastructure.Services
     {
         private readonly ICategoryRepository _categoryRepository;
 
+        public CategoryService(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
+
         public IList<Category> GetCategoriesById(string categoryId)
         {
-            Expression<Func<Product, bool>> exprProd = x => x.DisplayName.Contains(productDisplayName);
-            var products = _categoryRepository.Get(exprProd, OrderingMethod).ToList();
-            return products;
+            var categories = _categoryRepository.GetCategoriesByCategoryAsync(categoryId).Result.ToList();
+            return categories;
         }
-        public IList<Category> GetCategoriesByName(string categoryName);
-       
-        public IList<Category> GetCategoriesByParentID(string categoryId)
+
+        public IList<Category> GetCategoriesByName(string categoryName)
         {
-            var _products = _categoryRepository.GetCategoriesByParentAsync(categoryId).Result.ToList();
-            return _products;
+            var categories = _categoryRepository.GetCategoriesByNameAsync(categoryName).Result.ToList();
+            return categories;
         }
+
+        public IList<Category> GetCategoriesByParentId(string parentId)
+        {
+            var categories = _categoryRepository.GetCategoriesByParentIdAsync(parentId).Result.ToList();
+            return categories;
+        }
+
         public Task CreateCategory(Category category)
         {
             _categoryRepository.InsertAsync(category);
             return Task.CompletedTask;
         }
+
         public Task UpdateCategory(Category category)
         {
             var _category = _categoryRepository.GetByIdAsync(category.Id);
@@ -42,6 +53,7 @@ namespace ECommerce.Infrastructure.Services
             }
             return Task.FromResult(false);
         }
+
         public Task<bool> DeleteCategory(string categoryId)
         {
             var _category = _categoryRepository.GetByIdAsync(categoryId);
