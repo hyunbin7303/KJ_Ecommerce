@@ -135,7 +135,7 @@ namespace ECommerce.Infrastructure
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
-                entity.HasKey(e => e.id);
+                entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()
                     .HasMaxLength(20);
@@ -143,6 +143,7 @@ namespace ECommerce.Infrastructure
                     .IsRequired()
                     .HasMaxLength(50);
                 entity.Property(e => e.Type).HasMaxLength(100);
+                entity.Property(e => e.ParentId).HasMaxLength(20);
                 entity.Property(e => e.Description).HasMaxLength(200);
                 entity.Property(e => e.Active)
                     .IsRequired()
