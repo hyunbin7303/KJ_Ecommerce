@@ -8,8 +8,8 @@ namespace ECommerce.Core.Interfaces
 {
     public interface ICategoryRepository : IGenericRepository<Category>
     {
-        Task<IEnumerable<Category>> GetCategoriesByNameAsync(string categoryName);
         Task<IEnumerable<Category>> GetCategoriesByCategoryAsync(string categoryId);
-        Task<IEnumerator<Category>> GetCategoriesByParentIdAsync(string parentId);
+        Task<IEnumerable<Category>> GetCategoriesByNameAsync(string categoryName);
+        Task<IEnumerable<Category>> GetCategoriesByParentIdAsync(string parentId);
     }
 }
