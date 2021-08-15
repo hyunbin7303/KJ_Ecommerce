@@ -1,6 +1,7 @@
 ﻿using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.CartAggregate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceService.Controllers
 {
+    [Authorize]
     public class CartController : BaseController
     {
         private readonly ICartService _cartService;

@@ -25,7 +25,6 @@ namespace ECommerceService.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         //[Authorize(Roles = "Grandpa")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         public IEnumerable<ProductDetailsDTO> Get()
