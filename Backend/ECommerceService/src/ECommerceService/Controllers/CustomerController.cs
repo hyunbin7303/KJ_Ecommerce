@@ -17,9 +17,9 @@ namespace ECommerceService.Controllers
         }
         public ActionResult<Customer> CreateCustomer(CreateCustomerDTO createCustomerDTO)
         {
-            Customer customer = new Customer()
-            {
-            };
+            Customer customer = new Customer();
+            customer.Id = createCustomerDTO.UserId;
+            
             _customerRepository.InsertAsync(customer);
             // Customer object will have cart Information.
             // Cart property will  have all of products that user have chosen.
@@ -28,6 +28,13 @@ namespace ECommerceService.Controllers
         public ActionResult<Customer> GetCustomer(string userId)
         {
             var customer = _customerRepository.GetByIdAsync(userId);
+            return Ok(customer);
+        }
+        public ActionResult<Customer> UpdateCustomer(Customer customer)
+        {
+            var customer = _customerRepository.GetByIdAsync(customer.Id);
+
+            return Ok();
         }
     }
 }

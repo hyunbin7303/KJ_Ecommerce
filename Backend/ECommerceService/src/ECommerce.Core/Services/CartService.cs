@@ -51,9 +51,9 @@ namespace ECommerce.Core.BusinessServices
             _cartRepository.UpdateAsync(cart);
         }
 
-        public async Task<Cart> GetActiveCarts(string customerId)
+        public async Task<IList<Cart>> GetActiveCarts(string customerId)
         {
-            return await _cartRepository.Query().Include(x => x.CartItems).Where(x => x.CustomerId == customerId && x.CartActive).FirstOrDefaultAsync();
+            return await _cartRepository.Query().Include(x => x.CartItems).Where(x => x.CustomerId == customerId && x.CartActive).ToListAsync();
         }
         public async Task<IList<CartItem>> GetCartItemsByCartId(string cartId)
         {
@@ -75,13 +75,15 @@ namespace ECommerce.Core.BusinessServices
         {
             throw new NotImplementedException();
         }
-
-        Task<IList<Cart>> ICartService.GetActiveCarts(string customerId)
+        public async Task ActivateCart(string cartId)
         {
-            throw new NotImplementedException();
+            var cart = await _cartRepository.GetByIdAsync(cartId);
+            if(cart!= null)
+            {
+                cart.CartActive = true;
+            }
         }
-
-        public Task<bool> ActivateCart(string cartId)
+        public Task<Cart> GetActiveCartCurrent(string customerId)
         {
             throw new NotImplementedException();
         }

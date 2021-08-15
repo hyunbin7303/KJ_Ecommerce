@@ -1,8 +1,11 @@
-﻿namespace ECommerce.Query
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ECommerce.Query
 {
-    public class CreateCustomerDTO
+    public class UpdateCustomerDTO
     {
-        public string UserId { get; set; }
         public string UserName { get; set; }
         public string Phone { get; }
         public string Address1 { get; }
