@@ -57,15 +57,17 @@ namespace ECommerce.Infrastructure
             {
                 entity.HasNoKey();
                 entity.ToTable("Address");
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.AddressType).HasMaxLength(25);
+                entity.Property(e => e.ContactName).HasMaxLength(100);
                 entity.Property(e => e.Address1).HasMaxLength(100);
                 entity.Property(e => e.Address2).HasMaxLength(100);
                 entity.Property(e => e.City).HasMaxLength(50);
-                entity.Property(e => e.ContactName).HasMaxLength(100);
                 entity.Property(e => e.Country).HasMaxLength(50);
                 entity.Property(e => e.Description).HasMaxLength(200);
-                entity.Property(e => e.Id).HasColumnName("id");
-                entity.Property(e => e.Phone).HasMaxLength(100);
+                entity.Property(e => e.Phone).HasMaxLength(50);
                 entity.Property(e => e.Province).HasMaxLength(50);
+                entity.Property(e => e.PostalCode).HasMaxLength(50);
             });
             modelBuilder.Entity<AppMenu>(entity =>
             {
