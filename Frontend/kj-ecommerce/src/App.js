@@ -1,22 +1,24 @@
-import "./App.css";
-import HomePage from "./Components/Pages/HomePage/HomePage";
-import ReactAux from "./Hoc/ReactAux/ReactAux";
-import Layout from "./Hoc/Layout/Layout";
-import { Route, Switch } from "react-router-dom";
-import CartPage from './Components/Pages/CartPage/CartPage';
-import OrderPage from "./Components/Pages/OrderPage/OrderPage";
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   return (
-    <ReactAux>
-      <Layout>
-        <Switch>
-          <Route path="/cart" component={CartPage} />
-          <Route path="/orders" component={OrderPage} />
-          <Route path="/" exact component={HomePage} />
-        </Switch>
-      </Layout>
-    </ReactAux>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
