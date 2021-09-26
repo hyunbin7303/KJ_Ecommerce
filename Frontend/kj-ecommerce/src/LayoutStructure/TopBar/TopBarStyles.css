@@ -1,0 +1,19 @@
+.inline {
+    display: inline-flex;
+}
+ul.user-nav {
+    list-style: none;
+}
+ul.user-nav li {
+    display: inline-flex;    
+}
+.app-label {
+
+}
+.user-nav-group{
+    float: right;
+}
+.topbarContainer {
+    border-bottom: 1px solid black;
+    background-color: var(--bluegray-900)
+}
