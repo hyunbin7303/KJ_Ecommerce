@@ -8,6 +8,6 @@ namespace ECommerce.Core.Services
         Task CreateNewCustomer(CreateCustomerDTO newCustomerDTO);
         Task UpdateCustomerInfo(UpdateCustomerDTO updateCustomer);
         Task UpdateAddress(string customerId, string addressId, Address addr);
-
+        Task<Address> GetAddressByCustomerId(string customerId);
     }
 }
