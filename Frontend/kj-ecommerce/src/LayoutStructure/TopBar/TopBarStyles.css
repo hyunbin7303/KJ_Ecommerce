@@ -3,6 +3,8 @@
 }
 ul.user-nav {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 ul.user-nav li {
     display: inline-flex;    
@@ -15,5 +17,12 @@ ul.user-nav li {
 }
 .topbarContainer {
     border-bottom: 1px solid black;
-    background-color: var(--bluegray-900)
+    background-color: var(--bluegray-900);    
+    height: calc(fit-content) + 2rem;
+}
+.userMenu {
+    display: none;
+}
+.userDropdown:hover .userMenu {
+    display: block;
 }

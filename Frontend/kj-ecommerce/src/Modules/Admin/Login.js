@@ -1,10 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from "react-router-dom";
+import {useAuth} from '../../Auth/AuthFunctions';
 import { useForm, Controller } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { classNames } from 'primereact/utils';
+
+
+
+function LoginPage() {
+    let history = useHistory();
+    let location = useLocation();
+    let auth = useAuth();
+  
+    let { from } = location.state || { from: { pathname: "/" } };
+    let login = () => {
+      auth.signin(() => {
+        history.replace(from);
+      });
+    };
+  
+    return (
+      <div>
+        <p>You must log in to view the page at {from.pathname}</p>
+        <button onClick={login}>Log in</button>
+      </div>
+    );
+  }
+
+
 
 const Login = (props) =>{
 
@@ -29,7 +55,7 @@ const Login = (props) =>{
     };
   
     return (
-        <div className="">
+        <div className=""><LoginPage/>
             <div className="p-d-flex p-jc-center">
                 <div className="card">
                     <h1 className="p-text-center">Login</h1>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Switch,Route,Link} from "react-router-dom";
-import Login from '../../Modules/Admin/Login'
+import Login from '../../Modules/Admin/Login';
+import Cart from '../../Modules/Cart/Cart';
 
 const Main = (props) =>{
 
@@ -18,7 +19,8 @@ const Main = (props) =>{
             <Login/>
           </Route>
           <Route path="/cart">
-            <div>cart</div>
+            
+            <Cart/>
           </Route>
         </Switch>
         </>
