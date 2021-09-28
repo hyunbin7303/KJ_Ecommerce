@@ -42,7 +42,7 @@ namespace ECommerceService
         {
 
             // Required to update this!
-            services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
+            services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MainEcommerceDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddMvc();
 
             //services.AddDbContext<OrderDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer"), 
@@ -95,7 +95,7 @@ namespace ECommerceService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env/*, MainEcommerceDBContext db*/)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MainEcommerceDBContext db)
         {
             if (env.IsDevelopment())
             {
@@ -107,7 +107,7 @@ namespace ECommerceService
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            //db.Database.EnsureCreated();
+            db.Database.EnsureCreated();
             //orderdb.Database.EnsureCreated();
             app.UseRouting();
             app.UseCors(options => options

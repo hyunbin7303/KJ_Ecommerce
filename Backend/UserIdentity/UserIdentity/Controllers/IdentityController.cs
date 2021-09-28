@@ -18,6 +18,12 @@ using UserIdentity.Services;
 
 namespace UserIdentity.Controllers
 {
+    //public class ApplicationUserManager : UserManager<EcUser>
+    //{
+
+    //}
+
+
     [ApiController]
     [Route("[controller]")]
     public class IdentityController : ApiController
@@ -74,7 +80,7 @@ namespace UserIdentity.Controllers
 
 
 
-        [Route(nameof(Login))]
+        [HttpPost(nameof(Login))]
         public async Task<ActionResult<string>> Login([FromBody]LoginRequestModel loginModel)
          {
             var user = await this._userManager.FindByNameAsync(loginModel.Username);

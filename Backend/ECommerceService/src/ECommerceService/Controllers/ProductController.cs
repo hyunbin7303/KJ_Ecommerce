@@ -90,7 +90,7 @@ namespace ECommerceService.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Product> CreateAsync(Product product)
+        public ActionResult<Product> CreateAsync([FromBody]Product product)
         {
             try
             {

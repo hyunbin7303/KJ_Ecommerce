@@ -12,8 +12,8 @@ namespace ECommerce.Core.Models.ProductAggregate
         {
             ProductAttributes = new List<ProductAttribute>();
         }
-        public string Name { get; private set; }
-        public string DisplayName { get; private set; }
+        public string Name { get;  set; }
+        public string DisplayName { get;  set; }
         public string Description { get; set; }
         public int VendorId { get; private set; }
         public int? CategoryId { get; private set; }
