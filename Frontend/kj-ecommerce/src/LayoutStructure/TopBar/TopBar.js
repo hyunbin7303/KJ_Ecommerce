@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link,useHistory } from "react-router-dom";
 import { InputText } from 'primereact/inputtext';
 import {useAuth} from '../../Auth/AuthFunctions';
 import { Button } from 'primereact/button';
+import MenuDrawer from '../MenuDrawer/MenuDrawer'
 
 
 import './TopBarStyles.css'
@@ -36,16 +37,21 @@ function AuthButton() {
 const TopBar = (props) => {
     let history = useHistory();
     const [searchValue, setSearchValue] = useState();
+    const [visible,setVisible] = useState(false)
 
     return (
         <>
-            <div className='topbarContainer'> 
+            <MenuDrawer visible={visible} setVisible={setVisible}/>
+            <div className='topbarContainer'>
+                <Button type="button" icon="pi pi-bars" onClick={(e)=>setVisible(true)}></Button>
+
                 <div className='app-label'>
-                    <Button label={`Kevin's Bike Store`} className="p-button-text p-button-primary" onClick={(e)=>{
+
+                    <Button label={`Kevin's Bike Store`} className="p-button-text p-button-primary" onClick={(e) => {
                         e.preventDefault();
                         history.push('/')
 
-                    }}  />
+                    }} />
                 </div>
                 <div className=''>
                     <span className="p-input-icon-left">

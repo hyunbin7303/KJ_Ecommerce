@@ -14,9 +14,8 @@ const App = () => {
 
 
   return (
-    <>
+    <>      
       <TopBar />
-
 
       <Main />
 

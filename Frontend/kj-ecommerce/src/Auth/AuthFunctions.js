@@ -16,10 +16,8 @@ const IdentityAuth = {
     isAuthenticated: false,
     signin(cb) {
 
-        // get token
 
-        console.log('auth')
-
+        
         IdentityAuth.isAuthenticated = true;
         setTimeout(cb, 100); // fake async
     },
