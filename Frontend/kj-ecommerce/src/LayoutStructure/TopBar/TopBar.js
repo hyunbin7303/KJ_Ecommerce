@@ -27,7 +27,6 @@ function AuthButton() {
     ) : (
         <Button label="Login" className='p-button-info p-button-text' icon="pi pi-user" onClick={(e)=>{
             e.preventDefault();
-            //window.location.href = '/login';
             history.push('/login')
         }} />
     );
@@ -41,16 +40,14 @@ const TopBar = (props) => {
     return (
         <>
             <div className='topbarContainer'> 
-                <div className='inline app-label'>
-                    <Button label='KJ E-Commerce' className="p-button-text p-button-primary" onClick={(e)=>{
+                <div className='app-label'>
+                    <Button label={`Kevin's Bike Store`} className="p-button-text p-button-primary" onClick={(e)=>{
                         e.preventDefault();
                         history.push('/')
 
                     }}  />
-
-                    <Link to="/"></Link>
                 </div>
-                <div className='inline'>
+                <div className=''>
                     <span className="p-input-icon-left">
                         <i className="pi pi-search" />
                         <InputText value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder='Search for product' />
@@ -58,18 +55,14 @@ const TopBar = (props) => {
                     </span>
                 </div>
 
-                <div className='inline user-nav-group'>
+                <div className=' user-nav-group'>
                     <ul className='user-nav '>
-                        <li>
-                           
+                        <li>                           
                             <AuthButton/>
-
-
-
                             
                         </li>
                         <li>
-                            <Button label='Cart' className="p-button-warning p-button-text" onClick={(e) => {
+                            <Button label='Cart' className="p-button-warning p-button-text" icon="pi pi-shopping-cart" onClick={(e) => {
                                 e.preventDefault();
                                 history.push('/cart')
 

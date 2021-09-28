@@ -8,45 +8,36 @@ import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { classNames } from 'primereact/utils';
 
-
-
-function LoginPage() {
-    let history = useHistory();
-    let location = useLocation();
-    let auth = useAuth();
-  
-    let { from } = location.state || { from: { pathname: "/" } };
-    let login = () => {
-      auth.signin(() => {
-        history.replace(from);
-      });
-    };
-  
-    return (
-      <div>
-        <p>You must log in to view the page at {from.pathname}</p>
-        <button onClick={login}>Log in</button>
-      </div>
-    );
-  }
-
-
-
 const Login = (props) =>{
 
     const [formData, setFormData] = useState({});
+    let history = useHistory();
+    let location = useLocation();
+    let auth = useAuth();
+    
     const defaultValues = {
-        name: '',
-        email: '',
+        username: '',
         password: '',
         accept: false
     }
-
     const { control, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues });
 
     const onSubmit = (data) => {
         setFormData(data);
+        
+        let { from } = location.state || { from: { pathname: "/" } };
+        let login = () => {
+    
+            console.log(data)
+    
+            auth.signin(data.username,data.password,() => {
+                history.replace(from);
+    
+            });
 
+            auth.signin(data.username,data.password);
+        };
+        login()
         reset();
     };
 
@@ -55,21 +46,21 @@ const Login = (props) =>{
     };
   
     return (
-        <div className=""><LoginPage/>
+        <div className="">
             <div className="p-d-flex p-jc-center">
                 <div className="card">
                     <h1 className="p-text-center">Login</h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
                         <div className="p-field">
                             <span className="p-float-label">
-                                <Controller name="name" control={control} rules={{ required: 'Name is required.' }} render={({ field, fieldState }) => (
-                                    <InputText id={field.name} {...field} autoFocus className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                <Controller name="username" control={control} rules={{ required: 'Username is required.' }} render={({ field, fieldState }) => (
+                                    <InputText id={field.username} {...field} autoFocus className={classNames({ 'p-invalid': fieldState.invalid })} />
                                 )} />
-                                <label htmlFor="name" className={classNames({ 'p-error': errors.name })}>Name*</label>
+                                <label htmlFor="username" className={classNames({ 'p-error': errors.username })}>Username*</label>
                             </span>
-                            {getFormErrorMessage('name')}
+                            {getFormErrorMessage('username')}
                         </div>
-                        <div className="p-field">
+                        {/* <div className="p-field">
                             <span className="p-float-label p-input-icon-right">
                                 <i className="pi pi-envelope" />
                                 <Controller name="email" control={control}
@@ -80,7 +71,7 @@ const Login = (props) =>{
                                 <label htmlFor="email" className={classNames({ 'p-error': !!errors.email })}>Email*</label>
                             </span>
                             {getFormErrorMessage('email')}
-                        </div>
+                        </div> */}
                         <div className="p-field">
                             <span className="p-float-label">
                                 <Controller name="password" control={control} rules={{ required: 'Password is required.' }} render={({ field, fieldState }) => (

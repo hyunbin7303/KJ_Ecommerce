@@ -5,23 +5,29 @@ ul.user-nav {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+
 }
 ul.user-nav li {
-    display: inline-flex;    
 }
 .app-label {
 
 }
 .user-nav-group{
-    float: right;
+    margin-left: auto;
 }
 .topbarContainer {
     border-bottom: 1px solid black;
     background-color: var(--bluegray-900);    
     height: calc(fit-content) + 2rem;
+    display: flex;
+}
+.userDropdown{
+    position: relative;
 }
 .userMenu {
     display: none;
+    position: absolute;
 }
 .userDropdown:hover .userMenu {
     display: block;

@@ -9,12 +9,16 @@ import {
     useLocation
 } from "react-router-dom";
 
+const axios = require('axios').default;
+
+
 const IdentityAuth = {
     isAuthenticated: false,
     signin(cb) {
 
         // get token
 
+        console.log('auth')
 
         IdentityAuth.isAuthenticated = true;
         setTimeout(cb, 100); // fake async
@@ -44,19 +48,40 @@ function useProvideAuth() {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
 
-    const signin = cb => {
-        return IdentityAuth.signin(() => {
-            setUser("user");
-            setToken('123')
-            cb();
+    const signin = (username,password,cb) => {
+
+
+        return IdentityAuth.signin(() => {            
+
+            axios.post('http://b1f6-2607-9880-16e0-cd-193-e00c-3e3b-8643.ngrok.io/identity/login',{
+                "Username": username,
+                "password": password
+            })
+            .then((response)=>{
+                console.log('success',response)
+                setUser(response.data.firstName);
+                setToken(response.data.token)
+                cb()
+            })
+            .catch(error => {
+                console.log(error)
+            });
+
         });
     };
 
-    const signout = cb => {
+    const signout = (cb) => {
         return IdentityAuth.signout(() => {
             setUser(null);
             setToken(null);
             cb();
+        });
+    };
+
+    const register = (cb) => {
+        return IdentityAuth.register(() => {
+            
+            
         });
     };
 
@@ -73,7 +98,7 @@ function useProvideAuth() {
 export function PrivateRoute({ children, ...rest }) {
     let auth = useAuth();
 
-    console.log('inside private route, auth.token',auth.token)
+
     return (
         <Route
             {...rest}
