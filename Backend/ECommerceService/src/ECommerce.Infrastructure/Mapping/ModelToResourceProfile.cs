@@ -26,7 +26,7 @@ namespace ECommerce.Infrastructure.Mapping
             public ModelToResourceProfile()
             {
                 // Create maps 
-                CreateMap<Product, ProductDetailsDTO>().ReverseMap(); // reverse map is so that we dont have to create a map the other way around e.g  CreateMap<ProductModel, Product>() it unflattens it
+                CreateMap<Product, ProductDisplayDTO>().ReverseMap(); // reverse map is so that we dont have to create a map the other way around e.g  CreateMap<ProductModel, Product>() it unflattens it
             }
         }
     }

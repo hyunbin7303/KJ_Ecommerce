@@ -27,11 +27,11 @@ namespace ECommerceService.Controllers
         [HttpGet]
         //[Authorize(Roles = "Grandpa")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
-        public IEnumerable<ProductDetailsDTO> Get()
+        public IEnumerable<ProductDisplayDTO> Get()
         {
             var allProducts = _productRepository.GetAll();
-            var mapped = ObjectMapper.Mapper.Map<IEnumerable<ProductDetailsDTO>>(allProducts);
-            return mapped;
+            var productsDto = ObjectMapper.Mapper.Map<IEnumerable<ProductDisplayDTO>>(allProducts);
+            return productsDto;
         }
 
         [HttpGet("Details")]
