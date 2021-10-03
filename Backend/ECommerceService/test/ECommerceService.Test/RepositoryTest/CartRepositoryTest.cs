@@ -1,5 +1,4 @@
-﻿using ECommerce.Core.BusinessServices;
-using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.CartAggregate;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Repository;

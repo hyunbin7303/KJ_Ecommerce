@@ -1,9 +1,10 @@
-﻿using ECommerce.Core.BusinessServices;
-using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Repository;
-using ECommerce.Infrastructure.Services;
+using ECommerce.Interfaces;
+using ECommerce.Query;
+using ECommerce.Services;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
@@ -51,12 +52,13 @@ namespace ECommerceService.Test.ServiceTest
             Assert.NotNull(products);
         }
         [Test]
-        public void CreateProduct_NormalTest()
+        public void UpdateProduct_NormalTest()
         {
-            Product product = new Product()
+            UpdateProductDTO updateProductDto = new UpdateProductDTO()
             {
+
             };
-            _productService.UpdateProduct(product);
+            _productService.UpdateProduct(updateProductDto);
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models;
+using ECommerce.Interfaces;
 using ECommerce.Query;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECommerce.Core.Services
+namespace ECommerce.Services
 {
     public class CustomerService : ICustomerService
     {

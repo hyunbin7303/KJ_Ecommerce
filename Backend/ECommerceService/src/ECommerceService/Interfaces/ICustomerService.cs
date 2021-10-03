@@ -1,7 +1,7 @@
 ﻿using ECommerce.Core.Models;
 using ECommerce.Query;
 using System.Threading.Tasks;
-namespace ECommerce.Core.Services
+namespace ECommerce.Interfaces
 {
     public interface ICustomerService
     {

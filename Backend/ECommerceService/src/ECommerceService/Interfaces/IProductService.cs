@@ -1,9 +1,10 @@
 ﻿using ECommerce.Core.Models.ProductAggregate;
+using ECommerce.Query;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-namespace ECommerce.Core.BusinessServices
+namespace ECommerce.Interfaces
 {
     public interface IProductService
     {
@@ -11,8 +12,8 @@ namespace ECommerce.Core.BusinessServices
         IList<Product> GetProductsByDisplayNameContains(string name);
         IList<Product> GetProductsByCategoryId(int categoryId);
         Task<IList<Product>> GetProductsOnSale();
-        Task CreateProduct(Product product); // Change to ProductCreateDTO
-        Task UpdateProduct(Product product);
+        Task CreateProduct(ProductCreateDTO product); 
+        Task UpdateProduct(UpdateProductDTO product);
         Task<bool> DeleteProduct(int productId);
     }
 }

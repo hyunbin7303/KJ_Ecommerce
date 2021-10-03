@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-namespace ECommerce.Core.BusinessServices
+namespace ECommerce.Interfaces
 {
     public interface ICartService
     {

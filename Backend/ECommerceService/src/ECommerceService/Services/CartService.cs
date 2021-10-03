@@ -2,6 +2,7 @@
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.CartAggregate;
 using ECommerce.Core.Models.OrderAggregate;
+using ECommerce.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-namespace ECommerce.Core.BusinessServices
+namespace ECommerce.Services
 {
     public class CartService : ICartService
     {

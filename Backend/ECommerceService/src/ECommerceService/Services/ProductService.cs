@@ -1,14 +1,16 @@
-﻿using ECommerce.Core.BusinessServices;
-using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
+using ECommerce.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using ECommerce.Interfaces;
 
-namespace ECommerce.Infrastructure.Services
+namespace ECommerce.Services
 {
     public class ProductService : IProductService
     {
@@ -22,9 +24,11 @@ namespace ECommerce.Infrastructure.Services
             _imageRepository = imageRepository;
         }
 
-        public Task CreateProduct(Product product)
+        public Task CreateProduct(ProductCreateDTO createProductDto)
         {
-            // Mapping from Create DTO to Prodcut DTO.
+            // Mapping from Create DTO to Product.                                                          
+            Product product = /*ObjectMapper.Mapper.Map<Product>(new ProductDisplayDTO());*/
+                new Product();
             _productRepository.InsertAsync(product);
             return Task.CompletedTask;
         }
@@ -48,11 +52,12 @@ namespace ECommerce.Infrastructure.Services
         {
             throw new NotImplementedException();
         }
-        public Task UpdateProduct(Product product)
+        public Task UpdateProduct(UpdateProductDTO updateProductDto)
         {
-            var _product = _productRepository.GetByIdAsync(product.Id);
+            var _product = _productRepository.GetByIdAsync(updateProductDto.Id);
             if(_product!= null)
             {
+                Product product = new Product();
                 _productRepository.UpdateAsync(product);
                 return Task.CompletedTask;
             }

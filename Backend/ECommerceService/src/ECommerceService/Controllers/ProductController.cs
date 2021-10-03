@@ -1,5 +1,4 @@
-﻿using ECommerce.Core.BusinessServices;
-using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +9,7 @@ using System.Threading.Tasks;
 using ECommerce.Infrastructure.Mapping;
 using ECommerce.Query;
 using Microsoft.AspNetCore.Authorization;
+using ECommerce.Interfaces;
 
 namespace ECommerceService.Controllers
 {
@@ -90,12 +90,12 @@ namespace ECommerceService.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Product> CreateAsync([FromBody]Product product)
+        public ActionResult<Product> CreateAsync([FromBody]ProductCreateDTO productDto)
         {
             try
             {
-                _productService.CreateProduct(product);
-                return CreatedAtAction(nameof(ProductDetails), new { id = product.Id }, product);
+                _productService.CreateProduct(productDto);
+                return CreatedAtAction(nameof(ProductDetails), new { id = productDto }, productDto);
             }
             catch (Exception e)
             {
@@ -107,12 +107,12 @@ namespace ECommerceService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Product> PutProduct([FromBody] Product product)
+        public ActionResult<Product> PutProduct([FromBody]UpdateProductDTO updateProductDto)
         {
             try
             {
-                _productService.UpdateProduct(product);
-                return Ok(product);
+                _productService.UpdateProduct(updateProductDto);
+                return Ok(updateProductDto);
             }
             catch (Exception e)
             {
