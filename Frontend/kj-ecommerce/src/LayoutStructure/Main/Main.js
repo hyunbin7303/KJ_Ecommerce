@@ -2,29 +2,29 @@ import React from 'react';
 import {Switch,Route,Link} from "react-router-dom";
 import Login from '../../Modules/Admin/Login';
 import Cart from '../../Modules/Cart/Cart';
+import CreateProduct from '../../Modules/Product/CreateProduct';
 
 const Main = (props) =>{
 
+  return (
+    <>
+      <Switch>
+        <Route exact path="/">
+          <div>hello</div>
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/cart">
 
-
-
-
-    return (
-        <>
-         <Switch>
-          <Route exact path="/">
-            <div>hello</div>
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/cart">
-            
-            <Cart/>
-          </Route>
-        </Switch>
-        </>
-    )
+          <Cart />
+        </Route>
+        <Route path="/createProduct">
+          <CreateProduct />
+        </Route>
+      </Switch>
+    </>
+  )
 }
 
 export default Main;

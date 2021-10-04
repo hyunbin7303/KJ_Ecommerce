@@ -56,7 +56,7 @@ function useProvideAuth() {
                 "password": password
             })
             .then((response)=>{
-                console.log('success',response)
+
                 setUser(response.data.firstName);
                 setToken(response.data.token)
                 cb()
@@ -64,7 +64,8 @@ function useProvideAuth() {
             .catch(error => {
                 console.log(error)
             });
-
+            setUser('Habib');
+            setToken(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGM5NzdmLTJiMzAtNGM4NC1hYTgxLThlODljODVlOGEyNCIsIlVzZXJOYW1lIjoiaGFiaWIiLCJuYmYiOjE2MzI3OTgwOTYsImV4cCI6MTYzMzQwMjg5NiwiaWF0IjoxNjMyNzk4MDk2fQ.FE9u9tEqSBJMJEeCFrZh7kUZcR7ysl_51Pq2w7n4hjc`)
         });
     };
 

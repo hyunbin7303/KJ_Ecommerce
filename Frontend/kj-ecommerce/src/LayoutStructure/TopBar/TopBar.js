@@ -17,19 +17,37 @@ function AuthButton() {
         <div className='userDropdown'>
             <Button label={`Welcome! ${auth.user}`} className="p-button-text p-button-plain" />
             <div className='userMenu'>
-                <button onClick={() => { 
-                    auth.signout(() => history.push("/")) 
-                }}>Sign out</button>
+                <ul className='userMenu-ul'>
+                    <li>
+                    <Button label="Create Product" className="p-button-text" onClick={()=>{
+                            history.push("/createProduct")
+                    }}/>
+                    </li>
+                    <li>
+                    <Button label="Signout" className="p-button-text" onClick={()=>{
+                            auth.signout(() => history.push("/"))
+                    }}/>
+                    </li>
+                </ul>
+
+
+                
+               
             </div>
 
 
         </div>
 
     ) : (
+        <>
         <Button label="Login" className='p-button-info p-button-text' icon="pi pi-user" onClick={(e)=>{
             e.preventDefault();
             history.push('/login')
         }} />
+        <Button label="Create Product" className="p-button-text" onClick={()=>{
+                            history.push("/createProduct")
+        }}/>
+        </>
     );
 }
 

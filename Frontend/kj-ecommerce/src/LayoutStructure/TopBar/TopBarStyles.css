@@ -29,6 +29,10 @@ ul.user-nav li {
     display: none;
     position: absolute;
 }
+ul.userMenu-ul{
+    list-style: none;
+}
+
 .userDropdown:hover .userMenu {
     display: block;
 }
