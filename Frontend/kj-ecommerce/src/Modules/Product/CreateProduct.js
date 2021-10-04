@@ -99,6 +99,17 @@ const CreateProduct = (props)=>{
                                     {getFormErrorMessage('UnitPrice')}
                                 </div>
                             </div>
+                            <div className="p-grid">
+                                <div className='p-field'>Note:</div>
+                                <div className="p-field p-col-12">
+                                    <span className="p-float-label">
+                                        <Controller name="Note" control={control} render={({ field, fieldState }) => (
+                                            <InputText id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                        )} />
+                                    </span>
+                                    {getFormErrorMessage('Note')}
+                                </div>
+                            </div>
                         </div>
                         <Button type="submit" label="Submit" className="p-mt-2" />
                     </form>
