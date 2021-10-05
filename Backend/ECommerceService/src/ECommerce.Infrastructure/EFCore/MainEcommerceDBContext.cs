@@ -41,6 +41,7 @@ namespace ECommerce.Infrastructure
         public virtual DbSet<Shipment> Shipments { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
+        public virtual DbSet<ProductVendor> ProductVendors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -268,15 +269,12 @@ namespace ECommerce.Infrastructure
             modelBuilder.Entity<ProductAttribute>(entity =>
             {
                 entity.ToTable("ProductAttribute");
-
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
                 //entity.HasOne(d => d.Attribute)
                 //    .WithMany(p => p.ProductAttributes)
                 //    .HasForeignKey(d => d.AttributeId)
                 //    .OnDelete(DeleteBehavior.ClientSetNull)
                 //    .HasConstraintName("FK_ProductAttribute_AttributeId");
-
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductAttributes)
                     .HasForeignKey(d => d.ProductId)
@@ -334,20 +332,43 @@ namespace ECommerce.Infrastructure
                     .IsUnicode(false)
                     .HasColumnName("website");
             });
+
+            modelBuilder.Entity<ProductVendor>(entity =>
+            {
+                entity.ToTable("ProductVendor");
+                entity.HasKey(pv => new { pv.ProductId, pv.VendorId });
+            });
+
+            modelBuilder.Entity<ProductVendor>(entity =>
+            {
+                entity.HasOne(pv => pv.Product)
+                .WithMany(p => p.ProductVendors)
+                .HasForeignKey(pv => pv.ProductId);
+            });
+            modelBuilder.Entity<ProductVendor>(entity =>
+            {
+                entity.HasOne(pv => pv.Vendor)
+                .WithMany(p => p.ProductVendors)
+                .HasForeignKey(pv => pv.VendorId);
+            });
+
             modelBuilder.Entity<Warehouse>(entity =>
             {
                 entity.ToTable("Warehouse");
-
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.AddressId).HasMaxLength(450);
-
                 entity.Property(e => e.Description).HasMaxLength(100);
-
                 entity.Property(e => e.Name).HasMaxLength(100);
             });
 
-
+            modelBuilder.Entity<Warehouse>(entity =>
+            {
+                entity.ToTable("Warehouse");
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.AddressId).HasMaxLength(450);
+                entity.Property(e => e.Description).HasMaxLength(100);
+                entity.Property(e => e.Name).HasMaxLength(100);
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }

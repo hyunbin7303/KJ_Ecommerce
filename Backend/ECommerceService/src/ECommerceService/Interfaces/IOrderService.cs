@@ -13,7 +13,7 @@ namespace ECommerce.Interfaces
         IList<Product> GetProductsByCategoryId(int categoryId);
         Task<IList<Product>> GetProductsOnSale();
         Task CreateProduct(ProductCreateDTO product); 
-        Task UpdateProduct(UpdateProductDTO product);
+        Task UpdateProduct(ProductUpdateDTO product);
         Task<bool> DeleteProduct(int productId);
     }
 }

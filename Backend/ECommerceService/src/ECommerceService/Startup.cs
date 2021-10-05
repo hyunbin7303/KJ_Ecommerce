@@ -1,7 +1,6 @@
 using AutoMapper;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
-using ECommerce.Infrastructure.Mapping;
 using ECommerce.Infrastructure.Repository;
 using ECommerce.Infrastructure.Repository.Base;
 using ECommerce.Interfaces;
@@ -22,7 +21,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ECommerce.Infrastructure.Mapping.ObjectMapper;
 
 namespace ECommerceService
 {
@@ -31,12 +29,8 @@ namespace ECommerceService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ObjectMapper.Initialize();
         }
-
         public IConfiguration Configuration { get; }
-        
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -62,15 +56,15 @@ namespace ECommerceService
 
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IProductService, ProductService>();
-
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ECommerceService", Version = "v1" });
             });
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddAutoMapper(typeof(ModelToResourceProfile).Assembly);
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(typeof(ModelToResourceProfile).Assembly);
 
             var tokenKey = Configuration.GetValue<string>("TokenKey");
             var key = Encoding.ASCII.GetBytes(tokenKey);

@@ -118,7 +118,7 @@ namespace ECommerce.Services
             throw new NotImplementedException();
         }
 
-        public Task UpdateProduct(UpdateProductDTO product)
+        public Task UpdateProduct(ProductUpdateDTO product)
         {
             throw new NotImplementedException();
         }
