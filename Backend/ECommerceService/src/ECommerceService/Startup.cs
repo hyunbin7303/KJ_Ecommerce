@@ -5,6 +5,8 @@ using ECommerce.Infrastructure.Repository;
 using ECommerce.Infrastructure.Repository.Base;
 using ECommerce.Interfaces;
 using ECommerce.Services;
+using ECommerceService.Interfaces;
+using ECommerceService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,10 +54,15 @@ namespace ECommerceService
             services.AddScoped(typeof(ICartItemRepository), typeof(CartItemRepository));
             services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
             services.AddScoped(typeof(IImageRepository), typeof(ImageRepository));
+            services.AddScoped(typeof(IVendorRepository), typeof(VendorRepository));
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IVendorService, VendorService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+
+
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>

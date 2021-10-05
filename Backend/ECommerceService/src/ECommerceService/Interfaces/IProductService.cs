@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-namespace ECommerce.Interfaces
+namespace ECommerceService.Interfaces
 {
     public interface IProductService
     {
         Task<Product> SearchProduct(); // change this code later(To get more paras)
         IList<ProductDisplayDTO> GetProductDisplays();
+        Task<IList<ProductDisplayDTO>> GetProductsByVendorId(int vendorId);
         IList<Product> GetProductsByDisplayNameContains(string name);
         IList<Product> GetProductsByCategoryId(int categoryId);
         Task<IList<Product>> GetProductsOnSale();

@@ -21,6 +21,7 @@ namespace ECommerce.Core.Models
         public string Email { get; set; }
         public string Note { get; set; }
 
+        public ICollection<User> Users { get; set; }
         public ICollection<Product> Products { get; set; }
         public ICollection<ProductVendor> ProductVendors { get; set; }
     }

@@ -1,10 +1,11 @@
-﻿using ECommerce.Core.Interfaces;
+﻿using AutoMapper;
+using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Repository;
-using ECommerce.Interfaces;
 using ECommerce.Query;
 using ECommerce.Services;
+using ECommerceService.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
@@ -20,7 +21,9 @@ namespace ECommerceService.Test.ServiceTest
         private  IProductService _productService;
         private  IProductRepository _productRepository;
         private  IImageRepository _imageRepository;
-        private ICartRepository cartRepository;
+        private ICartRepository _cartRepository;
+        private IVendorRepository _vendorRepository;
+        private IMapper _mapper;
         [SetUp]
         public void Setup()
         {
@@ -30,8 +33,9 @@ namespace ECommerceService.Test.ServiceTest
             MainEcommerceDBContext dbContext = new MainEcommerceDBContext(optionsBuilder.Options);
             _productRepository = new ProductRepository(dbContext);
             _imageRepository = new ImageRepository(dbContext);
-            _productService = new ProductService(_productRepository, _imageRepository);
-            cartRepository = new CartRepository(dbContext);
+            _mapper = null; // Need to replace this.
+            _productService = new ProductService(_mapper,_productRepository, _imageRepository, _vendorRepository);
+            _cartRepository = new CartRepository(dbContext);
         }
         [Test]
         public void GetProductsByCategoryAsync_ReturnProducts()
@@ -54,9 +58,8 @@ namespace ECommerceService.Test.ServiceTest
         [Test]
         public void UpdateProduct_NormalTest()
         {
-            UpdateProductDTO updateProductDto = new UpdateProductDTO()
+            ProductUpdateDTO updateProductDto = new ProductUpdateDTO()
             {
-
             };
             _productService.UpdateProduct(updateProductDto);
         }

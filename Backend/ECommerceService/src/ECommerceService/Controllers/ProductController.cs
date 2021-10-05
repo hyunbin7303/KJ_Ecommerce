@@ -8,29 +8,38 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using ECommerce.Query;
 using Microsoft.AspNetCore.Authorization;
-using ECommerce.Interfaces;
+using ECommerceService.Interfaces;
 
 namespace ECommerceService.Controllers
 {
     public class ProductController : BaseController
     {
         private IProductService _productService = null;
+        private IVendorService _vendorService = null;
         private IProductRepository _productRepository = null;
         // AUtomapper setting.
-        public ProductController(IProductService productService,IProductRepository repo)
+        public ProductController(IProductRepository repo, IProductService productService, IVendorService vendorService)
         {
-            _productService = productService ?? null;
             _productRepository = repo ?? null;
+            _productService = productService ?? null;
+            _vendorService = vendorService ?? null;
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Grandpa")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         public IEnumerable<ProductDisplayDTO> Get()
         {
             var allProducts = _productService.GetProductDisplays();
             return allProducts;
         }
+        [HttpGet("GetProductByVendor")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        public IEnumerable<ProductDisplayDTO> GetProductByVendor(int vendorId)
+        {
+            var allProducts = _productService.GetProductsByVendorId(vendorId).Result;
+            return allProducts;
+        }
+
 
         [HttpGet("Details")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
@@ -57,7 +66,7 @@ namespace ECommerceService.Controllers
             }
             return Ok(products);
         }
-
+         
         [HttpGet("getsale")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

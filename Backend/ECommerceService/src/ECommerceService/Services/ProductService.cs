@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using ECommerce.Interfaces;
+using ECommerceService.Interfaces;
 
 namespace ECommerce.Services
 {
@@ -17,12 +17,14 @@ namespace ECommerce.Services
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
         private readonly IImageRepository _imageRepository;
+        private readonly IVendorRepository _vendorRepository;
 
-        public ProductService(IMapper mapper, IProductRepository productRepository, IImageRepository imageRepository)
+        public ProductService(IMapper mapper, IProductRepository productRepository, IImageRepository imageRepository, IVendorRepository vendorRepository)
         {
             _mapper = mapper;
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _imageRepository = imageRepository ?? throw new ArgumentNullException(nameof(imageRepository));
+            _vendorRepository = vendorRepository ?? throw new ArgumentNullException(nameof(vendorRepository));
         }
 
         public IList<ProductDisplayDTO> GetProductDisplays()
@@ -98,6 +100,12 @@ namespace ECommerce.Services
             return Task.FromResult<IList<Product>>(saleProducts);
         }
 
-
+        public Task<IList<ProductDisplayDTO>> GetProductsByVendorId(int vendorId)
+        {
+            Expression<Func<Product, bool>> expressionProduct = x => x.VendorId == vendorId;
+            var products = _productRepository.Get(expressionProduct);
+            var productDTOs = _mapper.Map<List<ProductDisplayDTO>>(products);
+            return Task.FromResult<IList<ProductDisplayDTO>>(productDTOs);
+        }
     }
 }
