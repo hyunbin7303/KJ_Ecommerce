@@ -14,21 +14,36 @@ namespace ECommerce.Services
 {
     public class ProductService : IProductService
     {
+        private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
         private readonly IImageRepository _imageRepository;
 
-
-        public ProductService(IProductRepository orderRepository, IImageRepository imageRepository)
+        public ProductService(IMapper mapper, IProductRepository productRepository, IImageRepository imageRepository)
         {
-            _productRepository = orderRepository;
-            _imageRepository = imageRepository;
+            _mapper = mapper;
+            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _imageRepository = imageRepository ?? throw new ArgumentNullException(nameof(imageRepository));
+        }
+
+        public IList<ProductDisplayDTO> GetProductDisplays()
+        {
+            var products = _productRepository.GetAll();
+            var productDisplayDtos = _mapper.Map<List<ProductDisplayDTO>>(products);
+            return productDisplayDtos;
         }
 
         public Task CreateProduct(ProductCreateDTO createProductDto)
         {
-            // Mapping from Create DTO to Product.                                                          
-            Product product = /*ObjectMapper.Mapper.Map<Product>(new ProductDisplayDTO());*/
-                new Product();
+            var check = _productRepository.GetProductsByNameAsync(createProductDto.Name)?.Result;
+            if(check!=null)
+            {
+                return null;
+            }
+
+            // Mapping from Create DTO to Product.
+            Product product = _mapper.Map<Product>(createProductDto);
+            //_productRepository.GetByI
+            // Checking Vendor exists for the product.
             _productRepository.InsertAsync(product);
             return Task.CompletedTask;
         }
@@ -52,7 +67,7 @@ namespace ECommerce.Services
         {
             throw new NotImplementedException();
         }
-        public Task UpdateProduct(UpdateProductDTO updateProductDto)
+        public Task UpdateProduct(ProductUpdateDTO updateProductDto)
         {
             var _product = _productRepository.GetByIdAsync(updateProductDto.Id);
             if(_product!= null)
@@ -82,5 +97,7 @@ namespace ECommerce.Services
             var saleProducts = products.Where(p => p.ProductAvailable && p.DiscountAvailable).ToList();
             return Task.FromResult<IList<Product>>(saleProducts);
         }
+
+
     }
 }

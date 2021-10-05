@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using ECommerce.Infrastructure.Mapping;
 using ECommerce.Query;
 using Microsoft.AspNetCore.Authorization;
 using ECommerce.Interfaces;
@@ -29,9 +28,8 @@ namespace ECommerceService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         public IEnumerable<ProductDisplayDTO> Get()
         {
-            var allProducts = _productRepository.GetAll();
-            var productsDto = ObjectMapper.Mapper.Map<IEnumerable<ProductDisplayDTO>>(allProducts);
-            return productsDto;
+            var allProducts = _productService.GetProductDisplays();
+            return allProducts;
         }
 
         [HttpGet("Details")]
@@ -107,7 +105,7 @@ namespace ECommerceService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Product> PutProduct([FromBody]UpdateProductDTO updateProductDto)
+        public ActionResult<Product> PutProduct([FromBody]ProductUpdateDTO updateProductDto)
         {
             try
             {

@@ -9,11 +9,12 @@ namespace ECommerce.Interfaces
     public interface IProductService
     {
         Task<Product> SearchProduct(); // change this code later(To get more paras)
+        IList<ProductDisplayDTO> GetProductDisplays();
         IList<Product> GetProductsByDisplayNameContains(string name);
         IList<Product> GetProductsByCategoryId(int categoryId);
         Task<IList<Product>> GetProductsOnSale();
         Task CreateProduct(ProductCreateDTO product); 
-        Task UpdateProduct(UpdateProductDTO product);
+        Task UpdateProduct(ProductUpdateDTO product);
         Task<bool> DeleteProduct(int productId);
     }
 }
