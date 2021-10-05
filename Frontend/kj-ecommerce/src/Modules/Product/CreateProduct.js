@@ -35,7 +35,20 @@ const CreateProduct = (props)=>{
     const onSubmit = (data) => {
         setFormData(data);
         
-        
+        // axios.post('http://b1f6-2607-9880-16e0-cd-193-e00c-3e3b-8643.ngrok.io/api/product',{
+        //     "Username": username,
+        //     "password": password
+        // })
+        // .then((response)=>{
+
+        //     setUser(response.data.firstName);
+        //     setToken(response.data.token)
+        //     cb()
+        // })
+        // .catch(error => {
+        //     console.log(error)
+        // });
+
         console.log(JSON.stringify(data))
 
 
