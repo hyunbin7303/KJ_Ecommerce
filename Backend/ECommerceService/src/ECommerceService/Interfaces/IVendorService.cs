@@ -12,5 +12,8 @@ namespace ECommerceService.Interfaces
         Task<List<Vendor>> GetVendorsOfProductName(string productName);
         Task<List<Vendor>> GetVendorsByCustomerName(string customerName);
         Task<List<Vendor>> GetVendorsByUser(string userAccount);
+        Task<bool> CreateVendor(Vendor vendor, string userId);
+
+
     }
 }

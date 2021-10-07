@@ -55,6 +55,8 @@ namespace ECommerceService
             services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
             services.AddScoped(typeof(IImageRepository), typeof(ImageRepository));
             services.AddScoped(typeof(IVendorRepository), typeof(VendorRepository));
+            services.AddScoped(typeof(IVendorProductRepository), typeof(VendorProdcutRepository));
+            services.AddScoped(typeof(IUserVendorRepository), typeof(UserVendorRepository));
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<ICartService, CartService>();

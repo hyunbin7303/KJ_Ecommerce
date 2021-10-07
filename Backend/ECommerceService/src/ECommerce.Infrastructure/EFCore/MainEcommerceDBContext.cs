@@ -41,7 +41,7 @@ namespace ECommerce.Infrastructure
         public virtual DbSet<Shipment> Shipments { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
-        public virtual DbSet<ProductVendor> ProductVendors { get; set; }
+        public virtual DbSet<VendorProduct> ProductVendors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -315,42 +315,54 @@ namespace ECommerce.Infrastructure
                     .HasMaxLength(500)
                     .IsUnicode(false)
                     .HasColumnName("note");
+                entity.Property(e => e.PhoneNumber) .HasMaxLength(50);
+                entity.Property(e => e.VendorName).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.DomainUser).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.CreateBy).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.VendorType).IsRequired().HasMaxLength(25);
 
-                entity.Property(e => e.PhoneNumber)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("phone_number");
-
-                entity.Property(e => e.VendorName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("vendor_name");
-
-                entity.Property(e => e.Website)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("website");
+                entity.Property(e => e.Website).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<ProductVendor>(entity =>
+            modelBuilder.Entity<VendorProduct>(entity =>
             {
                 entity.ToTable("ProductVendor");
                 entity.HasKey(pv => new { pv.ProductId, pv.VendorId });
             });
 
-            modelBuilder.Entity<ProductVendor>(entity =>
+            modelBuilder.Entity<VendorProduct>(entity =>
             {
                 entity.HasOne(pv => pv.Product)
                 .WithMany(p => p.ProductVendors)
                 .HasForeignKey(pv => pv.ProductId);
             });
-            modelBuilder.Entity<ProductVendor>(entity =>
+            modelBuilder.Entity<VendorProduct>(entity =>
             {
                 entity.HasOne(pv => pv.Vendor)
-                .WithMany(p => p.ProductVendors)
+                .WithMany(p => p.VendorProducts)
                 .HasForeignKey(pv => pv.VendorId);
             });
+
+            modelBuilder.Entity<UserVendor>(entity =>
+            {
+                entity.ToTable("UserVendor");
+                entity.HasKey(pv => new { pv.UserId, pv.VendorId });
+            });
+
+            modelBuilder.Entity<UserVendor>(entity =>
+            {
+                entity.HasOne(pv => pv.User)
+                .WithMany(p => p.UserVendors)
+                .HasForeignKey(pv => pv.UserId);
+            });
+            modelBuilder.Entity<UserVendor>(entity =>
+            {
+                entity.HasOne(pv => pv.Vendor)
+                .WithMany(p => p.UserVendors)
+                .HasForeignKey(pv => pv.VendorId);
+            });
+
+
 
             modelBuilder.Entity<Warehouse>(entity =>
             {

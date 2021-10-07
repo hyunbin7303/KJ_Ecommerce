@@ -18,13 +18,15 @@ namespace ECommerce.Services
         private readonly IProductRepository _productRepository;
         private readonly IImageRepository _imageRepository;
         private readonly IVendorRepository _vendorRepository;
+        private readonly IVendorProductRepository _vendorProductRepository;
 
-        public ProductService(IMapper mapper, IProductRepository productRepository, IImageRepository imageRepository, IVendorRepository vendorRepository)
+        public ProductService(IMapper mapper, IProductRepository productRepository, IImageRepository imageRepository, IVendorRepository vendorRepository, IVendorProductRepository vendorProductRepository)
         {
             _mapper = mapper;
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _imageRepository = imageRepository ?? throw new ArgumentNullException(nameof(imageRepository));
             _vendorRepository = vendorRepository ?? throw new ArgumentNullException(nameof(vendorRepository));
+            _vendorProductRepository = vendorProductRepository ?? throw new ArgumentNullException(nameof(vendorProductRepository));
         }
 
         public IList<ProductDisplayDTO> GetProductDisplays()

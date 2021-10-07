@@ -29,7 +29,7 @@ namespace ECommerce.Core.Models.ProductAggregate
         public string Note { get; set; }
 
 
-        public ICollection<ProductVendor> ProductVendors { get; set; }
+        public ICollection<VendorProduct> ProductVendors { get; set; }
         public virtual Category Category { get; set; }
         public virtual Vendor Vendor { get; set; }
         public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }

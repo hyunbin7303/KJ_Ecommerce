@@ -23,6 +23,7 @@ namespace ECommerceService.Test.ServiceTest
         private  IImageRepository _imageRepository;
         private ICartRepository _cartRepository;
         private IVendorRepository _vendorRepository;
+        private IVendorProductRepository _vendorProductRepository;
         private IMapper _mapper;
         [SetUp]
         public void Setup()
@@ -33,8 +34,10 @@ namespace ECommerceService.Test.ServiceTest
             MainEcommerceDBContext dbContext = new MainEcommerceDBContext(optionsBuilder.Options);
             _productRepository = new ProductRepository(dbContext);
             _imageRepository = new ImageRepository(dbContext);
+            _vendorRepository = new VendorRepository(dbContext);
+            _vendorProductRepository = new VendorProdcutRepository(dbContext);
             _mapper = null; // Need to replace this.
-            _productService = new ProductService(_mapper,_productRepository, _imageRepository, _vendorRepository);
+            _productService = new ProductService(_mapper,_productRepository, _imageRepository, _vendorRepository, _vendorProductRepository);
             _cartRepository = new CartRepository(dbContext);
         }
         [Test]

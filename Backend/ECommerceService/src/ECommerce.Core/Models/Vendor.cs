@@ -11,10 +11,16 @@ namespace ECommerce.Core.Models
     {
         public Vendor()
         {
+            Users = new HashSet<User>();
             Products = new HashSet<Product>();
+            VendorProducts = new HashSet<VendorProduct>();
+            UserVendors = new HashSet<UserVendor>();
         }
 
         public string VendorName { get; set; }
+        public string DomainUser { get; set; }
+        public string CreateBy { get; set; }
+        public string VendorType { get; set; }
         public int? AddressId { get; set; }
         public string PhoneNumber { get; set; }
         public string Website { get; set; }
@@ -23,6 +29,8 @@ namespace ECommerce.Core.Models
 
         public ICollection<User> Users { get; set; }
         public ICollection<Product> Products { get; set; }
-        public ICollection<ProductVendor> ProductVendors { get; set; }
+        public ICollection<VendorProduct> VendorProducts { get; set; }
+        public ICollection<UserVendor> UserVendors { get; set; }
+
     }
 }
