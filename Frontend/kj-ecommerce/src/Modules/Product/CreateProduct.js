@@ -59,7 +59,7 @@ const CreateProduct = (props)=>{
     const getFormErrorMessage = (name) => {
         return errors[name] && <small className="p-error">{errors[name].message}</small>
     };
-  
+
     return (
         <div className="">
             <div className="p-d-flex p-jc-center">
@@ -67,29 +67,29 @@ const CreateProduct = (props)=>{
                     <h1 className="p-text-center">Create Product</h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
 
-<div className='p-fluid'>
-                        <div className="p-grid">
-                            <div className='p-field'>Product Name:</div>
-                            <div className="p-field p-col-12">
-                                <span className="p-float-label">
-                                    <Controller name="Name" control={control} rules={{ required: 'Product name is required.' }} render={({ field, fieldState }) => (
-                                        <InputText id={field.name} {...field} autoFocus className={classNames({ 'p-invalid': fieldState.invalid })} />
-                                    )} />
-                                </span>
-                                {getFormErrorMessage('Name')}
+                        <div className='p-fluid'>
+                            <div className="p-grid">
+                                <div className='p-field'>Product Name:</div>
+                                <div className="p-field p-col-12">
+                                    <span className="p-float-label">
+                                        <Controller name="Name" control={control} rules={{ required: 'Product name is required.' }} render={({ field, fieldState }) => (
+                                            <InputText id={field.name} {...field} autoFocus className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                        )} />
+                                    </span>
+                                    {getFormErrorMessage('Name')}
+                                </div>
                             </div>
-                        </div>
-                        <div className="p-grid">
-                            <div className='p-field'>Display Name:</div>
-                            <div className="p-field p-col-12">
-                                <span className="p-float-label">
-                                    <Controller name="DisplayName" control={control} rules={{ required: 'Display Name is required.' }} render={({ field, fieldState }) => (
-                                         <InputText id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
-                                    )} />
-                                </span>
-                                {getFormErrorMessage('DisplayName')}
+                            <div className="p-grid">
+                                <div className='p-field'>Display Name:</div>
+                                <div className="p-field p-col-12">
+                                    <span className="p-float-label">
+                                        <Controller name="DisplayName" control={control} rules={{ required: 'Display Name is required.' }} render={({ field, fieldState }) => (
+                                            <InputText id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                        )} />
+                                    </span>
+                                    {getFormErrorMessage('DisplayName')}
+                                </div>
                             </div>
-                        </div>
                             <div className="p-grid">
                                 <div className='p-field'>Description:</div>
                                 <div className="p-field p-col-12">
@@ -105,8 +105,8 @@ const CreateProduct = (props)=>{
                                 <div className='p-field'>Unit Price:</div>
                                 <div className="p-field p-col-12">
                                     <span className="p-float-label">
-                                        <Controller name="UnitPrice" control={control} rules={{ required: 'Unit Price is required.',min: {value:0.01,message:'Unit Price must be greater than $0.01.'}}} render={({ field, fieldState }) => (
-                                            <InputNumber id={field.name} onValueChange={(e)=>field.onChange(e.value)} value={field.value} className={classNames({ 'p-invalid': fieldState.invalid })} mode="currency" currency="USD" />
+                                        <Controller name="UnitPrice" control={control} rules={{ required: 'Unit Price is required.', min: { value: 0.01, message: 'Unit Price must be greater than $0.01.' } }} render={({ field, fieldState }) => (
+                                            <InputNumber id={field.name} onValueChange={(e) => field.onChange(e.value)} value={field.value} className={classNames({ 'p-invalid': fieldState.invalid })} mode="currency" currency="USD" />
                                         )} />
                                     </span>
                                     {getFormErrorMessage('UnitPrice')}

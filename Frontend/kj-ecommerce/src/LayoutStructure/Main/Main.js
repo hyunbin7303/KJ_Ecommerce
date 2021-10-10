@@ -3,6 +3,7 @@ import {Switch,Route,Link} from "react-router-dom";
 import Login from '../../Modules/Admin/Login';
 import Cart from '../../Modules/Cart/Cart';
 import CreateProduct from '../../Modules/Product/CreateProduct';
+import ProductCollection from '../../Modules/Product/ProductCollection';
 
 const Main = (props) =>{
 
@@ -10,7 +11,8 @@ const Main = (props) =>{
     <>
       <Switch>
         <Route exact path="/">
-          <div>hello</div>
+          <ProductCollection />
+
         </Route>
         <Route path="/login">
           <Login />
@@ -21,6 +23,9 @@ const Main = (props) =>{
         </Route>
         <Route path="/createProduct">
           <CreateProduct />
+        </Route>
+        <Route path="/productCollection">
+         
         </Route>
       </Switch>
     </>
