@@ -29,5 +29,7 @@ namespace ECommerce.Core.Models
         public DateTimeOffset LatestUpdateTime { get; set; }
         public virtual List<Invoice> Invoices { get; set; }
         public int VendorId { get; set; }
+        public ICollection<UserVendor> UserVendors { get; set; }
+
     }
 }

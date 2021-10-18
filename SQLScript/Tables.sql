@@ -95,10 +95,13 @@ GO
 DROP TABLE IF EXISTS [dbo].[Customer];
 CREATE TABLE [dbo].[Customer](
 	[Id] [nvarchar](100) NOT NULL,
-	[UserId][int] NOT NULL,
+	[UserId][nvarchar] NOT NULL,
+	[UserName] [nvarchar](100) NOT NULL,
 	[AddressId] [int]NOT NULL,
-	[customer_name] [nvarchar](100) NOT NULL,
+	[VendorId] [int] NULL,
+	[CustomerName] [nvarchar](100) NOT NULL,
 	[Description] [nvarchar](max) NULL,
+	[Active] [bit] NOT NULL,
  CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -108,13 +111,15 @@ GO
 DROP TABLE IF EXISTS [dbo].[Address];
 CREATE TABLE [dbo].[Address](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[AddressType] [nvarchar](25) NULL,
 	[ContactName] [nvarchar](100) NULL,
-	[Phone] [nvarchar](100) NULL,
+	[Phone] [nvarchar](50) NULL,
 	[Address1] [nvarchar](100) NULL,
 	[Address2] [nvarchar](100) NULL,
 	[City] [nvarchar](50) NULL,
 	[Province] [nvarchar](50) NULL,
 	[Country] [nvarchar](50) NULL,
+	[PostalCode] [nvarchar](50) NULL,
 	[Description] [nvarchar](200) NULL
 ) ON [PRIMARY]
 GO

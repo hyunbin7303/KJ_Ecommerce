@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using UserIdentity.Controllers;
@@ -36,33 +37,13 @@ namespace UserIdentity
         [HttpGet("GetUserId")]
         public ActionResult GetUserId()
         {
-            var token = HttpContext.GetTokenAsync("Bearer", "access_token").Result;
-            var handler = new JwtSecurityTokenHandler();
-            var jwtSecurityToken = handler.ReadJwtToken(token);
-            //var key = Encoding.ASCII.GetBytes(token);
-            //var validations = new TokenValidationParameters
-            //{
-            //    ValidateIssuerSigningKey = true,
-            //    IssuerSigningKey = new SymmetricSecurityKey(key),
-            //    ValidateIssuer = false,
-            //    ValidateAudience = false
-            //};
-            //var claims = handler.ValidateToken(token, validations, out var tokenSecure);
-            //var test = jwtSecurityToken.Claims.First(claim => claim.Type == "jti").Value;
-            //var username = jwtSecurityToken.Claims.First(claim => claim.Type == "UserName").Value;
-
-
-            var principal = HttpContext.User;
-            if (principal?.Claims != null)
-            {
-                foreach (var claim in principal.Claims)
-                {
-                }
-
-            }
-            var check = principal?.Claims?.SingleOrDefault(p => p.Type == "username")?.Value;
-            return Ok(check);
+            var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst("UserName")?.Value;
+            return Ok(userId);
         }
+
+
+
         [HttpPost("authenticate")]
         public IActionResult Authenticate(LoginRequestModel model)
         {

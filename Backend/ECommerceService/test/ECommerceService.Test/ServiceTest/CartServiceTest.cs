@@ -1,8 +1,8 @@
-﻿using ECommerce.Core.BusinessServices;
-using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Repository;
-using ECommerce.Infrastructure.Services;
+using ECommerce.Interfaces;
+using ECommerce.Services;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;

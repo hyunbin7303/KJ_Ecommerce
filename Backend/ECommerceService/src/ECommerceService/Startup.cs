@@ -1,11 +1,12 @@
 using AutoMapper;
-using ECommerce.Core.BusinessServices;
 using ECommerce.Core.Interfaces;
 using ECommerce.Infrastructure;
-using ECommerce.Infrastructure.Mapping;
 using ECommerce.Infrastructure.Repository;
 using ECommerce.Infrastructure.Repository.Base;
-using ECommerce.Infrastructure.Services;
+using ECommerce.Interfaces;
+using ECommerce.Services;
+using ECommerceService.Interfaces;
+using ECommerceService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ECommerce.Infrastructure.Mapping.ObjectMapper;
 
 namespace ECommerceService
 {
@@ -31,18 +31,14 @@ namespace ECommerceService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ObjectMapper.Initialize();
         }
-
         public IConfiguration Configuration { get; }
-        
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
             // Required to update this!
-            services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer")));
+            services.AddDbContext<MainEcommerceDBContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MainEcommerceDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddMvc();
 
             //services.AddDbContext<OrderDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultServer"), 
@@ -58,20 +54,26 @@ namespace ECommerceService
             services.AddScoped(typeof(ICartItemRepository), typeof(CartItemRepository));
             services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
             services.AddScoped(typeof(IImageRepository), typeof(ImageRepository));
-
+            services.AddScoped(typeof(IVendorRepository), typeof(VendorRepository));
+            services.AddScoped(typeof(IVendorProductRepository), typeof(VendorProdcutRepository));
+            services.AddScoped(typeof(IUserVendorRepository), typeof(UserVendorRepository));
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IVendorService, VendorService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
+
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ECommerceService", Version = "v1" });
             });
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddAutoMapper(typeof(ModelToResourceProfile).Assembly);
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(typeof(ModelToResourceProfile).Assembly);
 
             var tokenKey = Configuration.GetValue<string>("TokenKey");
             var key = Encoding.ASCII.GetBytes(tokenKey);
@@ -95,7 +97,7 @@ namespace ECommerceService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env/*, MainEcommerceDBContext db*/)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MainEcommerceDBContext db)
         {
             if (env.IsDevelopment())
             {
@@ -107,7 +109,7 @@ namespace ECommerceService
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            //db.Database.EnsureCreated();
+            db.Database.EnsureCreated();
             //orderdb.Database.EnsureCreated();
             app.UseRouting();
             app.UseCors(options => options

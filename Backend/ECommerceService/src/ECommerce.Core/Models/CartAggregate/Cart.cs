@@ -16,6 +16,7 @@ namespace ECommerce.Core.Models.CartAggregate
         public string CustomerId { get; set; }
         public bool CartActive { get; set; }
         public bool CartLocked { get; set; }
+        public bool CartCurrentUse { get; set; }
         public string? CartStatus { get; set; }
         public string? CartType { get; set; }
         public double? TotalPrice { get; set; }

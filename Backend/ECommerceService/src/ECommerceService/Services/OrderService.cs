@@ -7,10 +7,13 @@ using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models;
 using ECommerce.Core.Models.OrderAggregate;
 using Ardalis.GuardClauses;
+using ECommerce.Interfaces;
+using ECommerce.Core.Models.ProductAggregate;
+using ECommerce.Query;
 
-namespace ECommerce.Core.BusinessServices
+namespace ECommerce.Services
 {
-    public class OrderService 
+    public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ICartRepository _cartRepository;
@@ -90,5 +93,39 @@ namespace ECommerce.Core.BusinessServices
             order.Status = OrderStatus.Submitted;
         }
 
+        public Task<Product> SearchProduct()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Product> GetProductsByDisplayNameContains(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Product> GetProductsByCategoryId(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<Product>> GetProductsOnSale()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CreateProduct(ProductCreateDTO product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateProduct(ProductUpdateDTO product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteProduct(int productId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

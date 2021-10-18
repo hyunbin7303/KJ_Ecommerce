@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Core.Interfaces
 {
-    public interface ICustomerRepository : IGenericRepository<Customer>
+    public interface IVendorRepository : IGenericRepository<Vendor>
     {
-        Customer FindByUserName(string UserName);
+        Task<Vendor> GetByVendorName(string vendorName);
     }
 }

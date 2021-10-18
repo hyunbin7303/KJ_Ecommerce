@@ -2,6 +2,9 @@
 Kevin and Julio E-Commerce website XD
 First Commit !
 
+### E
+The following enhancements have been made to Identity Service process:
+By formatting the existing EF Identity service, we can now add the claims for each individual users.
 
 
 

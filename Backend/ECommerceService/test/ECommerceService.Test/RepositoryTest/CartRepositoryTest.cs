@@ -1,5 +1,4 @@
-﻿using ECommerce.Core.BusinessServices;
-using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.CartAggregate;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Repository;
@@ -14,15 +13,10 @@ using System.Threading.Tasks;
 
 namespace ECommerceService.Test.RepositoryTest
 {
-    public class TestClass
-    {
-        public int Id { get; set; }
-    }
     public class CartRepositoryTest
     {
         private ICartRepository _cartRepository;
         private ICartItemRepository _cartitemRepository;
-        //private CartItemRepository 
         [SetUp]
         public void Setup()
         {

@@ -1,5 +1,4 @@
-﻿using ECommerce.Core.BusinessServices;
-using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models.ProductAggregate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,33 +6,40 @@ using System;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using ECommerce.Infrastructure.Mapping;
 using ECommerce.Query;
 using Microsoft.AspNetCore.Authorization;
+using ECommerceService.Interfaces;
 
 namespace ECommerceService.Controllers
 {
     public class ProductController : BaseController
     {
         private IProductService _productService = null;
+        private IVendorService _vendorService = null;
         private IProductRepository _productRepository = null;
         // AUtomapper setting.
-        public ProductController(IProductService productService,IProductRepository repo)
+        public ProductController(IProductRepository repo, IProductService productService, IVendorService vendorService)
         {
-            _productService = productService ?? null;
             _productRepository = repo ?? null;
+            _productService = productService ?? null;
+            _vendorService = vendorService ?? null;
         }
 
         [HttpGet]
-        [Authorize]
-        //[Authorize(Roles = "Grandpa")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
-        public IEnumerable<ProductDetailsDTO> Get()
+        public IEnumerable<ProductDisplayDTO> Get()
         {
-            var allProducts = _productRepository.GetAll();
-            var mapped = ObjectMapper.Mapper.Map<IEnumerable<ProductDetailsDTO>>(allProducts);
-            return mapped;
+            var allProducts = _productService.GetProductDisplays();
+            return allProducts;
         }
+        [HttpGet("GetProductByVendor")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        public IEnumerable<ProductDisplayDTO> GetProductByVendor(int vendorId)
+        {
+            var allProducts = _productService.GetProductsByVendorId(vendorId).Result;
+            return allProducts;
+        }
+
 
         [HttpGet("Details")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
@@ -60,7 +66,7 @@ namespace ECommerceService.Controllers
             }
             return Ok(products);
         }
-
+         
         [HttpGet("getsale")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -91,12 +97,12 @@ namespace ECommerceService.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Product> CreateAsync(Product product)
+        public ActionResult<Product> CreateAsync([FromBody]ProductCreateDTO productDto)
         {
             try
             {
-                _productService.CreateProduct(product);
-                return CreatedAtAction(nameof(ProductDetails), new { id = product.Id }, product);
+                _productService.CreateProduct(productDto);
+                return CreatedAtAction(nameof(ProductDetails), new { id = productDto }, productDto);
             }
             catch (Exception e)
             {
@@ -108,12 +114,12 @@ namespace ECommerceService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Product> PutProduct([FromBody] Product product)
+        public ActionResult<Product> PutProduct([FromBody]ProductUpdateDTO updateProductDto)
         {
             try
             {
-                _productService.UpdateProduct(product);
-                return Ok(product);
+                _productService.UpdateProduct(updateProductDto);
+                return Ok(updateProductDto);
             }
             catch (Exception e)
             {

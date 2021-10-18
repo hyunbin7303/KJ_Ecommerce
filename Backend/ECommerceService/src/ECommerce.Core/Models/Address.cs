@@ -21,12 +21,14 @@ namespace ECommerce.Core.Models
             Description = description;
         }
         public string ContactName { get;}
+        public string AddressType { get;}
         public string Phone { get;  }
         public string Address1 { get;  }
         public string? Address2 { get;  }
         public string City { get;  }
         public string Province { get;  }
         public string Country { get;  }
+        public string PostalCode { get; }
         public string Description { get;  }
     }
 }

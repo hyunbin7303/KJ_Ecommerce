@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECommerce.Infrastructure.Migrations
 {
-    public partial class TestMigration : Migration
+    public partial class test0928 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,12 +12,14 @@ namespace ECommerce.Infrastructure.Migrations
                 columns: table => new
                 {
                     ContactName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    AddressType = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Address1 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Address2 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Province = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     id = table.Column<int>(type: "int", nullable: false)
                 },
@@ -78,12 +80,13 @@ namespace ECommerce.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    VendorId = table.Column<int>(type: "int", nullable: false),
+                    VendorId = table.Column<int>(type: "int", maxLength: 100, nullable: false),
                     CustomerId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CartActive = table.Column<bool>(type: "bit", nullable: false),
                     CartLocked = table.Column<bool>(type: "bit", nullable: false),
-                    CartStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CartType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CartCurrentUse = table.Column<bool>(type: "bit", nullable: false),
+                    CartStatus = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CartType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     TotalPrice = table.Column<double>(type: "float", nullable: true),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
@@ -99,10 +102,10 @@ namespace ECommerce.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     ParentId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -115,10 +118,13 @@ namespace ECommerce.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: false),
+                    VendorId = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     customer_name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -261,6 +267,30 @@ namespace ECommerce.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CartItem",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CartId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CouponCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Quantity = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
+                    UnitPrice = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartId",
+                        column: x => x.CartId,
+                        principalTable: "Cart",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Payment",
                 columns: table => new
                 {
@@ -321,36 +351,6 @@ namespace ECommerce.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartItem",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CartId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    CouponCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Quantity = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CartItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CartId",
-                        column: x => x.CartId,
-                        principalTable: "Cart",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CartItem_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderItem",
                 columns: table => new
                 {
@@ -368,11 +368,11 @@ namespace ECommerce.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_OrderItem", x => x.id);
                     table.ForeignKey(
-                        name: "FK_OrderItem_Order_OrderId",
+                        name: "FK_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Order",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OrderItem_Product_ProductId",
                         column: x => x.ProductId,
@@ -410,11 +410,6 @@ namespace ECommerce.Infrastructure.Migrations
                 name: "IX_CartItem_CartId",
                 table: "CartItem",
                 column: "CartId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CartItem_ProductId",
-                table: "CartItem",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_OrderId",
