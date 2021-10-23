@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Models;
+using ECommerce.Query.Vendor;
 using ECommerceService.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,35 +26,42 @@ namespace ECommerceService.Services
 
         }
 
-        public Task<bool> CreateVendor(Vendor vendor, string userId)
+        public Task<bool> CreateVendor(VendorCreateDTO vendor, string userId)
         {
-            UserVendor userVendor = new UserVendor() { UserId = userId, VendorId = vendor.Id };
+            // Check if the same name of vendor with user already exists.
+
+            //_vendorRepository.
+
+
+            UserVendor userVendor = new UserVendor() { UserId = userId };
             _userVendorRepository.InsertAsync(userVendor);
 
-            _vendorRepository.InsertAsync(vendor);
+            var insertVendor = _mapper.Map<Vendor>(vendor);
+            _vendorRepository.InsertAsync(insertVendor);
             return Task.FromResult(true);
         }
 
-        public Task<Vendor> GetVendorByName(string vendorName)
+        public Task<VendorDisplayDTO> GetVendorByName(string vendorName)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Vendor> GetVendorByProductId(int productId)
+        public Task<VendorDisplayDTO> GetVendorByProductId(int productId)
         {
             throw new NotImplementedException();
         }
-        public Task<List<Vendor>> GetVendorsByCustomerName(string customerName)
+        public Task<IEnumerable<VendorDisplayDTO>> GetVendorsByCustomerName(string customerName)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Vendor> GetVendorsByDomainUser(string userAccount)
+        public IEnumerable<VendorDisplayDTO> GetVendorsByDomainUser(string userAccount)
         {
-            return _vendorRepository.GetVendorsByDomainUser(userAccount);
+            var vendors = _vendorRepository.GetVendorsByDomainUser(userAccount);
+            return _mapper.Map<IEnumerable<VendorDisplayDTO>>(vendors);
         }
 
-        public Task<List<Vendor>> GetVendorsOfProductName(string productName)
+        public Task<IEnumerable<VendorDisplayDTO>> GetVendorsOfProductName(string productName)
         {
             throw new NotImplementedException();
         }

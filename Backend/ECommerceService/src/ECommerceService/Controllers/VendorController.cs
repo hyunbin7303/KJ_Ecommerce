@@ -10,6 +10,7 @@ using ECommerce.Query;
 using Microsoft.AspNetCore.Authorization;
 using ECommerceService.Interfaces;
 using ECommerce.Core.Models;
+using ECommerce.Query.Vendor;
 
 namespace ECommerceService.Controllers
 {
@@ -41,7 +42,7 @@ namespace ECommerceService.Controllers
 
         [HttpGet("domain")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Vendor))]
-        public IEnumerable<Vendor> GetVendorsByDomainUser(string domainUser)
+        public IEnumerable<VendorDisplayDTO> GetVendorsByDomainUser(string domainUser)
         {
             var vendors = _vendorService.GetVendorsByDomainUser(domainUser);
             return vendors;
@@ -51,11 +52,12 @@ namespace ECommerceService.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Vendor> CreateAsync([FromBody]Vendor vendor)
+        public ActionResult<Vendor> CreateAsync([FromBody]VendorCreateDTO vendor)
         {
             try
             {
-                _vendorRepository.InsertAsync(vendor);
+                _vendorService.CreateVendor(vendor, "");
+                //_vendorRepository.InsertAsync(vendor);
                 return CreatedAtAction(nameof(CreateAsync), new { id = vendor }, vendor);
             }
             catch (Exception e)
