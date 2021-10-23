@@ -27,15 +27,16 @@ namespace ECommerceService.Services
 
         public Task<bool> CreateVendor(Vendor vendor, string userId)
         {
-
-
-
             UserVendor userVendor = new UserVendor() { UserId = userId, VendorId = vendor.Id };
             _userVendorRepository.InsertAsync(userVendor);
 
-
             _vendorRepository.InsertAsync(vendor);
             return Task.FromResult(true);
+        }
+
+        public Task<Vendor> GetVendorByName(string vendorName)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<Vendor> GetVendorByProductId(int productId)
@@ -47,9 +48,9 @@ namespace ECommerceService.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Vendor>> GetVendorsByUser(string userAccount)
+        public IEnumerable<Vendor> GetVendorsByDomainUser(string userAccount)
         {
-            throw new NotImplementedException();
+            return _vendorRepository.GetVendorsByDomainUser(userAccount);
         }
 
         public Task<List<Vendor>> GetVendorsOfProductName(string productName)

@@ -17,10 +17,11 @@ namespace ECommerce.Infrastructure.Repository
         {
         }
 
-        public Task<Vendor> GetByVendorName(string vendorName)
+        public IEnumerable<Vendor> GetVendorsByDomainUser(string userDomain)
         {
-
-            throw new NotImplementedException();
+            Expression<Func<Vendor, bool>> exprVendor = x => x.DomainUser == userDomain;
+            var vendors = Get(exprVendor);
+            return vendors;
         }
     }
 }

@@ -31,11 +31,19 @@ namespace ECommerceService.Controllers
             return _vendorRepository.GetAll();
         }
 
-        [HttpGet("GetVendorsByUser")]
+        [HttpGet("vendors")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Vendor))]
-        public IEnumerable<Vendor> GetVendorsByUser(string user)
+        public ActionResult<Vendor> GetVendorsByName(string vendorName)
         {
-            var vendors = _vendorService.GetVendorsByUser(user)?.Result;
+            return Ok(_vendorService.GetVendorByName(vendorName));
+        }
+
+
+        [HttpGet("domain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Vendor))]
+        public IEnumerable<Vendor> GetVendorsByDomainUser(string domainUser)
+        {
+            var vendors = _vendorService.GetVendorsByDomainUser(domainUser);
             return vendors;
         }
 

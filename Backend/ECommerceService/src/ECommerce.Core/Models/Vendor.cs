@@ -18,6 +18,7 @@ namespace ECommerce.Core.Models
         }
 
         public string VendorName { get; set; }
+        public string DisplayName { get; set; }
         public string DomainUser { get; set; }
         public string CreateBy { get; set; }
         public string VendorType { get; set; }

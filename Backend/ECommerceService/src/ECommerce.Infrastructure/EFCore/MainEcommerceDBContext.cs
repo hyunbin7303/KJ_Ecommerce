@@ -42,6 +42,7 @@ namespace ECommerce.Infrastructure
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<VendorProduct> ProductVendors { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -317,19 +318,18 @@ namespace ECommerce.Infrastructure
                     .HasColumnName("note");
                 entity.Property(e => e.PhoneNumber) .HasMaxLength(50);
                 entity.Property(e => e.VendorName).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.DisplayName).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.DomainUser).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.CreateBy).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.VendorType).IsRequired().HasMaxLength(25);
 
                 entity.Property(e => e.Website).HasMaxLength(50);
             });
-
             modelBuilder.Entity<VendorProduct>(entity =>
             {
                 entity.ToTable("ProductVendor");
                 entity.HasKey(pv => new { pv.ProductId, pv.VendorId });
             });
-
             modelBuilder.Entity<VendorProduct>(entity =>
             {
                 entity.HasOne(pv => pv.Product)
@@ -343,12 +343,19 @@ namespace ECommerce.Infrastructure
                 .HasForeignKey(pv => pv.VendorId);
             });
 
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("User");
+                entity.Property(e => e.Id).HasMaxLength(100);
+                entity.Property(e => e.Account).HasMaxLength(100);
+                entity.Property(e => e.Description).HasMaxLength(100);
+            });
+
             modelBuilder.Entity<UserVendor>(entity =>
             {
                 entity.ToTable("UserVendor");
                 entity.HasKey(pv => new { pv.UserId, pv.VendorId });
             });
-
             modelBuilder.Entity<UserVendor>(entity =>
             {
                 entity.HasOne(pv => pv.User)
@@ -361,18 +368,6 @@ namespace ECommerce.Infrastructure
                 .WithMany(p => p.UserVendors)
                 .HasForeignKey(pv => pv.VendorId);
             });
-
-
-
-            modelBuilder.Entity<Warehouse>(entity =>
-            {
-                entity.ToTable("Warehouse");
-                entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.AddressId).HasMaxLength(450);
-                entity.Property(e => e.Description).HasMaxLength(100);
-                entity.Property(e => e.Name).HasMaxLength(100);
-            });
-
             modelBuilder.Entity<Warehouse>(entity =>
             {
                 entity.ToTable("Warehouse");
