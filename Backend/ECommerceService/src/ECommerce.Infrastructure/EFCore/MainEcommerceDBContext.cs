@@ -255,12 +255,10 @@ namespace ECommerce.Infrastructure
             {
                 entity.ToTable("Product");
                 entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.Description).HasMaxLength(450);
-                entity.Property(e => e.DisplayName).HasMaxLength(450);
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(450);
-
+                entity.Property(e => e.Description).HasMaxLength(255);
+                entity.Property(e => e.DisplayName).HasMaxLength(255);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.ProductType).IsRequired().HasMaxLength(25);
                 entity.HasOne(d => d.Vendor)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.VendorId)
@@ -292,11 +290,8 @@ namespace ECommerce.Infrastructure
             modelBuilder.Entity<Shipment>(entity =>
             {
                 entity.ToTable("Shipment");
-
                 entity.Property(e => e.Id).HasMaxLength(100);
-
                 entity.Property(e => e.Description).HasMaxLength(450);
-
                 entity.Property(e => e.TrackingNumber).HasMaxLength(450);
             });
             modelBuilder.Entity<Vendor>(entity =>
@@ -356,18 +351,20 @@ namespace ECommerce.Infrastructure
                 entity.ToTable("UserVendor");
                 entity.HasKey(pv => new { pv.UserId, pv.VendorId });
             });
-            modelBuilder.Entity<UserVendor>(entity =>
-            {
-                entity.HasOne(pv => pv.User)
-                .WithMany(p => p.UserVendors)
-                .HasForeignKey(pv => pv.UserId);
-            });
-            modelBuilder.Entity<UserVendor>(entity =>
-            {
-                entity.HasOne(pv => pv.Vendor)
-                .WithMany(p => p.UserVendors)
-                .HasForeignKey(pv => pv.VendorId);
-            });
+            modelBuilder.Entity<UserVendor>()       
+                .HasOne(u => u.User)
+                .WithMany(u => u.UserVendors)
+                .HasForeignKey(u => u.UserId)
+                .IsRequired().OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserVendor>()
+                .HasOne(v => v.Vendor)
+                .WithMany(v => v.UserVendors)
+                .HasForeignKey(v => v.VendorId)
+                .IsRequired().OnDelete(DeleteBehavior.Restrict);
+
+
+
             modelBuilder.Entity<Warehouse>(entity =>
             {
                 entity.ToTable("Warehouse");

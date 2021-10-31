@@ -1,6 +1,7 @@
 ﻿using ECommerce.Core.Models.ProductAggregate;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ECommerce.Core.Models

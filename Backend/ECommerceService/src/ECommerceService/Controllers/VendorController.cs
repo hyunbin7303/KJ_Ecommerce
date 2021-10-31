@@ -46,7 +46,7 @@ namespace ECommerceService.Controllers
         {
             var vendors = _vendorService.GetVendorsByDomainUser(domainUser);
             return vendors;
-        }
+        }  
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]

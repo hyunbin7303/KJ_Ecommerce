@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECommerce.Infrastructure.Migrations
 {
-    public partial class test0928 : Migration
+    public partial class TestMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -145,27 +145,6 @@ namespace ECommerce.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Invoice",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OrderId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CustomerId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ShipmentId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PaymentId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    SubTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ShippingTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    VAT = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    CustomerNote = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoice", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
                 {
@@ -239,10 +218,14 @@ namespace ECommerce.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false),
-                    vendor_name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    VendorName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DomainUser = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreateBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    VendorType = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: true),
-                    phone_number = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
-                    website = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Website = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     email = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
                     note = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 500, nullable: true)
                 },
@@ -317,12 +300,13 @@ namespace ECommerce.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    DisplayName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     VendorId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     ProductFormat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductType = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     QuantityPerUnit = table.Column<int>(type: "int", nullable: true),
                     UnitPrice = table.Column<double>(type: "float", nullable: true),
                     UnitsInStock = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -348,6 +332,36 @@ namespace ECommerce.Infrastructure.Migrations
                         principalTable: "Vendor",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Account = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailVerified = table.Column<bool>(type: "bit", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    LatestUpdateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    VendorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_Vendor_VendorId",
+                        column: x => x.VendorId,
+                        principalTable: "Vendor",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -406,10 +420,91 @@ namespace ECommerce.Infrastructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProductVendor",
+                columns: table => new
+                {
+                    VendorId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductVendor", x => new { x.ProductId, x.VendorId });
+                    table.ForeignKey(
+                        name: "FK_ProductVendor_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductVendor_Vendor_VendorId",
+                        column: x => x.VendorId,
+                        principalTable: "Vendor",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Invoice",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ShipmentId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PaymentId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    SubTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ShippingTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    VAT = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    CustomerNote = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(100)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Invoice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Invoice_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserVendor",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    VendorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserVendor", x => new { x.UserId, x.VendorId });
+                    table.ForeignKey(
+                        name: "FK_UserVendor_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserVendor_Vendor_VendorId",
+                        column: x => x.VendorId,
+                        principalTable: "Vendor",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartItem_CartId",
                 table: "CartItem",
                 column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Invoice_UserId",
+                table: "Invoice",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_OrderId",
@@ -445,6 +540,21 @@ namespace ECommerce.Infrastructure.Migrations
                 name: "IX_ProductAttribute_ProductId",
                 table: "ProductAttribute",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductVendor_VendorId",
+                table: "ProductVendor",
+                column: "VendorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_VendorId",
+                table: "User",
+                column: "VendorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserVendor_VendorId",
+                table: "UserVendor",
+                column: "VendorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -483,7 +593,13 @@ namespace ECommerce.Infrastructure.Migrations
                 name: "ProductReview");
 
             migrationBuilder.DropTable(
+                name: "ProductVendor");
+
+            migrationBuilder.DropTable(
                 name: "Shipment");
+
+            migrationBuilder.DropTable(
+                name: "UserVendor");
 
             migrationBuilder.DropTable(
                 name: "Warehouse");
@@ -502,6 +618,9 @@ namespace ECommerce.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Category");
