@@ -77,20 +77,22 @@ namespace ECommerce.Infrastructure.Repository.Base
         {
             return dbSet.FromSqlRaw<T>(query, paras);
         }
-        public virtual void InsertAsync(T obj, CancellationToken cancellationToken = default)
+        public virtual async Task<T> InsertAsync(T obj, CancellationToken cancellationToken = default)
         {
             if (obj == null)
             {
                 throw new ArgumentException("entity");
             }
-            dbSet.AddAsync(obj, cancellationToken);
+            await dbSet.AddAsync(obj, cancellationToken);
             Save();
+            return obj;
         }
         protected virtual void Save()
         {
             context.SaveChanges();
         }
-        public virtual void UpdateAsync(T obj, CancellationToken cancellationToken = default)
+
+        public virtual async Task UpdateAsync(T obj, CancellationToken cancellationToken = default)
         {
             if (obj == null)
             {
