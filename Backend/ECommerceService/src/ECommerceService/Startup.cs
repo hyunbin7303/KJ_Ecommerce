@@ -57,12 +57,14 @@ namespace ECommerceService
             services.AddScoped(typeof(IVendorRepository), typeof(VendorRepository));
             services.AddScoped(typeof(IVendorProductRepository), typeof(VendorProdcutRepository));
             services.AddScoped(typeof(IUserVendorRepository), typeof(UserVendorRepository));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IVendorService, VendorService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IUserService, UserService>();
 
 
             services.AddAutoMapper(typeof(Startup));
