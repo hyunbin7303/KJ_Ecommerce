@@ -14,7 +14,7 @@ namespace ECommerceService.Interfaces
         Task<IEnumerable<VendorDisplayDTO>> GetVendorsByCustomerName(string customerName);
         IEnumerable<VendorDisplayDTO> GetVendorsByDomainUser(string userAccount);
         Task<VendorDisplayDTO> GetVendorByName(string vendorName);
-        Task<bool> CreateVendor(VendorCreateDTO vendor, string userId);
+        Task<Vendor> CreateVendor(VendorCreateDTO vendor, string userId);
 
 
     }

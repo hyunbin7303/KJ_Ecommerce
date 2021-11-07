@@ -9,5 +9,6 @@ namespace ECommerce.Core.Interfaces
     public interface IVendorRepository : IGenericRepository<Vendor>
     {
         IEnumerable<Vendor> GetVendorsByDomainUser(string userDomain);
+        Task<Vendor> GetVendorByVendorNameAndDomainUser(string vendorName, string domainUser);
     }
 }
