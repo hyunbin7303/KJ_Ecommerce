@@ -8,9 +8,9 @@ namespace ECommerce.Core.Models
 {
     public class UserVendor
     {
-        public string UserId { get; set; }
-        public int VendorId { get; set; }
-        public User User { get; set; }
-        public Vendor Vendor { get; set; }
+        public int UserId       { get; set; }
+        public int VendorId     { get; set; }
+        public User User        { get; set; }
+        public Vendor Vendor    { get; set; }
     }
 }

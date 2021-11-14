@@ -15,31 +15,24 @@ namespace ECommerceService.Services
         private IMapper _mapper;
         private IVendorRepository        _vendorRepository;
         private IVendorProductRepository _vendorProductRepository;
-        private IUserVendorRepository    _userVendorRepository;
+        //private IUserVendorRepository    _userVendorRepository;
 
-        public VendorService(IMapper mapper, IVendorRepository vendorRepository, IVendorProductRepository vendorProductRepository, IUserVendorRepository userVendorRepository)
+        public VendorService(IMapper mapper, IVendorRepository vendorRepository, IVendorProductRepository vendorProductRepository/*, IUserVendorRepository userVendorRepository*/)
         {
             _mapper = mapper;
-            _vendorRepository = vendorRepository                ?? throw new ArgumentNullException(nameof(vendorRepository));
+            _vendorRepository =        vendorRepository         ?? throw new ArgumentNullException(nameof(vendorRepository));
             _vendorProductRepository = vendorProductRepository  ?? throw new ArgumentNullException(nameof(vendorProductRepository));
-            _userVendorRepository = userVendorRepository        ?? throw new ArgumentNullException(nameof(userVendorRepository));
+            //_userVendorRepository =    userVendorRepository     ?? throw new ArgumentNullException(nameof(userVendorRepository));
         }
 
-        public async Task<Vendor> CreateVendor(VendorCreateDTO vendor, string userId)
+        public async Task<Vendor> CreateVendor(VendorCreateDTO vendor)
         {
-
+            //var vendorCheck = await _vendorRepository.GetVendorByVendorNameAndUserAsync(vendorName: vendor.VendorName, domainUser: vendor.DomainUser);
+            //if (vendorCheck != null)
+            //    return null;
             var insertVendor = _mapper.Map<Vendor>(vendor);
-
-
-
+            insertVendor.CreateBy = vendor.CreateBy ?? vendor.DomainUser;
             var vendorInserted = _vendorRepository.InsertAsync(insertVendor);
-
-
-            UserVendor userVendor = new UserVendor() { UserId = userId };
-            var insertedUserVendor = await _userVendorRepository.InsertAsync(userVendor);
-
-
-
             return await vendorInserted;
         }
 

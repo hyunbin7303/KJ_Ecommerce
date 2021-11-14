@@ -5,6 +5,7 @@ using ECommerce.Interfaces;
 using ECommerce.Query;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,18 +23,22 @@ namespace ECommerce.Services
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository)); 
         }
 
-        public Task<bool> CreateUserAsync(UserCreateDTO userCreateDTO)
+        public Task<User> CreateUserAsync(CreateUserDTO userCreateDTO)
         {
             User user = _mapper.Map<User>(userCreateDTO);
-            _userRepository.CreateUser(user);
-            return Task.FromResult(true);
-
+            var user1 = _userRepository.CreateUserAsync(user);
+            return user1;
+        }
+        public Task<User> UserGetUserByAccountAndVendorId(string account, int vendorId)
+        {
+            return _userRepository.GetUserByAccountAndVendorId(account, vendorId);
         }
 
-
-
-        public Task<User> GetCurrentUserAsync(CancellationToken cancellationToken = default)
+        public Task<User> GetCurrentUserAsync(ClaimsIdentity identity, CancellationToken cancellationToken = default)
         {
+
+            var claimsIdentity = identity;
+            var userId = claimsIdentity.FindFirst("UserName")?.Value;
             throw new NotImplementedException();
         }
     }

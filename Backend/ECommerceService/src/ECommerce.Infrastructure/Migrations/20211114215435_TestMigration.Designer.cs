@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(MainEcommerceDBContext))]
-    [Migration("20211031184616_TestMigration")]
+    [Migration("20211114215435_TestMigration")]
     partial class TestMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -298,16 +298,11 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Property<decimal?>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<decimal?>("Vat")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("VAT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Invoice");
                 });
@@ -687,75 +682,73 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("ECommerce.Core.Models.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Account")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Account");
+
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Address2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Country")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("EmailVerified")
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTimeOffset>("LatestUpdateTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
 
                     b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("VendorId");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("ECommerce.Core.Models.UserVendor", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("VendorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "VendorId");
-
-                    b.HasIndex("VendorId");
-
-                    b.ToTable("UserVendor");
                 });
 
             modelBuilder.Entity("ECommerce.Core.Models.Vendor", b =>
@@ -768,7 +761,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreateBy")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -804,7 +796,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("VendorType")
-                        .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
@@ -865,13 +856,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .HasConstraintName("FK_CartId");
 
                     b.Navigation("Cart");
-                });
-
-            modelBuilder.Entity("ECommerce.Core.Models.Invoice", b =>
-                {
-                    b.HasOne("ECommerce.Core.Models.User", null)
-                        .WithMany("Invoices")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ECommerce.Core.Models.OrderAggregate.OrderItem", b =>
@@ -949,25 +933,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ECommerce.Core.Models.UserVendor", b =>
-                {
-                    b.HasOne("ECommerce.Core.Models.User", "User")
-                        .WithMany("UserVendors")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ECommerce.Core.Models.Vendor", "Vendor")
-                        .WithMany("UserVendors")
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
-                    b.Navigation("Vendor");
-                });
-
             modelBuilder.Entity("ECommerce.Core.Models.VendorProduct", b =>
                 {
                     b.HasOne("ECommerce.Core.Models.ProductAggregate.Product", "Product")
@@ -1004,20 +969,11 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Navigation("ProductVendors");
                 });
 
-            modelBuilder.Entity("ECommerce.Core.Models.User", b =>
-                {
-                    b.Navigation("Invoices");
-
-                    b.Navigation("UserVendors");
-                });
-
             modelBuilder.Entity("ECommerce.Core.Models.Vendor", b =>
                 {
                     b.Navigation("Products");
 
                     b.Navigation("Users");
-
-                    b.Navigation("UserVendors");
 
                     b.Navigation("VendorProducts");
                 });

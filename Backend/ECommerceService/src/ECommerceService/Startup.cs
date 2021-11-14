@@ -46,25 +46,25 @@ namespace ECommerceService
             //{
             //    sqlOptions.EnableRetryOnFailure();
             //}));
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
-            services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
-            services.AddScoped(typeof(ICustomerRepository), typeof(CustomerRepository));
-            services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
-            services.AddScoped(typeof(ICartItemRepository), typeof(CartItemRepository));
-            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
-            services.AddScoped(typeof(IImageRepository), typeof(ImageRepository));
-            services.AddScoped(typeof(IVendorRepository), typeof(VendorRepository));
-            services.AddScoped(typeof(IVendorProductRepository), typeof(VendorProdcutRepository));
-            services.AddScoped(typeof(IUserVendorRepository), typeof(UserVendorRepository));
-            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped(typeof(IGenericRepository<>),    typeof(GenericRepository<>));
+            services.AddScoped(typeof(IProductRepository),      typeof(ProductRepository));
+            services.AddScoped(typeof(ICategoryRepository),     typeof(CategoryRepository));
+            services.AddScoped(typeof(ICustomerRepository),     typeof(CustomerRepository));
+            services.AddScoped(typeof(ICartRepository),         typeof(CartRepository));
+            services.AddScoped(typeof(ICartItemRepository),     typeof(CartItemRepository));
+            services.AddScoped(typeof(IOrderRepository),        typeof(OrderRepository));
+            services.AddScoped(typeof(IImageRepository),        typeof(ImageRepository));
+            services.AddScoped(typeof(IVendorRepository),       typeof(VendorRepository));
+            services.AddScoped(typeof(IVendorProductRepository),typeof(VendorProdcutRepository));
+            //services.AddScoped(typeof(IUserVendorRepository),   typeof(UserVendorRepository));
+            services.AddScoped(typeof(IUserRepository),         typeof(UserRepository));
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddScoped<ICartService, CartService>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IVendorService, VendorService>();
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICartService,        CartService>();
+            services.AddScoped<IProductService,     ProductService>();
+            services.AddScoped<IVendorService,      VendorService>();
+            services.AddScoped<ICustomerService,    CustomerService>();
+            services.AddScoped<IUserService,        UserService>();
 
 
             services.AddAutoMapper(typeof(Startup));

@@ -8,7 +8,6 @@ using System.Security.Claims;
 
 namespace ECommerceService.Controllers
 {
-    [Authorize]
     public class UserController : BaseController
     {
         private IUserService _userService =null;
@@ -17,10 +16,9 @@ namespace ECommerceService.Controllers
             _userService = userService ?? null;
         }
         [HttpPost("user")]
-        public ActionResult<Customer> CreateUser(CreateCustomerDTO createCustomerDTO)
+        public ActionResult<Customer> CreateUser(CreateUserDTO createUserDTO)
         {
-            Customer customer = new Customer();
-            customer.Id = createCustomerDTO.UserId;
+            _userService.CreateUserAsync(createUserDTO);
             return Ok();
         }
 
@@ -36,12 +34,13 @@ namespace ECommerceService.Controllers
             return Ok(userId);
         }
 
-        [HttpGet("GetUserId")]
-        public ActionResult GetUserId()
+        [Authorize]
+        [HttpGet("GetCurrentUser")]
+        public ActionResult GetCurrentUser()
         {
             var claimsIdentity = this.User.Identity as ClaimsIdentity;
-            var userId = claimsIdentity.FindFirst("UserName")?.Value;
-            return Ok(userId);
+            var user = _userService.GetCurrentUserAsync(claimsIdentity);
+            return Ok(user);
         }
 
     }

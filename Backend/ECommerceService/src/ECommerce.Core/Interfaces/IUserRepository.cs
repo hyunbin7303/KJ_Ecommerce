@@ -8,7 +8,8 @@ namespace ECommerce.Core.Interfaces
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<User> CreateUser(User user);
+        Task<User> CreateUserAsync(User user);
+        Task<User> GetUserByAccountAndVendorId(string account, int vendorId);
         Task<User> GetActiveUser();
     }
 }

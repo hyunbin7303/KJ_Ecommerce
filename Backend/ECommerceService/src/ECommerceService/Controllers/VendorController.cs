@@ -56,7 +56,7 @@ namespace ECommerceService.Controllers
         {
             try
             {
-                _vendorService.CreateVendor(vendor, "");
+                _vendorService.CreateVendor(vendor);
                 //_vendorRepository.InsertAsync(vendor);
                 return CreatedAtAction(nameof(CreateAsync), new { id = vendor }, vendor);
             }

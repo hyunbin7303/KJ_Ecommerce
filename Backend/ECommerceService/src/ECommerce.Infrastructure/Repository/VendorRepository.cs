@@ -17,6 +17,13 @@ namespace ECommerce.Infrastructure.Repository
         {
         }
 
+
+        public Task<Vendor> GetVendorByVendorNameAndUserAsync(string vendorName, string domainUser)
+        {
+            //Expression<Func<Vendor, bool>> exprVendor = x => x.
+            return null;
+        }
+
         public IEnumerable<Vendor> GetVendorsByDomainUser(string userDomain)
         {
             Expression<Func<Vendor, bool>> exprVendor = x => x.DomainUser == userDomain;

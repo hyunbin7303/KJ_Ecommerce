@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ECommerce.Query
 {
-    public class UserCreateDTO
+    public class CreateUserDTO
     {
         public string Account { get; set; }
         public string FirstName { get; set; }
