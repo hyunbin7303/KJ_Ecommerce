@@ -14,10 +14,11 @@ namespace ECommerce.Core.Interfaces
         IQueryable<T> Query();
         Task<T> GetByIdAsync(object id);
         bool TryGetObject(object id, out object obj);
+        IQueryable<T> Search(Expression<Func<T, string>> stringProperty, string searchTerm);
         IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "", CancellationToken cancellationToken = default);
         IEnumerable<T> GetWithSql(string query, params object[] paras);
-        void InsertAsync(T obj, CancellationToken cancellationToken = default);
-        void UpdateAsync(T obj, CancellationToken cancellationToken = default);
+        Task<T> InsertAsync(T obj, CancellationToken cancellationToken = default);
+        Task UpdateAsync(T obj, CancellationToken cancellationToken = default);
         Task DeleteAsync(object id, CancellationToken cancellationToken = default);
         void Delete(T entity);
     }

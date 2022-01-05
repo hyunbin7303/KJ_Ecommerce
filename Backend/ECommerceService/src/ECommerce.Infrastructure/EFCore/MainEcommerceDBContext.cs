@@ -42,6 +42,7 @@ namespace ECommerce.Infrastructure
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<VendorProduct> ProductVendors { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -254,12 +255,10 @@ namespace ECommerce.Infrastructure
             {
                 entity.ToTable("Product");
                 entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.Description).HasMaxLength(450);
-                entity.Property(e => e.DisplayName).HasMaxLength(450);
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(450);
-
+                entity.Property(e => e.Description).HasMaxLength(255);
+                entity.Property(e => e.DisplayName).HasMaxLength(255);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.ProductType).IsRequired().HasMaxLength(25);
                 entity.HasOne(d => d.Vendor)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.VendorId)
@@ -270,11 +269,6 @@ namespace ECommerce.Infrastructure
             {
                 entity.ToTable("ProductAttribute");
                 entity.Property(e => e.Id).ValueGeneratedNever();
-                //entity.HasOne(d => d.Attribute)
-                //    .WithMany(p => p.ProductAttributes)
-                //    .HasForeignKey(d => d.AttributeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_ProductAttribute_AttributeId");
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductAttributes)
                     .HasForeignKey(d => d.ProductId)
@@ -291,11 +285,8 @@ namespace ECommerce.Infrastructure
             modelBuilder.Entity<Shipment>(entity =>
             {
                 entity.ToTable("Shipment");
-
                 entity.Property(e => e.Id).HasMaxLength(100);
-
                 entity.Property(e => e.Description).HasMaxLength(450);
-
                 entity.Property(e => e.TrackingNumber).HasMaxLength(450);
             });
             modelBuilder.Entity<Vendor>(entity =>
@@ -310,26 +301,20 @@ namespace ECommerce.Infrastructure
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("email");
-
-                entity.Property(e => e.Note)
-                    .HasMaxLength(500)
-                    .IsUnicode(false)
-                    .HasColumnName("note");
+                entity.Property(e => e.Note).HasMaxLength(500).IsUnicode(false).HasColumnName("note");
                 entity.Property(e => e.PhoneNumber) .HasMaxLength(50);
                 entity.Property(e => e.VendorName).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.DisplayName).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.DomainUser).IsRequired().HasMaxLength(50);
-                entity.Property(e => e.CreateBy).IsRequired().HasMaxLength(50);
-                entity.Property(e => e.VendorType).IsRequired().HasMaxLength(25);
-
+                entity.Property(e => e.CreateBy).HasMaxLength(50);
+                entity.Property(e => e.VendorType).HasMaxLength(25);
                 entity.Property(e => e.Website).HasMaxLength(50);
             });
-
             modelBuilder.Entity<VendorProduct>(entity =>
             {
                 entity.ToTable("ProductVendor");
                 entity.HasKey(pv => new { pv.ProductId, pv.VendorId });
             });
-
             modelBuilder.Entity<VendorProduct>(entity =>
             {
                 entity.HasOne(pv => pv.Product)
@@ -342,36 +327,41 @@ namespace ECommerce.Infrastructure
                 .WithMany(p => p.VendorProducts)
                 .HasForeignKey(pv => pv.VendorId);
             });
-
-            modelBuilder.Entity<UserVendor>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("UserVendor");
-                entity.HasKey(pv => new { pv.UserId, pv.VendorId });
+                entity.ToTable("User");
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Account).HasMaxLength(100).IsUnicode(false).HasColumnName("Account");
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+                entity.Property(e => e.LastName).HasMaxLength(100);
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.EmailVerified).ValueGeneratedNever().HasDefaultValue(null);
+                entity.Property(e => e.Address).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Address2).HasMaxLength(100);
+                entity.Property(e => e.Country).HasMaxLength(50);
+                entity.Property(e => e.ZipCode).HasMaxLength(20);
+                entity.Property(e => e.IsActive).ValueGeneratedNever().HasDefaultValue(null);
+                entity.Property(e => e.PhoneNumber).HasMaxLength(50);
+                entity.Property(e => e.VendorId);
+                entity.Property(e => e.Description).HasMaxLength(400);
             });
 
-            modelBuilder.Entity<UserVendor>(entity =>
-            {
-                entity.HasOne(pv => pv.User)
-                .WithMany(p => p.UserVendors)
-                .HasForeignKey(pv => pv.UserId);
-            });
-            modelBuilder.Entity<UserVendor>(entity =>
-            {
-                entity.HasOne(pv => pv.Vendor)
-                .WithMany(p => p.UserVendors)
-                .HasForeignKey(pv => pv.VendorId);
-            });
+            //modelBuilder.Entity<UserVendor>(entity =>
+            //{
+            //    entity.ToTable("UserVendor");
+            //    entity.HasKey(pv => new { pv.UserId, pv.VendorId });
+            //});
+            //modelBuilder.Entity<UserVendor>()
+            //    .HasOne(u => u.User)
+            //    .WithMany(u =>u.UserVendors)
+            //    .HasForeignKey(u => u.UserId)
+            //    .IsRequired().OnDelete(DeleteBehavior.Restrict);
 
-
-
-            modelBuilder.Entity<Warehouse>(entity =>
-            {
-                entity.ToTable("Warehouse");
-                entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.AddressId).HasMaxLength(450);
-                entity.Property(e => e.Description).HasMaxLength(100);
-                entity.Property(e => e.Name).HasMaxLength(100);
-            });
+            //modelBuilder.Entity<UserVendor>()
+            //    .HasOne(v => v.Vendor)
+            //    .WithMany(v => v.UserVendors)
+            //    .HasForeignKey(v => v.VendorId)
+            //    .IsRequired().OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Warehouse>(entity =>
             {
@@ -383,11 +373,20 @@ namespace ECommerce.Infrastructure
             });
 
             OnModelCreatingPartial(modelBuilder);
+            //SeedDataInsert(modelBuilder);
         }
-
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        private void SeedDataInsert(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Address>()
+                .HasData(new Address { Id = 1, ContactName = "Kevin Park", Address1 = "8 solidarity Crt", AddressType = "Home", City = "Brampton", Country = "Canada", Province = "Ontario", Phone = "519-721-5349" });
+            modelBuilder.Entity<Vendor>()
+                .HasData(new Vendor { Id = 1, VendorName = "KevinStore", DisplayName = "Kevin Bicycle Store", DomainUser = "kevin1234", CreateBy = "Kevin1234", VendorType = "Ecommerce", AddressId = 1, PhoneNumber = "519-123-4567", Website = "hyunbin7303@gmail.com", Note = "Kevin Sampel Data." });
+        }
     }
+
+
 
     public class CartConfigurqation : IEntityTypeConfiguration<Cart>
     {

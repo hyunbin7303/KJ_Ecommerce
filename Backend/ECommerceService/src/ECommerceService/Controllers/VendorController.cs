@@ -10,6 +10,7 @@ using ECommerce.Query;
 using Microsoft.AspNetCore.Authorization;
 using ECommerceService.Interfaces;
 using ECommerce.Core.Models;
+using ECommerce.Query.Vendor;
 
 namespace ECommerceService.Controllers
 {
@@ -31,23 +32,32 @@ namespace ECommerceService.Controllers
             return _vendorRepository.GetAll();
         }
 
-        [HttpGet("GetVendorsByUser")]
+        [HttpGet("vendors")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Vendor))]
-        public IEnumerable<Vendor> GetVendorsByUser(string user)
+        public ActionResult<Vendor> GetVendorsByName(string vendorName)
         {
-            var vendors = _vendorService.GetVendorsByUser(user)?.Result;
-            return vendors;
+            return Ok(_vendorService.GetVendorByName(vendorName));
         }
+
+
+        [HttpGet("domain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Vendor))]
+        public IEnumerable<VendorDisplayDTO> GetVendorsByDomainUser(string domainUser)
+        {
+            var vendors = _vendorService.GetVendorsByDomainUser(domainUser);
+            return vendors;
+        }  
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Vendor> CreateAsync([FromBody]Vendor vendor)
+        public ActionResult<Vendor> CreateAsync([FromBody]VendorCreateDTO vendor)
         {
             try
             {
-                _vendorRepository.InsertAsync(vendor);
+                _vendorService.CreateVendor(vendor);
+                //_vendorRepository.InsertAsync(vendor);
                 return CreatedAtAction(nameof(CreateAsync), new { id = vendor }, vendor);
             }
             catch (Exception e)

@@ -118,8 +118,7 @@ namespace ECommerceService.Controllers
         {
             try
             {
-                _productService.UpdateProduct(updateProductDto);
-                return Ok(updateProductDto);
+                return Ok(_productService.UpdateProduct(updateProductDto));
             }
             catch (Exception e)
             {

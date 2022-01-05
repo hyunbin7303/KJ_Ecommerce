@@ -23,7 +23,6 @@ namespace ECommerce.Core.Models.CartAggregate
         public DateTimeOffset CreatedDate { get; private set; }
         public DateTimeOffset UpdatedDate { get;  set; }
         public virtual ICollection<CartItem> CartItems { get; set; }
-        //public virtual ICollection<CartItem> _cartitems;
         public void AddCartItem(int productId, decimal quantity)
         {
             CartItems.Add(new CartItem { Id = Guid.NewGuid().ToString(), CartId = Id, ProductId = productId, Quantity = quantity, CreatedDate = DateTimeOffset.UtcNow }); ;

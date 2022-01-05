@@ -18,6 +18,7 @@ namespace ECommerce.Core.Models.ProductAggregate
         public int VendorId { get; private set; }
         public int? CategoryId { get; private set; }
         public string ProductFormat { get; set; }
+        public string ProductType { get; set; }
         public int? QuantityPerUnit { get; set; }
         public double? UnitPrice { get; set; }
         public string UnitsInStock { get; set; }
