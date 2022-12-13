@@ -1,34 +1,46 @@
-﻿using ECommerce.Domain.Models;
-using ECommerce.Infrastructure;
-using ECommerce.Infrastructure.Repository;
+﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Models.ProductAggregate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using ECommerce.Query;
+using Microsoft.AspNetCore.Authorization;
+using ECommerceService.Interfaces;
 
 namespace ECommerceService.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController] 
-    public class ProductController : ControllerBase
+    public class ProductController : BaseController
     {
-        //private IGenericRepository<Product> _productRepository = null;
+        private IProductService _productService = null;
+        private IVendorService _vendorService = null;
         private IProductRepository _productRepository = null;
         // AUtomapper setting.
-        public ProductController(IProductRepository repo)
+        public ProductController(IProductRepository repo, IProductService productService, IVendorService vendorService)
         {
             _productRepository = repo ?? null;
+            _productService = productService ?? null;
+            _vendorService = vendorService ?? null;
         }
+
         [HttpGet]
-        public IEnumerable<Product> Get()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        public IEnumerable<ProductDisplayDTO> Get()
         {
-            var allProducts = _productRepository.GetAll();
-            //TODO: Create AutoMapper interface
+            var allProducts = _productService.GetProductDisplays();
             return allProducts;
         }
+        [HttpGet("GetProductByVendor")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        public IEnumerable<ProductDisplayDTO> GetProductByVendor(int vendorId)
+        {
+            var allProducts = _productService.GetProductsByVendorId(vendorId).Result;
+            return allProducts;
+        }
+
+
         [HttpGet("Details")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -47,7 +59,20 @@ namespace ECommerceService.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult ProductsByCategoryId(int categoryId)
         {
-            var products = _productRepository.GetProductByCategoryAsync(categoryId);
+            var products = _productRepository.GetProductsByCategoryAsync(categoryId);
+            if (products == null)
+            {
+                return NotFound();
+            }
+            return Ok(products);
+        }
+         
+        [HttpGet("getsale")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ProductsGetSaleAsync()
+        {
+            var products = await _productService.GetProductsOnSale();
             if (products == null)
             {
                 return NotFound();
@@ -55,27 +80,29 @@ namespace ECommerceService.Controllers
             return Ok(products);
         }
 
-
+        [HttpGet("ByNames")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ProductsByNameContains(string productName)
+        {
+            var products =  _productService.GetProductsByDisplayNameContains(productName);
+            if (products == null)
+            {
+                return NotFound();
+            }
+            return Ok(products);
+        }
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Product> CreateAsync(Product product)
+        public ActionResult<Product> CreateAsync([FromBody]ProductCreateDTO productDto)
         {
             try
             {
-                if (product.Description.Contains("XYZ Widget"))
-                {
-                    return BadRequest();
-                }
-                //temporary create GUID product Id
-                Guid tmpId = Guid.NewGuid();
-                //product.Id = tmpId.ToString();
-                
-                _productRepository.Insert(product);
-                return CreatedAtAction(nameof(ProductDetails), new { id = product.Id }, product);
-
+                _productService.CreateProduct(productDto);
+                return CreatedAtAction(nameof(ProductDetails), new { id = productDto }, productDto);
             }
             catch (Exception e)
             {
@@ -87,12 +114,11 @@ namespace ECommerceService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Product> PutProduct([FromBody] Product product)
+        public ActionResult<Product> PutProduct([FromBody]ProductUpdateDTO updateProductDto)
         {
             try
             {
-                _productRepository.Update(product);
-                return Ok(product);
+                return Ok(_productService.UpdateProduct(updateProductDto));
             }
             catch (Exception e)
             {
@@ -104,15 +130,17 @@ namespace ECommerceService.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task DeleteAsync(Product product)
+        public async Task<ActionResult> DeleteAsync(Product product)
         {
             try
             {
-                await _productRepository.DeleteAsync(product.Id);
+                await _productService.DeleteProduct(product.Id);
+                return Ok();
             }
             catch (Exception e)
             {
                 //  _logger.LogWarning(e, "Unable to Delete product.");
+                return ValidationProblem(e.Message);
             }
         }
     }

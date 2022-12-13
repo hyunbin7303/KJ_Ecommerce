@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <!--<GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>-->
   </PropertyGroup>
 
@@ -10,40 +10,46 @@
     <Compile Remove="Identity\**" />
     <Compile Remove="InMemory-DataCache\**" />
     <Compile Remove="Localization\**" />
-    <Compile Remove="Migrations\**" />
     <Compile Remove="Redis\**" />
+    <Compile Remove="Services\**" />
     <EmbeddedResource Remove="EmailService\**" />
     <EmbeddedResource Remove="Identity\**" />
     <EmbeddedResource Remove="InMemory-DataCache\**" />
     <EmbeddedResource Remove="Localization\**" />
-    <EmbeddedResource Remove="Migrations\**" />
     <EmbeddedResource Remove="Redis\**" />
+    <EmbeddedResource Remove="Services\**" />
     <None Remove="EmailService\**" />
     <None Remove="Identity\**" />
     <None Remove="InMemory-DataCache\**" />
     <None Remove="Localization\**" />
-    <None Remove="Migrations\**" />
     <None Remove="Redis\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
 
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.GuardClauses" Version="3.1.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ECommerce.Domain\ECommerce.Domain.csproj" />
+    <ProjectReference Include="..\ECommerce.AzureStorage\ECommerce.AzureStorage.csproj" />
+    <ProjectReference Include="..\ECommerce.Core\ECommerce.Core.csproj" />
     <ProjectReference Include="..\ECommerce.Query\ECommerce.Query.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup> 
 
 </Project>
